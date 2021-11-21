@@ -91,9 +91,9 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 						 new Oveja(position = game.at(13,9),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=abajo),
 						 new Oveja(position = game.at(9,9),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=derecha),
 						
-						 new Caballo(position = game.at(8,4),resolucion=resolucionCaja,stringDeObjeto=caballo1,tipo=4,sonido="caballo1.mp3",ultimaDireccion=abajo,esUnCaballo=true),
+						 new Caballo(position = game.at(8,4),resolucion=resolucionCaja,stringDeObjeto=caballo1,tipo=4,sonido="caballo1.mp3",ultimaDireccion=abajo),
 					   
-						 new Caballo(position = game.at(11,9),resolucion=resolucionCaja,stringDeObjeto=caballo2,tipo=3,sonido="caballo2.mp3",ultimaDireccion=arriba,esUnCaballo=true),
+						 new Caballo(position = game.at(11,9),resolucion=resolucionCaja,stringDeObjeto=caballo2,tipo=3,sonido="caballo2.mp3",ultimaDireccion=arriba),
 						 new Oveja(position = game.at(13,1),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=arriba)	    
 	]
 

@@ -6,16 +6,18 @@ import jugador.*
 import sonido.*
 import nivelB.*
 
-object sonidoObjeto { 
+object sonidoObjeto {
+
 	method emitirSonido(unSonido) {
-		const sonido = soundProducer.sound(unSonido)//game.sound(unSonido)
+		const sonido = soundProducer.sound(unSonido) // game.sound(unSonido)
 		sonido.volume(0.3)
 		sonido.play()
 	}
+
 }
 
 class Posicion {
-	
+
 	var property ultimaDireccion = abajo
 	var property position
 	const property posicionInicial = position
@@ -30,7 +32,7 @@ class Posicion {
 	}
 
 	method cambiarPosicion(direccion)
-	
+
 }
 
 class Caja inherits Posicion {
@@ -39,7 +41,6 @@ class Caja inherits Posicion {
 	const stringDeObjeto = "caja1.png"
 	const cajaEnMeta = "caja_ok.png"
 	const property tipo = 1
-	const esUnCaballo = false
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
 
@@ -58,23 +59,9 @@ class Caja inherits Posicion {
 			self.position(direccion.moverse(self))
 			configuraciones.nivelActual().verificarMetas()
 		} else {
-			self.retrocederParaNoCaballos(direccion)
-		}
-		self.reproducirSonidoSiNoEsCaballo(sonido)
-	}
-
-	method reproducirSonidoSiNoEsCaballo(unSonido) {
-		if (!esUnCaballo) {
-			sonidoObjeto.emitirSonido(sonido)
-		}
-	}
-
-	method retrocederParaNoCaballos(direccion) {
-		if (!esUnCaballo) {
 			configuraciones.elJugador().retroceder(direccion)
-		} else {
-			elCaballoSeTrabo = true
 		}
+		sonidoObjeto.emitirSonido(sonido)
 	}
 
 	method proximaUbicacionLibre(direccion) = game.getObjectsIn(direccion).all{ unObj => unObj.esPisable() }
@@ -83,24 +70,42 @@ class Caja inherits Posicion {
 
 }
 
-class Oveja inherits Caja{
-	
-	override method image()= if (!self.llegoMeta()) { resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png" } else{resolucion + "/" + stringDeObjeto+"Ok.png"}
+class Oveja inherits Caja {
+
+	override method image() = if (!self.llegoMeta()) {
+		resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"
+	} else {
+		resolucion + "/" + stringDeObjeto + "Ok.png"
+	}
+
 }
 
-class Caballo inherits Caja{
-	
-	override method cambiarPosicion(direccion){
-		2.times({i=>super(direccion)})
-		sonidoObjeto.emitirSonido(sonido)
-		if(self.elCaballoSeTrabo()){
+class Caballo inherits Oveja {
+
+	var seTrabo = false
+
+	override method cambiarPosicion(direccion) {
+		2.times({ i => self.moverCaballo(direccion)})
+		if (seTrabo) {
 			configuraciones.elJugador().retroceder(direccion)
-			elCaballoSeTrabo=false
+		}
+		sonidoObjeto.emitirSonido(sonido)
+	}
+
+	method moverCaballo(direccion) {
+		const siguienteUbicacion = direccion.moverse(self)
+		ultimaDireccion = direccion
+		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
+			self.position(direccion.moverse(self))
+			configuraciones.nivelActual().verificarMetas()
+			seTrabo = false
+		} else {
+			seTrabo = true
 		}
 	}
-	override method image()= if (!self.llegoMeta()) { resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png" } else{resolucion + "/" + stringDeObjeto+"Ok.png"}
-}	
-	
+
+}
+
 class MuroVisible inherits Posicion {
 
 	const property tipo = 6
@@ -111,6 +116,7 @@ class MuroVisible inherits Posicion {
 	override method cambiarPosicion(direccion) {
 		configuraciones.elJugador().retroceder(direccion)
 	}
+
 }
 
 class Pisable {
@@ -124,16 +130,18 @@ class Pisable {
 	}
 
 }
+
 class Checkpoint inherits Pisable {
-	
+
 	var property siguienteNivel
 	const property tipo = 6
-	
-	override method hacerAlgo(direccion){
+
+	override method hacerAlgo(direccion) {
 		configuraciones.configStopMusic()
 		game.clear()
 		siguienteNivel.cargarNivel()
 	}
+
 }
 
 class Meta inherits Pisable {
@@ -143,11 +151,12 @@ class Meta inherits Pisable {
 }
 
 class CheckpointSalir inherits Checkpoint {
-	
-	override method hacerAlgo(direccion){
+
+	override method hacerAlgo(direccion) {
 		game.clear()
 		game.stop()
 	}
+
 }
 
 object paleta {
@@ -156,31 +165,33 @@ object paleta {
 	const property rojo = "FF0000FF"
 
 }
-object checkpointBonus{
-	
-	 method position()=game.at(16,4)
-	
-	 method hacerAlgo(direccion){
-		if(!nivel0.nivelBonusHabilitado()){
+
+object checkpointBonus {
+
+	method position() = game.at(16, 4)
+
+	method hacerAlgo(direccion) {
+		if (!nivel0.nivelBonusHabilitado()) {
 			self.error("No puedes pasar si no terminas todos los puzzles!!")
 		}
 		configuraciones.configStopMusic()
 		game.clear()
 		pasadizo.cargarNivel()
-		
 	}
+
 }
 
-class CambiarRopa{
-	
-	var property position=game.at(6,5)
+class CambiarRopa {
+
+	var property position = game.at(6, 5)
 	var vestimenta
-	 method hacerAlgo(direccion){
+
+	method hacerAlgo(direccion) {
 		configuraciones.elJugador().nombreJugador(vestimenta)
 		configuraciones.elJugador().retroceder(direccion)
 		pasadizo.vestimenta(vestimenta)
-		}
-	
+	}
+
 }
 
 

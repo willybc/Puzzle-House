@@ -103,7 +103,7 @@ object nivelL inherits Nivel (siguienteNivel = nivel0){
 		self.bordearHorizontalmente(10,10,9,muro)
 	
 	
-	    self.bordearVerticalmente(0,6,9,muro)
+	    
 	  
 	  //inclinacion izquierda 2
 		self.bordearVerticalmente(4,5,22,muro)
