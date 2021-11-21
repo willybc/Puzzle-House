@@ -19,10 +19,10 @@ program juego {
   	game.cellSize(50)
 	
 	
-	menu.cargarNivel() 			/* MENU */
+	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
-	//nivelW.cargarNivel()			
+	nivelW.cargarNivel()			
 	//nivelBel.cargarNivel()
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()

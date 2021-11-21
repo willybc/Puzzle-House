@@ -28,11 +28,13 @@ class Posicion {
 	}
 
 	method hacerAlgo(direccion) {
+		if (!configuraciones.libreMoviento()){
 		self.cambiarPosicion(direccion)
+		}	
 	}
 
 	method cambiarPosicion(direccion)
-
+	
 }
 
 class Caja inherits Posicion {
