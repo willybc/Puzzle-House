@@ -9,7 +9,9 @@ import nivelB.*
 import nivelW.*
 import nivelBel.*
 import nivelL.*
+import nivelDream.*
 import sonido.*
+
 
 program juego {
 	
@@ -18,11 +20,11 @@ program juego {
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
 	
-	
-	//menu.cargarNivel() 			/* MENU */
+	//nivelDream.cargarNivel()
+	menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
-	nivelW.cargarNivel()			
+	//nivelW.cargarNivel()			
 	//nivelBel.cargarNivel()
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()
