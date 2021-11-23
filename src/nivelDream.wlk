@@ -7,7 +7,7 @@ import jugador.*
 import niveles.*
 
 object nivelDream inherits Nivel (siguienteNivel = nivel0){
-	var property sonido = "hogar1.mp3"
+	var property sonido = "dreams.mp3"
 	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
 	const jugador1 = new Jugador(position = game.at(13, 11) ,resolucion="menorResolucion",nombreJugador = "chara")

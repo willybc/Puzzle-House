@@ -24,20 +24,17 @@ class Posicion {
 		sonidoObjeto.emitirSonido("reinicio.mp3")
 		self.position(posicionInicial)
 	}
-
 	method hacerAlgo(direccion) {
 		if (!configuraciones.libreMoviento()){
 		self.cambiarPosicion(direccion)
 		}	
 	}
-
 	method cambiarPosicion(direccion)
 	
 	method modoCreativoAgregarVisual(){
 		if(quieroAgregarAlTablero){
 			game.addVisual(self)
 			quieroAgregarAlTablero=false
-			//quieroAgregarAlTablero=false
 		}	
 	}
 	method modoCreativoBorrarVisual(){
@@ -59,11 +56,7 @@ class Caja inherits Posicion {
 	
 	method esPisable() = false
 
-	method image() = if (self.llegoMeta()) {
-		resolucion + "/" + cajaEnMeta
-	} else {
-		resolucion + "/" + stringDeObjeto
-	}
+	method image() = if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 
 	override method cambiarPosicion(direccion) {
 		const siguienteUbicacion = direccion.moverse(self)
@@ -76,30 +69,17 @@ class Caja inherits Posicion {
 		}
 		sonidoObjeto.emitirSonido(sonido)
 	}
-
 	method proximaUbicacionLibre(direccion) = game.getObjectsIn(direccion).all{ unObj => unObj.esPisable() }
-
 	method llegoMeta() = game.colliders(self).any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() } // configuraciones.nivelActual().listaMeta().any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() }
-
-	
-}
-
-class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usados en el nivel creativo 
-	override method image() = resolucion + "/" + stringDeObjeto
-}
-
-class Oveja inherits Caja {
-
-	override method image() = if (!self.llegoMeta()) {
-		resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"
-	} else {
-		resolucion + "/" + stringDeObjeto + "Ok.png"
+	method impedirCaidaDeFPS() {
+		self.position(posicionInicial)
 	}
-
+}
+class Oveja inherits Caja {
+	override method image() = if (!self.llegoMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
 }
 
 class Caballo inherits Oveja {
-
 	var seTrabo = false
 
 	override method cambiarPosicion(direccion) {
@@ -109,7 +89,6 @@ class Caballo inherits Oveja {
 		}
 		sonidoObjeto.emitirSonido(sonido)
 	}
-
 	method moverCaballo(direccion) {
 		const siguienteUbicacion = direccion.moverse(self)
 		ultimaDireccion = direccion
@@ -121,6 +100,7 @@ class Caballo inherits Oveja {
 			seTrabo = true
 		}
 	}
+
 }
 class MuroVisible inherits Posicion {
 
@@ -132,24 +112,17 @@ class MuroVisible inherits Posicion {
 	override method cambiarPosicion(direccion) {
 		configuraciones.elJugador().retroceder(direccion)
 	}
-	
-	
 }
-class Pisable { // inherits Posicion 
+class Pisable inherits Posicion { 
 
-	var property position
+
 	var property image
 
 	method esPisable() = true
-	
-	method hacerAlgo(direccion){
-		
-	}
-	/* 
+
 	override method hacerAlgo(direccion) {
 	}
 	override method cambiarPosicion(unaDireccion){}
-	*/
 }
 class Checkpoint inherits Pisable {
 
@@ -164,8 +137,6 @@ class Checkpoint inherits Pisable {
 }
 class Meta inherits Pisable {
 	var property tipo = 1
- 	
-
 
 }
 
