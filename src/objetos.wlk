@@ -13,11 +13,9 @@ object sonidoObjeto {
 		sonido.volume(0.3)
 		sonido.play()
 	}
-
 }
-
 class Posicion {
-
+	var property quieroAgregarAlTablero=true
 	var property ultimaDireccion = abajo
 	var property position
 	const property posicionInicial = position
@@ -35,17 +33,30 @@ class Posicion {
 
 	method cambiarPosicion(direccion)
 	
+	method modoCreativoAgregarVisual(){
+		if(quieroAgregarAlTablero){
+			game.addVisual(self)
+			quieroAgregarAlTablero=false
+			//quieroAgregarAlTablero=false
+		}	
+	}
+	method modoCreativoBorrarVisual(){
+			game.removeVisual(self)			
+	}
+	
 }
 
 class Caja inherits Posicion {
-
+	
 	const resolucion = "menorResolucion"
 	const stringDeObjeto = "caja1.png"
 	const cajaEnMeta = "caja_ok.png"
 	const property tipo = 1
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
-
+	
+	
+	
 	method esPisable() = false
 
 	method image() = if (self.llegoMeta()) {
@@ -70,6 +81,11 @@ class Caja inherits Posicion {
 
 	method llegoMeta() = game.colliders(self).any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() } // configuraciones.nivelActual().listaMeta().any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() }
 
+	
+}
+
+class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usados en el nivel creativo 
+	override method image() = resolucion + "/" + stringDeObjeto
 }
 
 class Oveja inherits Caja {
@@ -105,34 +121,36 @@ class Caballo inherits Oveja {
 			seTrabo = true
 		}
 	}
-
 }
-
 class MuroVisible inherits Posicion {
 
 	const property tipo = 6
 	var property image = "menorResolucion/muro.png"
-
+	
 	method esPisable() = false
 
 	override method cambiarPosicion(direccion) {
 		configuraciones.elJugador().retroceder(direccion)
 	}
-
+	
+	
 }
-
-class Pisable {
+class Pisable { // inherits Posicion 
 
 	var property position
 	var property image
 
 	method esPisable() = true
-
-	method hacerAlgo(direccion) {
+	
+	method hacerAlgo(direccion){
+		
 	}
-
+	/* 
+	override method hacerAlgo(direccion) {
+	}
+	override method cambiarPosicion(unaDireccion){}
+	*/
 }
-
 class Checkpoint inherits Pisable {
 
 	var property siguienteNivel
@@ -143,12 +161,11 @@ class Checkpoint inherits Pisable {
 		game.clear()
 		siguienteNivel.cargarNivel()
 	}
-
 }
-
 class Meta inherits Pisable {
-
 	var property tipo = 1
+ 	
+
 
 }
 
@@ -158,7 +175,6 @@ class CheckpointSalir inherits Checkpoint {
 		game.clear()
 		game.stop()
 	}
-
 }
 
 object paleta {
@@ -182,7 +198,6 @@ object checkpointBonus {
 	}
 
 }
-
 class CambiarRopa {
 
 	var property position = game.at(6, 5)
@@ -195,5 +210,3 @@ class CambiarRopa {
 	}
 
 }
-
-
