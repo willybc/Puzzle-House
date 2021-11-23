@@ -9,6 +9,7 @@ import nivelB.*
 import nivelW.*
 import nivelBel.*
 import nivelL.*
+import creativo.*
 
 class Nivel {
 	
@@ -60,6 +61,8 @@ class Nivel {
 		configuraciones.configTeclas(personaje)
 		configuraciones.configColisiones(personaje)
 	}
+	
+	method soyUnNivelCreativo()=false
 }
 
 object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
@@ -213,3 +216,4 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo){
 
 
 }
+ 

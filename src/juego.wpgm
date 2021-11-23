@@ -11,6 +11,7 @@ import nivelBel.*
 import nivelL.*
 import nivelDream.*
 import sonido.*
+import creativo.*
 
 
 program juego {
@@ -22,12 +23,16 @@ program juego {
 	
 	nivelDream.cargarNivel()
 	//menu.cargarNivel() 			/* MENU */
+	//nivelDream.cargarNivel()
+	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
 	//nivelW.cargarNivel()			
 	//nivelBel.cargarNivel()
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()
+	
+	
 	
 	game.start()
 	
