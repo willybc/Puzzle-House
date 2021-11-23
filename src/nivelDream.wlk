@@ -10,27 +10,27 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 	var property sonido = "hogar1.mp3"
 	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
-	const jugador1 = new Jugador(position = game.at(3, 1) ,resolucion="menorResolucion",nombreJugador = "jugador1")
+	const jugador1 = new Jugador(position = game.at(13, 11) ,resolucion="menorResolucion",nombreJugador = "jugador1")
 	const listaCajas=[]
 	const listaMeta =[]
 	const listaSombras=[
 		new CheckpointDeSombras(position=game.at(1,7),sombraDeReferencia=sombraHab1Dream),
 		new CheckpointDeSombras(position=game.at(1,5),sombraDeReferencia=pasadizo1Dream),
 		
-		new CheckpointDeSombras(position=game.at(9,5),sombraDeReferencia=sombraHab2Dream),
-		new CheckpointDeSombras(position=game.at(9,3),sombraDeReferencia=pasadizo2Dream),
+		new CheckpointDeSombras(position=game.at(5,2),sombraDeReferencia=sombraHab2Dream),
+		//new CheckpointDeSombras(position=game.at(9,3),sombraDeReferencia=pasadizo2Dream),
 		
 		new CheckpointDeSombras(position=game.at(22,7),sombraDeReferencia=sombraHab3Dream),
 		new CheckpointDeSombras(position=game.at(22,5),sombraDeReferencia=pasadizo3Dream),
 		
-		new CheckpointDeSombras(position=game.at(6,2),sombraDeReferencia=sombra1),
+		new CheckpointDeSombras(position=game.at(9,6),sombraDeReferencia=sombra1),
 		new CheckpointDeSombras(position=game.at(12,2),sombraDeReferencia=sombra2),
 		new CheckpointDeSombras(position=game.at(18,2 ),sombraDeReferencia=sombra3)
 	]
 	
 	const listaDeNivelesCompletados=[]
 	
-	var property posicionInitial = game.at(3,1)
+	var property posicionInitial = game.at(13,11)
 		method cargarNivel(){		
 		
 		//configuraciones.configMusic(self.sonido())
