@@ -33,7 +33,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 	var property posicionInitial = game.at(3,1)
 		method cargarNivel(){		
 		
-		configuraciones.configMusic(self.sonido())
+		//configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
 		
 		game.addVisual(checkpointBonus)
@@ -75,38 +75,44 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 		
 		const muroInvisible = "menorResolucion/invisible.png"
 		
-		/*
-		self.bordearHorizontalmente(0,2,0,muroInvisible)
-		self.bordearHorizontalmente(4,5,0,muroInvisible)
-		self.bordearHorizontalmente(3,3,-1,muroInvisible)
+		self.bordearHorizontalmente(20,22,3,muroInvisible)
+		self.bordearHorizontalmente(20,22,2,muroInvisible)
+		
+		self.bordearHorizontalmente(0,5,0,muroInvisible)
+		self.bordearHorizontalmente(2,5,5,muroInvisible)
+		self.bordearHorizontalmente(6,12,1,muroInvisible)
+		self.bordearHorizontalmente(6,8,3,muroInvisible)
+		self.bordearHorizontalmente(10,12,3,muroInvisible)
+		self.bordearHorizontalmente(13,17,5,muroInvisible)
 		self.bordearHorizontalmente(13,17,0,muroInvisible)
-		self.bordearVerticalmente(0,1,18,muroInvisible)
-		self.bordearHorizontalmente(19,24,0,muroInvisible)
-		self.bordearVerticalmente(1,5,24,muroInvisible)
-		self.bordearVerticalmente(3,4,18,muroInvisible)
-		self.bordearHorizontalmente(12,23,5,muroInvisible)
+		self.bordearHorizontalmente(19,23,0,muroInvisible)
+		self.bordearHorizontalmente(19,21,5,muroInvisible)
+		self.bordearHorizontalmente(23,23,5,muroInvisible)
+		self.bordearHorizontalmente(2,5,7,muroInvisible)
+		self.bordearHorizontalmente(1,5,12,muroInvisible)
+		self.bordearHorizontalmente(11,14,7,muroInvisible)
+		self.bordearHorizontalmente(17,20,7,muroInvisible)
+		self.bordearHorizontalmente(17,22,12,muroInvisible)
+		self.bordearHorizontalmente(9,14,12,muroInvisible)
 		self.bordearHorizontalmente(14,16,3,muroInvisible)
 		self.bordearHorizontalmente(14,15,4,muroInvisible)
-		self.bordearHorizontalmente(6,12,1,muroInvisible)
-		self.bordearVerticalmente(3,4,12,muroInvisible)
-		self.bordearVerticalmente(3,7,11,muroInvisible)
-		self.bordearVerticalmente(3,11,9,muroInvisible)
-		self.bordearVerticalmente(3,11,8,muroInvisible)
-		self.bordearVerticalmente(3,7,6,muroInvisible)
-		self.bordearHorizontalmente(0,16,12,muroInvisible)
-		self.bordearHorizontalmente(0,5,7,muroInvisible)
-		self.bordearHorizontalmente(12,17,7,muroInvisible)
-		self.bordearVerticalmente(8,11,17,muroInvisible)
-		self.bordearVerticalmente(8,11,0,muroInvisible)
-		self.bordearVerticalmente(1,5,0,muroInvisible)
-		self.bordearHorizontalmente(1,5,5,muroInvisible)
-		self.bordearVerticalmente(1,2,23,muroInvisible)
-		self.bordearHorizontalmente(16,16,11,muroInvisible)
-		self.bordearVerticalmente(8,9,16,muroInvisible)
-		self.bordearVerticalmente(8,9,1,muroInvisible)
-		self.bordearHorizontalmente(1,1,11,muroInvisible)
-		* 
-		*/
+		
+		self.bordearVerticalmente(1,11,0,muroInvisible)
+		self.bordearVerticalmente(6,6,2,muroInvisible)
+		self.bordearVerticalmente(4,4,6,muroInvisible)
+		self.bordearVerticalmente(6,11,6,muroInvisible)
+		self.bordearVerticalmente(4,4,12,muroInvisible)
+		self.bordearVerticalmente(1,1,18,muroInvisible)
+		self.bordearVerticalmente(3,4,18,muroInvisible)
+		self.bordearVerticalmente(1,4,24,muroInvisible)
+		self.bordearVerticalmente(6,7,21,muroInvisible)
+		self.bordearVerticalmente(6,11,23,muroInvisible)
+		self.bordearVerticalmente(8,11,16,muroInvisible)
+		self.bordearVerticalmente(4,11,8,muroInvisible)
+		self.bordearVerticalmente(4,7,10,muroInvisible)
+		self.bordearVerticalmente(8,11,15,muroInvisible)
+		
+		
 	}
 	
 	method position()=game.at(0,0)
