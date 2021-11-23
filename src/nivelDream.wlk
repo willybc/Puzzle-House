@@ -10,7 +10,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 	var property sonido = "hogar1.mp3"
 	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
-	const jugador1 = new Jugador(position = game.at(13, 11) ,resolucion="menorResolucion",nombreJugador = "jugador1")
+	const jugador1 = new Jugador(position = game.at(13, 11) ,resolucion="menorResolucion",nombreJugador = "chara")
 	const listaCajas=[]
 	const listaMeta =[]
 	const listaSombras=[
@@ -89,7 +89,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 		self.bordearHorizontalmente(19,21,5,muroInvisible)
 		self.bordearHorizontalmente(23,23,5,muroInvisible)
 		self.bordearHorizontalmente(2,5,7,muroInvisible)
-		self.bordearHorizontalmente(1,5,12,muroInvisible)
+		self.bordearHorizontalmente(1,5,11,muroInvisible)
 		self.bordearHorizontalmente(11,14,7,muroInvisible)
 		self.bordearHorizontalmente(17,20,7,muroInvisible)
 		self.bordearHorizontalmente(17,22,12,muroInvisible)
