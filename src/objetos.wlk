@@ -70,10 +70,11 @@ class Caja inherits Posicion {
 		sonidoObjeto.emitirSonido(sonido)
 	}
 	method proximaUbicacionLibre(direccion) = game.getObjectsIn(direccion).all{ unObj => unObj.esPisable() }
+	
 	method llegoMeta() = game.colliders(self).any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() } // configuraciones.nivelActual().listaMeta().any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() }
-	method impedirCaidaDeFPS() {
-		self.position(posicionInicial)
-	}
+	
+
+	
 }
 class Oveja inherits Caja {
 	override method image() = if (!self.llegoMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
@@ -100,6 +101,7 @@ class Caballo inherits Oveja {
 			seTrabo = true
 		}
 	}
+	
 
 }
 class MuroVisible inherits Posicion {

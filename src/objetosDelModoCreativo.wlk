@@ -11,6 +11,8 @@ import creativo.*
 
 class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
 	override method image() = resolucion + "/" + stringDeObjeto
+	
+	
 }
 
 class JugadorConstructor inherits Jugador{
@@ -26,6 +28,7 @@ class JugadorConstructor inherits Jugador{
 		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =self.position(),image="menorResolucion/meta2.png",tipo=2))}
 	    keyboard.num5().onPressDo{self.generarUnMuro( new MuroVisible(position =self.position(),image="menorResolucion/muro3.png"))}
 	    keyboard.num6().onPressDo{self.generarUnMuro( new MuroVisible(position =self.position(),image="menorResolucion/muro2.png"))}
+	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		
 		keyboard.e().onPressDo{nivelCreativo.salirDelNivel()}
 	}
@@ -46,6 +49,23 @@ class JugadorConstructor inherits Jugador{
 		self.validadLibreMovimiento()
 		nivelCreativo.agregarNuevoMuroAlaLista(unObjeto)
 		
+	}
+	method eliminarObjeto(){
+		if(!self.verificarQueExisteUnObjetoEliminable()){
+			self.validadLibreMovimiento()
+			self.error("No hay nada que eliminar aqui")
+		}
+		game.say(self,self.elObjetoAEliminar().toString())
+		nivelCreativo.borrarUnaCajaEnParticular(self.elObjetoAEliminar())
+		self.elObjetoAEliminar().modoCreativoBorrarVisual()
+		
+		
+	}
+	method verificarQueExisteUnObjetoEliminable(){
+		return game.colliders(self).size()>0
+	}
+	method elObjetoAEliminar(){
+		return game.uniqueCollider(self)
 	}
 	
 }
