@@ -55,8 +55,8 @@ class JugadorConstructor inherits Jugador{
 			self.validadLibreMovimiento()
 			self.error("No hay nada que eliminar aqui")
 		}
-		game.say(self,self.elObjetoAEliminar().toString())
-		nivelCreativo.borrarUnaCajaEnParticular(self.elObjetoAEliminar())
+		//game.say(self,self.elObjetoAEliminar().toString()+" ELIMINADO")
+		nivelCreativo.borrarUnObjetoEnParticular(self.elObjetoAEliminar())
 		self.elObjetoAEliminar().modoCreativoBorrarVisual()
 		
 		

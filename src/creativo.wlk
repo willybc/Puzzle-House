@@ -91,8 +91,10 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		game.clear()
 		siguienteNivel.cargarNivel()	
 	}
-	method borrarUnaCajaEnParticular(unObjeto){
+	method borrarUnObjetoEnParticular(unObjeto){
 		listaCajas.remove(unObjeto)
+		listaMeta.remove(unObjeto)
+		listaMuros.remove(unObjeto)
 	}
 	
 	method image() = "menorResolucion/modoLibre.png"
