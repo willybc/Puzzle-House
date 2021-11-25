@@ -6,6 +6,7 @@ import timeline.*
 import jugador.*
 import niveles.*
 import ghost.*
+import nivelB2.*
 
 object nivelDream inherits Nivel (siguienteNivel = nivel0){
 	var property sonido = "dreams.mp3"
@@ -38,7 +39,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 		game.addVisual(self)
 		
 		//Bonus
-		const bonus = new CheckpointBonus( nivelBase = self)
+		const bonus = new CheckpointBonus( nivelBase = self, bonus=pasadizoDream)
 		game.addVisual(bonus)
 		
 		self.generarMuros()
@@ -185,6 +186,7 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 		self.bordearHorizontalmente(10,10,9,muro2)
 		self.bordearHorizontalmente(14,14,9,muro2)
 		
+		self.bordearHorizontalmente(18,19,-1,muro2)
 	}
 	
 	method image() = "menorResolucion/mapW.png"
@@ -255,6 +257,7 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 		self.bordearHorizontalmente(10,10,9,muro2)
 		self.bordearHorizontalmente(14,14,9,muro2)
 		
+		self.bordearHorizontalmente(18,19,-1,muro2)
 	}
 	
 	method image() = "menorResolucion/mapW.png"

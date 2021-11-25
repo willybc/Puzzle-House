@@ -87,6 +87,7 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 		self.bordearHorizontalmente(10,10,9,muro2)
 		self.bordearHorizontalmente(14,14,9,muro2)
 		
+		self.bordearHorizontalmente(18,19,-1,muro2)
 	}
 	
 	method image() = "menorResolucion/mapW.png"

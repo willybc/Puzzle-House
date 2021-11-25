@@ -165,6 +165,7 @@ object paleta {
 
 class CheckpointBonus {
 	var property nivelBase
+	var property bonus
 	
 	method position() = game.at(16, 4)
 
@@ -174,7 +175,7 @@ class CheckpointBonus {
 		}
 		configuraciones.configStopMusic()
 		game.clear()
-		pasadizo.cargarNivel()
+		bonus.cargarNivel()
 	}
 
 }
