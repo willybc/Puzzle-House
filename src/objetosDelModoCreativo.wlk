@@ -10,7 +10,28 @@ import creativo.*
 
 
 class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
-	override method image() = resolucion + "/" + stringDeObjeto	
+
+	override method image() =if(!configuraciones.nivelActual().soyUnNivelCreativo()){self.imagenARetornar()}else{resolucion + "/" + stringDeObjeto}
+
+	method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+
+	override method cambiarPosicion(direccion) {
+		const siguienteUbicacion = direccion.moverse(self)
+		ultimaDireccion = direccion
+		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
+			self.position(direccion.moverse(self))
+			self.activarVerificador()
+		} else {
+			configuraciones.elJugador().retroceder(direccion)
+		}
+		sonidoObjeto.emitirSonido(sonido)
+	}
+
+	method activarVerificador(){
+		if(configuraciones.nivelActual().soyUnNivelCreativo()){
+			configuraciones.nivelActual().verificarMetas()
+		}
+	}
 }
 
 object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
@@ -151,7 +172,38 @@ class JugadorConstructor inherits Jugador{
 		self.position(posicionInicialDelConstructor.position())
 	}
 	method verificarPuntoDeReinicioExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnPuntoDeReinicio()})
+
+}
+object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
+	
+	const jugador1 = new Jugador(position = game.at(10, 10 ) , resolucion="menorResolucion",nombreJugador = "jugadora1")
+	
+	const listaMeta =[ ]
+	const listaCajas=[  ]
+
+	method cargarNivel(){
 		
+		configuraciones.configMusic("niveL.mp3")
+		game.addVisual(self)
+		self.cargarObjetos(listaMeta)
+		self.cargarObjetos(listaCajas)
+		self.generarMuros()
+		game.addVisual(jugador1)
+		configuraciones.nivelActual(self)	
+		self.configNivel(jugador1)
 	
+	}
 	
+	method generarMuros(){
+		
+		
+	}
+	
+	method image() = "menorResolucion/modoLibre.png"
+	method position()=game.at(0,0)
+	
+	override method listaCajas() = listaCajas
+
+ 	method listaMeta()= listaMeta
+
 }

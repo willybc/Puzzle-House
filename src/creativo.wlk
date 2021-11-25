@@ -47,11 +47,14 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
  	method listaMeta()= listaMeta
 	override method verificarMetas() {
 		const verificador = self.listaCajas().all({ unaCaja => unaCaja.llegoMeta() })
+		
+		
 		if (verificador) {
 			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
 			game.say(configuraciones.elJugador(), "ganaste!")
 			game.schedule(1200,{self.reiniciarNivel()})
 		}
+		
 	}
 	method agregarNuevaCajaAlaLista(unaCaja){
 		listaCajas.add(unaCaja)
@@ -105,5 +108,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	
 	method hacerAlgo(direccion){
 	}
+	
+	override method soyUnNivelCreativo()=true
 
 }

@@ -30,7 +30,7 @@ program juego {
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
-	
+
 	
 	
 	game.start()
