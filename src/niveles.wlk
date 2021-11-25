@@ -147,7 +147,10 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo){
 		const jugadora1 = new Jugador(position = game.at(23, 4) ,resolucion="menorResolucion", nombreJugador = "jugadora1")
 		game.addVisual(jugadora1)	
 		
-		game.addVisual(checkpointBonus)
+		//Bonus
+		const bonus = new CheckpointBonus( nivelBase = self)
+		game.addVisual(bonus)
+		
 		self.generarMuros()
 		
 		//Esposo

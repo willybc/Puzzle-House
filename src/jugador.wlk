@@ -13,9 +13,7 @@ class Jugador inherits Posicion{
 	
 	var property resolucion
 	var property tipo =99
-	
 
-	
 	method image() = resolucion + "/" + nombreJugador.toString() + ultimaDireccion.toString() + ".png"
 	
 	override method cambiarPosicion(direccion) {
@@ -42,7 +40,7 @@ class Jugador inherits Posicion{
 	}
 	override method hacerAlgo(direccion){
 		configuraciones.elJugador().position(direccion.dirOpuesto(configuraciones.elJugador()))
-		game.say(self,"¿Qué sucede?")
+		game.say(self, 'Qué sucede?')
 	}
 	
 	method retroceder(direccion){
@@ -53,6 +51,3 @@ class Jugador inherits Posicion{
 		self.position(posicionInicial)
 	}
 }
-
-
-	

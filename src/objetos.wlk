@@ -163,12 +163,13 @@ object paleta {
 
 }
 
-object checkpointBonus {
-
+class CheckpointBonus {
+	var property nivelBase
+	
 	method position() = game.at(16, 4)
 
 	method hacerAlgo(direccion) {
-		if (!nivel0.nivelBonusHabilitado()) {
+		if (!nivelBase.nivelBonusHabilitado()) {
 			self.error("No puedes pasar si no terminas todos los puzzles!!")
 		}
 		configuraciones.configStopMusic()
