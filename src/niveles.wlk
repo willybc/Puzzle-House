@@ -67,19 +67,24 @@ class Nivel {
 
 object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
 	
-	const jugador1 = new Jugador(position = game.at(10, 1) ,resolucion="mayorResolucion",nombreJugador = "jugador1")
+	const jugador1 = new Jugador(position = game.at(11, 5) ,resolucion="mayorResolucion",nombreJugador = "jugador1")
 	
 	method cargarNivel(){
 		
 		configuraciones.configMusic("menu.mp3")
 		game.addVisual(self)
-		game.addVisual(new Checkpoint(position = game.at(6,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
-		game.addVisual(new Checkpoint(position = game.at(4,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
-		game.addVisual(new Checkpoint(position = game.at(2,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
+		game.addVisual(new Checkpoint(position = game.at(9,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
+		game.addVisual(new Checkpoint(position = game.at(11,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
+		game.addVisual(new Checkpoint(position = game.at(13,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
 		
-		game.addVisual(new CheckpointSalir(position = game.at(16,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
-		game.addVisual(new CheckpointSalir(position = game.at(18,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
-		game.addVisual(new CheckpointSalir(position = game.at(20,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
+		game.addVisual(new CheckpointSalir(position = game.at(17,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
+		game.addVisual(new CheckpointSalir(position = game.at(19,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
+		
+		/*
+		game.addVisual(new CheckpointSalir(position = game.at(3,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivelCreativo))
+		game.addVisual(new CheckpointSalir(position = game.at(5,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivelCreativo))
+		Al ingresar al mapa creativo desde menu se cierra
+		*/
 		
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
@@ -91,10 +96,10 @@ object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
 		
 		const muroInvisible = "menorResolucion/invisible.png"
 		
-		self.bordearHorizontalmente(0,24,1,muroInvisible)
-		self.bordearHorizontalmente(0,24,11,muroInvisible)
-		self.bordearVerticalmente(1,11,0,muroInvisible)
-		self.bordearVerticalmente(1,11,24,muroInvisible)
+		self.bordearHorizontalmente(-1,25,-1,muroInvisible)
+		self.bordearHorizontalmente(-1,25,11,muroInvisible)
+		self.bordearVerticalmente(-1,11,-1,muroInvisible)
+		self.bordearVerticalmente(-1,11,25,muroInvisible)
 	}
 	
 	override method listaCajas() = []
