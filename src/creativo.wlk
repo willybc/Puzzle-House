@@ -7,6 +7,10 @@ import jugador.*
 import niveles.*
 import objetosDelModoCreativo.*
 
+object posicionInicialConstructor{
+	
+	
+}
 
 object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	
@@ -16,6 +20,8 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const listaCajas=[]
 	const listaMuros=[]
 	
+	const conjuntoDeListas=[listaMeta,listaCajas,listaMuros]
+	/* 
 	const listaCajas1=[]
 	const listaCajas2=[]
 	const listaCajas3=[]
@@ -23,12 +29,14 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const listaMetas1=[]
 	const listaMetas2=[]
 	const listaMetas3=[]
-
+	*/
 	method borrarObjetos(objeto) = objeto.forEach{ unObjeto => game.removeVisual(unObjeto)}
 
 	method cargarNivel(){
 		//configuraciones.configMusic("niveL.mp3")
+		
 		game.addVisual(self)
+		game.addVisual(posicionInicialDelConstructor)
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
@@ -51,6 +59,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	}
 	method agregarNuevaMetaAlaLista(unaMeta){
 		listaMeta.add(unaMeta)
+		
 		self.ordenarVisuales()
 	}
 	method agregarNuevoMuroAlaLista(unMuro){
@@ -58,6 +67,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		self.ordenarVisuales()	
 	}
 	method ordenarVisuales(){
+		
 		self.agregarObjetosAlTablero()
 		self.borrarObjetosDelTableroTemporalmente()
 		game.removeVisual(jugador1)
@@ -67,19 +77,13 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		game.addVisual(jugador1)
 	}
 	method agregarObjetosAlTablero(){
-		listaMeta.forEach({unaMeta=>unaMeta.modoCreativoAgregarVisual()})
-		listaMuros.forEach({unMuro=>unMuro.modoCreativoAgregarVisual()})
-		listaCajas.forEach({unaCaja=>unaCaja.modoCreativoAgregarVisual()})
+		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoAgregarVisual()})
 	}
 	method borrarObjetosDelTableroTemporalmente(){
-		listaMeta.forEach({unaMeta=>unaMeta.modoCreativoBorrarVisual()})
-		listaCajas.forEach({unaCaja=>unaCaja.modoCreativoBorrarVisual()})
-		listaMuros.forEach({unMuro=>unMuro.modoCreativoBorrarVisual()})	
+		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 	}
 	method habilitarLaAdicionDeLosObjetosAlTablero(){
-		listaMeta.forEach({unaMeta=>unaMeta.quieroAgregarAlTablero(true)}) 
-		listaCajas.forEach({unaCaja=>unaCaja.quieroAgregarAlTablero(true)}) 
-		listaMuros.forEach({unMuro=>unMuro.quieroAgregarAlTablero(true)}) 
+		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.quieroAgregarAlTablero(true)})
 	}
 	method ordenarCajasPorTipo(){
 		listaCajas.sortedBy{ a, b => b.tipo() > a.tipo()}
@@ -91,10 +95,9 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		game.clear()
 		siguienteNivel.cargarNivel()	
 	}
-	method borrarUnObjetoEnParticular(unObjeto){
-		listaCajas.remove(unObjeto)
-		listaMeta.remove(unObjeto)
-		listaMuros.remove(unObjeto)
+	method borrarObjetosDeLaLista(listaDeObjetos){
+		conjuntoDeListas.forEach({unaLista=>unaLista.removeAll(listaDeObjetos)})
+		listaDeObjetos.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 	}
 	
 	method image() = "menorResolucion/modoLibre.png"
@@ -102,4 +105,5 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	
 	method hacerAlgo(direccion){
 	}
+
 }

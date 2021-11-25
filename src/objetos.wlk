@@ -15,11 +15,18 @@ object sonidoObjeto {
 	}
 }
 class Posicion {
-	var property quieroAgregarAlTablero=true
+	
+	
 	var property ultimaDireccion = abajo
-	var property position
-	const property posicionInicial = position
-
+	var property position =game.center()
+	var property posicionInicial = position
+	
+	
+	const property modoCreativo_soyMeta=false
+	const property modoCreativo_soyUnMuro=false
+	var property quieroAgregarAlTablero=true
+	
+	
 	method posicioninicial() {
 		sonidoObjeto.emitirSonido("reinicio.mp3")
 		self.position(posicionInicial)
@@ -101,12 +108,11 @@ class Caballo inherits Oveja {
 			seTrabo = true
 		}
 	}
-	
 
 }
 class MuroVisible inherits Posicion {
 
-	const property tipo = 6
+	const property tipo = 0
 	var property image = "menorResolucion/muro.png"
 	
 	method esPisable() = false
@@ -116,7 +122,6 @@ class MuroVisible inherits Posicion {
 	}
 }
 class Pisable inherits Posicion { 
-
 
 	var property image
 

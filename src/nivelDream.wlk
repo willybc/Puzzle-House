@@ -33,7 +33,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 	var property posicionInitial = game.at(13,11)
 		method cargarNivel(){		
 		
-		//configuraciones.configMusic(self.sonido())
+		//  configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
 		
 		game.addVisual(checkpointBonus)
