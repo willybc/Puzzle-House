@@ -24,6 +24,7 @@ class Posicion {
 	
 	const property modoCreativo_soyMeta=false
 	const property modoCreativo_soyUnMuro=false
+	const property modoCreativo_soyUnPuntoDeReinicio=false
 	var property quieroAgregarAlTablero=true
 	
 	

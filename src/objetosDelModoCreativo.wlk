@@ -13,7 +13,7 @@ class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a
 	override method image() = resolucion + "/" + stringDeObjeto	
 }
 
-object posicionInicialDelConstructor inherits Posicion{
+object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
 	var property tipo =0
 	method image()="menorResolucion/pos00.png"
 	override method hacerAlgo(direccion) {
@@ -70,20 +70,26 @@ class JugadorConstructor inherits Jugador{
 	}
 	method generarUnaCaja(unObjeto){
 		self.validadLibreMovimiento()
-		self.validarObjetoPisable()
+		self.validarObjetoPisable("No puedes generar una caja aqui")
+		self.validacionPuntoDeReinicio()
 		nivelCreativo.agregarNuevaCajaAlaLista(unObjeto)
 	}
 	method generarUnaMeta(unObjeto){
 		self.validadLibreMovimiento()
-		self. validacionDeMetas()
+		self.validacionDeMetas()
 		nivelCreativo.agregarNuevaMetaAlaLista(unObjeto)
 	}
 	method generarUnMuro(unObjeto){
+		self.validacionPuntoDeReinicio()
 		self.validadLibreMovimiento()
-		self.validarObjetoPisable()
+		self.validarObjetoPisable("No puedes generar un muro aqui")
+		self.validacionDeMetas()
 		nivelCreativo.agregarNuevoMuroAlaLista(unObjeto)	
 	}
 	method generarPuntoDeReinicio(){
+		
+		self.validarObjetoPisable("No puedes generar un punto de reinicio del jugador  aqui")
+		
 		posicionInicialDelConstructor.cambiarPosicion(self.position())
 	}
 	method eliminarObjeto(){
@@ -105,35 +111,47 @@ class JugadorConstructor inherits Jugador{
 		return game.colliders(self).size()>0
 	}
 	
-	method validarObjetoPisable(){
+	
+	method validarObjetoPisable(unMensaje){
 		if(self.verificarQueExisteUnObjeto()){
-			self.elObjetoSeraPisable()
+			self.elObjetoSeraPisable(unMensaje)
 		}
 	}
-	method elObjetoSeraPisable(){
+	method elObjetoSeraPisable(unMensaje){
 		if(!self.verificarQueTodosLosObjetosSeanPisables()){
-			self.error("No puedes agregar este objeto aqui")
+			//self.error("No puedes agregar este objeto aqui") //"No puedes agregar este objeto aqui"
+			self.error(unMensaje)
 		}	
 	}
 	
 	method  validacionDeMetas(){
-		if( self.ValidacionDobleMETA()){
+		if( self.ValidacionMetaExistente()){
 			self.error("Ya existe una meta en esta posicion!!")
 		}	
 		if(self.validacionMetaYmuro()){
 			self.error("No tiene sentido agregar una meta aqui!")
 		}
 	}
+	method validacionPuntoDeReinicio(){
+		if(self.verificarPuntoDeReinicioExistente()){
+			self.error("no puedes agregar este objeto aqui si existe un punto de reinicio del personaje")
+		}
+		
+	}
+	
+	
 	method validacionMetaYmuro()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnMuro()})
 	
 	method verificarQueTodosLosObjetosSeanPisables()=self.objetosConElQueElConstructorEstaColisionando().all({unObjeto=>unObjeto.esPisable()})
 	
-	method ValidacionDobleMETA()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyMeta()})
+	method ValidacionMetaExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyMeta()})
 	
 	override method posicioninicial() {
 		sonidoObjeto.emitirSonido("reinicio.mp3")
 		self.position(posicionInicialDelConstructor.position())
 	}
+	method verificarPuntoDeReinicioExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnPuntoDeReinicio()})
 		
+	
 	
 }
