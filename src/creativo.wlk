@@ -51,6 +51,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		jugador1.TeclasDelConstructor()
 		self.ordenarVisuales()
 		nivel0.posicionInitial(game.at(21,3))	
+		game.say(jugador1,"TEMPORAL : presiona la I para probar el nivel creado!!")
 	}
 	override method listaCajas() = listaCajas
  	method listaMeta()= listaMeta
