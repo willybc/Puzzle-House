@@ -1,4 +1,4 @@
-import wollok.game.*
+ import wollok.game.*
 import direcciones.*
 import configuraciones.*
 import niveles.*
@@ -31,7 +31,7 @@ program juego {
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
-	
+
 	
 	
 	game.start()

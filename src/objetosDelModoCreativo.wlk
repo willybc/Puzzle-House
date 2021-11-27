@@ -9,12 +9,43 @@ import objetos.*
 import creativo.*
 
 
-class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
-	override method image() = resolucion + "/" + stringDeObjeto	
+class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
+	var property flag=true
+	override method image() =resolucion + "/" + stringDeObjeto
+
+
+	method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+
+	override method cambiarPosicion(direccion) {
+		const siguienteUbicacion = direccion.moverse(self)
+		ultimaDireccion = direccion
+		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
+			self.position(direccion.moverse(self))
+			self.activarVerificador()
+		} else {
+			configuraciones.elJugador().retroceder(direccion)
+		}
+		sonidoObjeto.emitirSonido(sonido)
+	}
+
+	method activarVerificador() {
+		if (!configuraciones.nivelActual().soyUnNivelCreativo() and self.llegoMeta()) {
+			if (flag) {
+				nivelCreativoJugar.cajasEnMeta(self)
+				flag = false
+			}
+			nivelCreativoJugar.verificarMetas()
+		} else {
+			nivelCreativoJugar.cajasEnMetaRemover(self)
+			flag = true
+		}
+	}
+
 }
 
 object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
 	var property tipo =0
+	
 	method image()="menorResolucion/pos00.png"
 	override method hacerAlgo(direccion) {
 		
@@ -35,34 +66,50 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 
 }
 
-/* 
-class PosicionInicialDelConstructor inherits Posicion{
-	
-	method image()="menorResolucion/checkpoint.png"
-	override method hacerAlgo(direccion) {	
-	}
-	
+class JugadorDelNivelCreado inherits Jugador{
+	method TeclasAdicionales(){
+		keyboard.enter().onPressDo{nivelCreativoJugar.cambiarNivel()}
+	}	
 }
-*/
 
 class JugadorConstructor inherits Jugador{
 	
-	
+	var property  elJugadorNoPudoAvanzar=false
+	const meta1 = "menorResolucion/meta1.png"
+	const meta2 = "menorResolucion/meta2.png"
+	const meta3=  "menorResolucion/meta3.png"
+	const meta4=  "menorResolucion/meta4.png"
+	const meta5=  "menorResolucion/meta5.png"
+	const resolucionCaja = "menorResolucion"
+	const caja1 = "caja1.png"
+	const caja2 = "caja2.png"
+	const caja3 = "caja3.png"
+	const caja4 = "caja4.png"
+	const caja5 = "caja5.png"
+	const cajaMeta1 = "caja_ok.png"
+	const cajaMeta2 = "caja_ok2.png"
+	const cajaMeta3 = "caja3_ok.png"
+	const cajaMeta4 = "caja4_ok.png"
+    const cajaMeta5 = "caja5_ok.png"
 
 	method posicionActual()=self.position()
-	
-	method TeclasDelConstructor(){
 
-		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =self.position(),stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1))}
-		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =self.position(),stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2))}
-		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =self.position(),image="menorResolucion/meta1.png",modoCreativo_soyMeta=true))}
-		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =self.position(),image="menorResolucion/meta2.png",tipo=2,modoCreativo_soyMeta=true))}
-	    keyboard.num5().onPressDo{self.generarUnMuro( new MuroVisible(position =self.position(),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
-	    keyboard.num6().onPressDo{self.generarUnMuro( new MuroVisible(position =self.position(),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
+	method TeclasAdicionales(){
+
+	//Se podria usar Self.position, osea la posicion del jugador pero por razones que desconosco da un rendimiento MUY POBRE!! Los frames bajan mucho!
+		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1))}
+		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2))}
+		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta1,modoCreativo_soyMeta=true))}
+		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta2,tipo=2,modoCreativo_soyMeta=true))}
+	    keyboard.space().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
+	    keyboard.alt().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
+	    
 	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		keyboard.control().onPressDo{self.generarPuntoDeReinicio()}
-		keyboard.e().onPressDo{nivelCreativo.salirDelNivel()}
+		keyboard.enter().onPressDo{nivelCreativo.jugarNivelCreado()}
+		keyboard.backspace().onPressDo{nivelCreativo.salirDelNivel()}
 	}
+
 	method validadLibreMovimiento(){
 		if(!configuraciones.libreMoviento()){
 			self.error("Presiona la Z primero")
@@ -94,12 +141,7 @@ class JugadorConstructor inherits Jugador{
 	}
 	method eliminarObjeto(){
 		self.validadLibreMovimiento()
-		/* 
-		if(!self.verificarQueExisteUnObjeto()){
-			
-			self.error("No hay nada que eliminar aqui")
-		}
-		*/
+	
 		nivelCreativo.borrarObjetosDeLaLista(self.objetosConElQueElConstructorEstaColisionando())
 
 	}
@@ -136,10 +178,9 @@ class JugadorConstructor inherits Jugador{
 		if(self.verificarPuntoDeReinicioExistente()){
 			self.error("no puedes agregar este objeto aqui si existe un punto de reinicio del personaje")
 		}
-		
+	
 	}
-	
-	
+
 	method validacionMetaYmuro()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnMuro()})
 	
 	method verificarQueTodosLosObjetosSeanPisables()=self.objetosConElQueElConstructorEstaColisionando().all({unObjeto=>unObjeto.esPisable()})
@@ -151,7 +192,7 @@ class JugadorConstructor inherits Jugador{
 		self.position(posicionInicialDelConstructor.position())
 	}
 	method verificarPuntoDeReinicioExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnPuntoDeReinicio()})
-		
 	
-	
+	method coordenadaX()=position.x()
+	method coordenadaY()=position.y()	
 }
