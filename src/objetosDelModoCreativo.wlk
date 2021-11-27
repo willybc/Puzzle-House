@@ -9,9 +9,9 @@ import objetos.*
 import creativo.*
 
 
-class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
-
-	override method image() =if(!configuraciones.nivelActual().soyUnNivelCreativo()){self.imagenARetornar()}else{resolucion + "/" + stringDeObjeto}
+class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
+	var property flag=true
+	override method image() =resolucion + "/" + stringDeObjeto
 
 	method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 
@@ -27,15 +27,24 @@ class CajaEstatica inherits  Caja{ //Esta caja no cambia de color cuando llega a
 		sonidoObjeto.emitirSonido(sonido)
 	}
 
-	method activarVerificador(){
-		if(configuraciones.nivelActual().soyUnNivelCreativo()){
-			configuraciones.nivelActual().verificarMetas()
+	method activarVerificador() {
+		if (!configuraciones.nivelActual().soyUnNivelCreativo() and self.llegoMeta()) {
+			if (flag) {
+				nivelCreativoJugar.cajasEnMeta(self)
+				flag = false
+			}
+			nivelCreativoJugar.verificarMetas()
+		} else {
+			nivelCreativoJugar.cajasEnMetaRemover(self)
+			flag = true
 		}
 	}
+
 }
 
 object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
 	var property tipo =0
+	
 	method image()="menorResolucion/pos00.png"
 	override method hacerAlgo(direccion) {
 		
@@ -53,6 +62,10 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 	override method modoCreativoBorrarVisual(){
 		
 	}
+	
+	
+method coordenadaX()=position.x()
+method coordenadaY()=position.y()
 
 }
 
@@ -68,22 +81,52 @@ class PosicionInicialDelConstructor inherits Posicion{
 
 class JugadorConstructor inherits Jugador{
 	
-	
+	var property  elJugadorNoPudoAvanzar=false
+	const meta1 = "menorResolucion/meta1.png"
+	const meta2 = "menorResolucion/meta2.png"
+	const meta3=  "menorResolucion/meta3.png"
+	const meta4=  "menorResolucion/meta4.png"
+	const meta5=  "menorResolucion/meta5.png"
+	const resolucionCaja = "menorResolucion"
+	const caja1 = "caja1.png"
+	const caja2 = "caja2.png"
+	const caja3 = "caja3.png"
+	const caja4 = "caja4.png"
+	const caja5 = "caja5.png"
+	const cajaMeta1 = "caja_ok.png"
+	const cajaMeta2 = "caja_ok2.png"
+	const cajaMeta3 = "caja3_ok.png"
+	const cajaMeta4 = "caja4_ok.png"
+    const cajaMeta5 = "caja5_ok.png"
 
 	method posicionActual()=self.position()
-	
+
 	method TeclasDelConstructor(){
 
-		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =self.position(),stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1))}
-		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =self.position(),stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2))}
-		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =self.position(),image="menorResolucion/meta1.png",modoCreativo_soyMeta=true))}
-		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =self.position(),image="menorResolucion/meta2.png",tipo=2,modoCreativo_soyMeta=true))}
-	    keyboard.num5().onPressDo{self.generarUnMuro( new MuroVisible(position =self.position(),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
-	    keyboard.num6().onPressDo{self.generarUnMuro( new MuroVisible(position =self.position(),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
+	//Se podria usar Self.position, osea la posicion del jugador pero por razones que desconosco da un rendimiento MUY POBRE!! Los frames bajan mucho!
+		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1))}
+		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2))}
+		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta1,modoCreativo_soyMeta=true))}
+		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta2,tipo=2,modoCreativo_soyMeta=true))}
+	    keyboard.num5().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
+	    keyboard.num6().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
+	    
 	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		keyboard.control().onPressDo{self.generarPuntoDeReinicio()}
+		keyboard.i().onPressDo{nivelCreativo.jugarNivelCreado()}
 		keyboard.e().onPressDo{nivelCreativo.salirDelNivel()}
 	}
+	
+	override method cambiarPosicion(direccion) {
+		ultimaDireccion = direccion
+		self.position(direccion.moverse(self))
+		direccion.cambiarCoordenada()
+		sonidoObjeto.emitirSonido("pasosf.mp3")	
+		
+	}
+	
+	
+	
 	method validadLibreMovimiento(){
 		if(!configuraciones.libreMoviento()){
 			self.error("Presiona la Z primero")
@@ -172,38 +215,61 @@ class JugadorConstructor inherits Jugador{
 		self.position(posicionInicialDelConstructor.position())
 	}
 	method verificarPuntoDeReinicioExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnPuntoDeReinicio()})
+	
+	method coordenadaX()=position.x()
+	method coordenadaY()=position.y()
+	
+}
+
+object numeroTotalDeCajas{
+	
+	var property position=game.origin()
+	
+	method numeroDeCajas(){
+		return nivelCreativoJugar.listaCajas().size()
+	}
+	method text()=self.numeroDeCajas().toString()
 
 }
-object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
-	
-	const jugador1 = new Jugador(position = game.at(10, 10 ) , resolucion="menorResolucion",nombreJugador = "jugadora1")
-	
-	const listaMeta =[ ]
-	const listaCajas=[  ]
-
-	method cargarNivel(){
-		
-		configuraciones.configMusic("niveL.mp3")
-		game.addVisual(self)
-		self.cargarObjetos(listaMeta)
-		self.cargarObjetos(listaCajas)
-		self.generarMuros()
-		game.addVisual(jugador1)
-		configuraciones.nivelActual(self)	
-		self.configNivel(jugador1)
-	
+object numeroDeCajasTipo1{
+	var property position=game.at(0,12)
+	var numero=0
+	method numeroDeCajas(){
+		return nivelCreativoJugar.listaCajas().size()
 	}
+	method text()=numero.toString()
 	
-	method generarMuros(){
-		
-		
+	method calcularNumeroDeCajas(){
+		return nivelCreativoJugar.listaCajas().filter({unaCaja=>unaCaja.tipo()==1}).size()
 	}
+	method asignar(){
+		numero=self.calcularNumeroDeCajas()	
+	}
+	method numero()=numero
 	
-	method image() = "menorResolucion/modoLibre.png"
-	method position()=game.at(0,0)
+}
+object numeroDeCajasTipo2{
+	var property position=game.at(1,12)
+	var numero=0
+	method numeroDeCajas(){
+		return nivelCreativoJugar.listaCajas().size()
+	}
+	method text()=numero.toString()
 	
-	override method listaCajas() = listaCajas
-
- 	method listaMeta()= listaMeta
-
+	method calcularNumeroDeCajas(){
+		return nivelCreativoJugar.listaCajas().filter({unaCaja=>unaCaja.tipo()==2}).size()
+	}
+	method asignar(){
+		numero=self.calcularNumeroDeCajas()	
+	}
+	method numero()=numero
+	
+}
+object numeroDeCajasEnMeta{
+	var numero=0
+	
+	var property position=game.at(2,12)
+	
+	method text()="hola"
+	
 }

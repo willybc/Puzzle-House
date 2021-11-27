@@ -1,4 +1,4 @@
-import wollok.game.*
+ import wollok.game.*
 import direcciones.*
 import configuraciones.*
 import niveles.*
@@ -21,7 +21,7 @@ program juego {
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
 	
-	nivelDream.cargarNivel()
+	//nivelDream.cargarNivel()
 	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
@@ -29,7 +29,7 @@ program juego {
 	//nivelBel.cargarNivel()
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()
-	//nivelCreativo.cargarNivel()
+	nivelCreativo.cargarNivel()
 
 	
 	

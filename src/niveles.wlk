@@ -52,7 +52,7 @@ class Nivel {
 	
 	method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
-		configuraciones.elJugador().posicioninicial()	
+		configuraciones.elJugador().posicioninicial()
 	}
 	
 	

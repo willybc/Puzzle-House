@@ -15,8 +15,7 @@ object sonidoObjeto {
 	}
 }
 class Posicion {
-	
-	
+
 	var property ultimaDireccion = abajo
 	var property position =game.center()
 	var property posicionInicial = position
@@ -119,6 +118,7 @@ class MuroVisible inherits Posicion {
 	method esPisable() = false
 
 	override method cambiarPosicion(direccion) {
+		
 		configuraciones.elJugador().retroceder(direccion)
 	}
 }
