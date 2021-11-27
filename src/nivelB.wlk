@@ -33,8 +33,6 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2){
 		const muroInvisible = "menorResolucion/invisible.png"
 		
 		self.bordearHorizontalmente(-2,0,3,muroInvisible)
-		
-		
 		self.bordearHorizontalmente(0,4,5,muroInvisible)
 		self.bordearHorizontalmente(8,14,5,muroInvisible)
 		self.bordearHorizontalmente(18,24,5,muroInvisible)
@@ -64,7 +62,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	const sonidoOveja2="oveja2a.mp3"
 	
 
-	const listaMeta =[   new Meta(position = game.at(7,1), image= meta1) ,
+	const listaMeta =[   new Meta(position = game.at(7,1), image= meta1)/* ,
 						 new Meta(position = game.at(10,1),image= meta2,tipo=2),
 						 new Meta(position = game.at(7,2), image= meta2,tipo=2),
 						 new Meta(position = game.at(7,3), image= meta1),
@@ -75,13 +73,11 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 						 new Meta(position = game.at(8,5), image= meta1),
 						
 						 new Meta(position = game.at(17,3), image= meta4,tipo=4),	
-						  new Meta(position = game.at(17,2), image= meta3,tipo=3)				
+						  new Meta(position = game.at(17,2), image= meta3,tipo=3)*/				
 		
 	]
 	const listaCajas=[   
-		
-		
-						 new Oveja(position = game.at(13,3),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=arriba),
+						 new Oveja(position = game.at(13,3),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=arriba)/*,
 						 new Oveja(position = game.at(12,9),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=abajo),
 						 new Oveja(position = game.at(10,5),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=izquierda),
 						 new Oveja(position = game.at(11,2),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=derecha),
@@ -94,7 +90,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 						 new Caballo(position = game.at(8,4),resolucion=resolucionCaja,stringDeObjeto=caballo1,tipo=4,sonido="caballo1.mp3",ultimaDireccion=abajo),
 					   
 						 new Caballo(position = game.at(11,9),resolucion=resolucionCaja,stringDeObjeto=caballo2,tipo=3,sonido="caballo2.mp3",ultimaDireccion=arriba),
-						 new Oveja(position = game.at(13,1),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=arriba)	    
+						 new Oveja(position = game.at(13,1),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=arriba)*/	    
 	]
 
 	method cargarNivel(){
@@ -111,6 +107,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 		nivel0.posicionInitial(game.at(17,4))
 		nivel0.image("nivel0/map2.png")
 		nivel0.sonido("fin.mp3")
+		
 	}
 	
 	method generarMuros(){

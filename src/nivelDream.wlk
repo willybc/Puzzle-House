@@ -53,9 +53,14 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 		const ghost1 = new Ghost(position = game.at(18, 11) ,resolucion="menorResolucion", nombreJugador = "ghost1", siguienteNivel=nivelG1)
 		game.addVisual(ghost1)
 		
-		//Ghost level 1
+		//Ghost level 2
 		const ghost2 = new Ghost(position = game.at(5, 10) ,resolucion="menorResolucion", nombreJugador = "ghost2", siguienteNivel=nivelG2, ms1='Querés un verdadero reto?', ms2='Estas seguro?', ms3='Bueno, bueno, tu lo decidiste.')
 		game.addVisual(ghost2)
+		
+		//Despertar
+		nivel0.posicionInitial(game.at(15,10))
+		game.addVisual(new Checkpoint(position = game.at(14,11), image = "menorResolucion/invisible.png", siguienteNivel = nivel0))
+		
 			
 		self.cargarObjetos(listaSombras)
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
@@ -119,9 +124,8 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 		self.bordearVerticalmente(4,11,8,muroInvisible)
 		self.bordearVerticalmente(4,7,10,muroInvisible)
 		self.bordearVerticalmente(8,11,15,muroInvisible)
-		
-		
 	}
+	
 	method position()=game.at(0,0)
 }
 
@@ -158,7 +162,7 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	}
 	
 	method generarMuros(){
-		const muro2 = "menorResolucion/muro3.png"
+		const muro2 = "menorResolucion/muro2.png"
 		
 		/* Bordes */
 		self.bordearHorizontalmente(4,17,1,muro2)
@@ -189,7 +193,7 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 		self.bordearHorizontalmente(18,19,-1,muro2)
 	}
 	
-	method image() = "menorResolucion/mapW.png"
+	method image() = "menorResolucion/mapG1.png"
 	method position()=game.at(0,0)
 	
 	override method listaCajas() = listaCajas
@@ -229,7 +233,7 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 	}
 	
 	method generarMuros(){
-		const muro2 = "menorResolucion/muro3.png"
+		const muro2 = "menorResolucion/muro2.png"
 		
 		/* Bordes */
 		self.bordearHorizontalmente(4,17,1,muro2)
@@ -260,6 +264,7 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 		self.bordearHorizontalmente(18,19,-1,muro2)
 	}
 	
+	//method image() = "menorResolucion/mapG2.png"
 	method image() = "menorResolucion/mapW.png"
 	method position()=game.at(0,0)
 	

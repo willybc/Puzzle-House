@@ -167,7 +167,7 @@ class CheckpointBonus {
 	var property nivelBase
 	var property bonus
 	
-	method position() = game.at(16, 4)
+	var property position = game.at(16, 4)
 
 	method hacerAlgo(direccion) {
 		if (!nivelBase.nivelBonusHabilitado()) {

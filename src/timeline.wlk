@@ -55,7 +55,6 @@ object sombraHab2Dream inherits Imagen(	esPisable = false, position = game.at(0,
 object pasadizo3Dream inherits Imagen ( esPisable = false, position = game.at(0,0), imagen = "nivel0/habitaciones/pasadizo3Dream.png"){}
 object sombraHab3Dream inherits Imagen(	esPisable = false, position = game.at(0,0), imagen = "nivel0/habitaciones/sombraHab3Dream.png"){}
 
-
 class CheckpointDeSombras{
 
 	var property position = game.at(6,2)

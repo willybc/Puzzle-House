@@ -10,6 +10,7 @@ import nivelW.*
 import nivelBel.*
 import nivelL.*
 import creativo.*
+import nivelDream.*
 
 class Nivel {
 	
@@ -17,6 +18,10 @@ class Nivel {
 	
 	const duplicador=1
 	method listaCajas()
+	
+	method remove(p1){
+		game.removeVisual(p1)
+	}
 	
 	method cargarObjetos(objeto) = objeto.forEach{ unObjeto => game.addVisual(unObjeto)}
 	
@@ -158,6 +163,12 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo){
 		game.addVisual(jugador1)
 		self.configNivel(jugador1)
 		
+		//Dream
+		const dream = new CheckpointBonus( nivelBase = self, bonus=nivelDream)
+		dream.position( game.at(16,11) )
+		game.addVisual(dream)
+		
+		
 		game.addVisual(new Checkpoint(position = game.at(7,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelW))
 		game.addVisual(new Checkpoint(position = game.at(10,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelBel))		
 		game.addVisual(new Checkpoint(position = game.at(23,4), image = "menorResolucion/invisible.png", siguienteNivel = nivelL))	
@@ -179,7 +190,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo){
 		listaDeNivelesCompletados.add(unNivel)
 	}
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
-	method nivelBonusHabilitado() =self.listaDeNivelesCompletados().asSet().size()==3
+	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()==3
 	
 	override method listaCajas() = listaCajas
 
@@ -214,14 +225,12 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo){
 		self.bordearVerticalmente(1,5,0,muroInvisible)
 		self.bordearHorizontalmente(1,5,5,muroInvisible)
 		self.bordearVerticalmente(1,2,23,muroInvisible)
-		self.bordearHorizontalmente(16,16,11,muroInvisible)
 		self.bordearVerticalmente(8,9,16,muroInvisible)
 		self.bordearVerticalmente(8,9,1,muroInvisible)
 		self.bordearHorizontalmente(1,1,11,muroInvisible)
+		
+		//self.bordearHorizontalmente(16,16,11,muroInvisible)	/* Cama */
 	}
-	
 	method position()=game.at(0,0)
-
-
 }
  
