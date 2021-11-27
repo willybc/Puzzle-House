@@ -13,6 +13,7 @@ class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a 
 	var property flag=true
 	override method image() =resolucion + "/" + stringDeObjeto
 
+
 	method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 
 	override method cambiarPosicion(direccion) {
@@ -62,10 +63,13 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 	override method modoCreativoBorrarVisual(){
 		
 	}
-	
-method coordenadaX()=position.x()
-method coordenadaY()=position.y()
 
+}
+
+class JugadorDelNivelCreado inherits Jugador{
+	method TeclasAdicionales(){
+		keyboard.enter().onPressDo{nivelCreativoJugar.cambiarNivel()}
+	}	
 }
 
 class JugadorConstructor inherits Jugador{
@@ -90,7 +94,7 @@ class JugadorConstructor inherits Jugador{
 
 	method posicionActual()=self.position()
 
-	method TeclasDelConstructor(){
+	method TeclasAdicionales(){
 
 	//Se podria usar Self.position, osea la posicion del jugador pero por razones que desconosco da un rendimiento MUY POBRE!! Los frames bajan mucho!
 		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1))}

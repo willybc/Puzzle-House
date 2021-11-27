@@ -16,12 +16,9 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const listaMuros=[]
 	
 	const conjuntoDeListas=[listaMeta,listaCajas,listaMuros]
-	
-	
+
 	method retornarJugador()=jugador1
-	
-	
-	
+
 	method borrarObjetos(objeto) = objeto.forEach{ unObjeto => game.removeVisual(unObjeto)}
 
 	method cargarNivel(){
@@ -32,12 +29,13 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		game.addVisual(posicionInicialDelConstructor)
 		game.addVisual(jugador1)
 		
+		
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
-		jugador1.TeclasDelConstructor()
+		jugador1.TeclasAdicionales()
 		self.ordenarVisuales()
 		nivel0.posicionInitial(game.at(21,3))	
-		game.say(jugador1,"TEMPORAL : presiona la I para probar el nivel creado!!")
+		game.say(jugador1,"presiona ENTER para probar el nivel creado!!")
 	}
 	override method listaCajas() = listaCajas
  	method listaMeta()= listaMeta
@@ -99,7 +97,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		listaDeObjetos.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 	}
 	
-	method image() = "menorResolucion/modoLibre.png"
+	method image() = "menorResolucion/modoCreativo.png"
 	method position()=game.at(0,0)
 	
 	method hacerAlgo(direccion){
@@ -121,7 +119,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 
 object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 	
-	const jugador1 = new Jugador(position = posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
+	const jugador1 = new JugadorDelNivelCreado(position =posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
 	const meta1 = "menorResolucion/meta1.png"
 	const meta2 = "menorResolucion/meta2.png"
 	const meta3=  "menorResolucion/meta3.png"
@@ -193,11 +191,24 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		self.cargarObjetos(listaMuros)
-		
+		jugador1.position(posicionInicialDelConstructor.position())
 		game.addVisual(jugador1)
+		game.say(jugador1,"Presiona ENTER para volver al modo creativo")
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
+		jugador1.TeclasAdicionales()
 	
+	}
+	
+	override method  cambiarNivel(){
+		configuraciones.configStopMusic()
+		self.reiniciarNivel()
+		game.schedule(10,{self.transicion()})
+	
+	}
+	method transicion(){
+		game.clear()
+		siguienteNivel.cargarNivel()
 	}
 
 	method image() = "menorResolucion/modoLibre.png"
@@ -206,4 +217,6 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
+ 	
+ 	
 }
