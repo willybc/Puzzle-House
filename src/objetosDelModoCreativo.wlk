@@ -63,21 +63,10 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 		
 	}
 	
-	
 method coordenadaX()=position.x()
 method coordenadaY()=position.y()
 
 }
-
-/* 
-class PosicionInicialDelConstructor inherits Posicion{
-	
-	method image()="menorResolucion/checkpoint.png"
-	override method hacerAlgo(direccion) {	
-	}
-	
-}
-*/
 
 class JugadorConstructor inherits Jugador{
 	
@@ -108,25 +97,15 @@ class JugadorConstructor inherits Jugador{
 		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2))}
 		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta1,modoCreativo_soyMeta=true))}
 		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta2,tipo=2,modoCreativo_soyMeta=true))}
-	    keyboard.num5().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
-	    keyboard.num6().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
+	    keyboard.space().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
+	    keyboard.alt().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
 	    
 	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		keyboard.control().onPressDo{self.generarPuntoDeReinicio()}
-		keyboard.i().onPressDo{nivelCreativo.jugarNivelCreado()}
-		keyboard.e().onPressDo{nivelCreativo.salirDelNivel()}
+		keyboard.enter().onPressDo{nivelCreativo.jugarNivelCreado()}
+		keyboard.backspace().onPressDo{nivelCreativo.salirDelNivel()}
 	}
-	
-	override method cambiarPosicion(direccion) {
-		ultimaDireccion = direccion
-		self.position(direccion.moverse(self))
-		direccion.cambiarCoordenada()
-		sonidoObjeto.emitirSonido("pasosf.mp3")	
-		
-	}
-	
-	
-	
+
 	method validadLibreMovimiento(){
 		if(!configuraciones.libreMoviento()){
 			self.error("Presiona la Z primero")
@@ -158,12 +137,7 @@ class JugadorConstructor inherits Jugador{
 	}
 	method eliminarObjeto(){
 		self.validadLibreMovimiento()
-		/* 
-		if(!self.verificarQueExisteUnObjeto()){
-			
-			self.error("No hay nada que eliminar aqui")
-		}
-		*/
+	
 		nivelCreativo.borrarObjetosDeLaLista(self.objetosConElQueElConstructorEstaColisionando())
 
 	}
@@ -200,10 +174,9 @@ class JugadorConstructor inherits Jugador{
 		if(self.verificarPuntoDeReinicioExistente()){
 			self.error("no puedes agregar este objeto aqui si existe un punto de reinicio del personaje")
 		}
-		
+	
 	}
-	
-	
+
 	method validacionMetaYmuro()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnMuro()})
 	
 	method verificarQueTodosLosObjetosSeanPisables()=self.objetosConElQueElConstructorEstaColisionando().all({unObjeto=>unObjeto.esPisable()})
@@ -217,59 +190,5 @@ class JugadorConstructor inherits Jugador{
 	method verificarPuntoDeReinicioExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnPuntoDeReinicio()})
 	
 	method coordenadaX()=position.x()
-	method coordenadaY()=position.y()
-	
-}
-
-object numeroTotalDeCajas{
-	
-	var property position=game.origin()
-	
-	method numeroDeCajas(){
-		return nivelCreativoJugar.listaCajas().size()
-	}
-	method text()=self.numeroDeCajas().toString()
-
-}
-object numeroDeCajasTipo1{
-	var property position=game.at(0,12)
-	var numero=0
-	method numeroDeCajas(){
-		return nivelCreativoJugar.listaCajas().size()
-	}
-	method text()=numero.toString()
-	
-	method calcularNumeroDeCajas(){
-		return nivelCreativoJugar.listaCajas().filter({unaCaja=>unaCaja.tipo()==1}).size()
-	}
-	method asignar(){
-		numero=self.calcularNumeroDeCajas()	
-	}
-	method numero()=numero
-	
-}
-object numeroDeCajasTipo2{
-	var property position=game.at(1,12)
-	var numero=0
-	method numeroDeCajas(){
-		return nivelCreativoJugar.listaCajas().size()
-	}
-	method text()=numero.toString()
-	
-	method calcularNumeroDeCajas(){
-		return nivelCreativoJugar.listaCajas().filter({unaCaja=>unaCaja.tipo()==2}).size()
-	}
-	method asignar(){
-		numero=self.calcularNumeroDeCajas()	
-	}
-	method numero()=numero
-	
-}
-object numeroDeCajasEnMeta{
-	var numero=0
-	
-	var property position=game.at(2,12)
-	
-	method text()="hola"
-	
+	method coordenadaY()=position.y()	
 }

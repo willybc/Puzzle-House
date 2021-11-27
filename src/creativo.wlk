@@ -16,22 +16,8 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const listaMuros=[]
 	
 	const conjuntoDeListas=[listaMeta,listaCajas,listaMuros]
-	/* 
-	const listaCajas1=[]
-	const listaCajas2=[]
-	const listaCajas3=[]
 	
-	const listaMetas1=[]
-	const listaMetas2=[]
-	const listaMetas3=[]
-	*/
 	
-	override method reiniciarNivel(){
-		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
-		configuraciones.elJugador().posicioninicial()
-		laPosicion.reiniciarPosiciones()
-		
-	}
 	method retornarJugador()=jugador1
 	
 	
@@ -45,7 +31,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		
 		game.addVisual(posicionInicialDelConstructor)
 		game.addVisual(jugador1)
-		game.addVisual(laPosicion)
+		
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
 		jugador1.TeclasDelConstructor()
@@ -85,7 +71,6 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		self.borrarObjetosDelTableroTemporalmente()
 		game.removeVisual(jugador1)
 		self.habilitarLaAdicionDeLosObjetosAlTablero()
-		//self.ordenarCajasPorTipo()
 		self.agregarObjetosAlTablero()
 		game.addVisual(jugador1)
 	}
@@ -136,7 +121,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 
 object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 	
-	const jugador1 = new Jugador(position = posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugadora1")
+	const jugador1 = new Jugador(position = posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
 	const meta1 = "menorResolucion/meta1.png"
 	const meta2 = "menorResolucion/meta2.png"
 	const meta3=  "menorResolucion/meta3.png"
