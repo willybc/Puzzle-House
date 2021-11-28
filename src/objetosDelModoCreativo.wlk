@@ -29,14 +29,14 @@ class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a 
 	}
 
 	method activarVerificador() {
-		if (!configuraciones.nivelActual().soyUnNivelCreativo() and self.llegoMeta()) {
+		if (self.llegoMeta()) {
 			if (flag) {
-				nivelCreativoJugar.cajasEnMeta(self)
+				configuraciones.nivelActual().cajasEnMeta(self)
 				flag = false
 			}
-			nivelCreativoJugar.verificarMetas()
+			configuraciones.nivelActual().verificarMetas()
 		} else {
-			nivelCreativoJugar.cajasEnMetaRemover(self)
+			configuraciones.nivelActual().cajasEnMetaRemover(self)
 			flag = true
 		}
 	}
@@ -70,6 +70,8 @@ class JugadorDelNivelCreado inherits Jugador{
 	method TeclasAdicionales(){
 		keyboard.enter().onPressDo{nivelCreativoJugar.cambiarNivel()}
 	}	
+	
+	override method text() =""
 }
 
 class JugadorConstructor inherits Jugador{

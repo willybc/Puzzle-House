@@ -17,37 +17,37 @@ object sonidoObjeto {
 class Posicion {
 
 	var property ultimaDireccion = abajo
-	var property position =game.center()
+	var property position = game.center()
 	var property posicionInicial = position
-	
-	
-	const property modoCreativo_soyMeta=false
-	const property modoCreativo_soyUnMuro=false
-	const property modoCreativo_soyUnPuntoDeReinicio=false
-	var property quieroAgregarAlTablero=true
-	
-	
+	const property modoCreativo_soyMeta = false
+	const property modoCreativo_soyUnMuro = false
+	const property modoCreativo_soyUnPuntoDeReinicio = false
+	var property quieroAgregarAlTablero = true
+
 	method posicioninicial() {
 		sonidoObjeto.emitirSonido("reinicio.mp3")
 		self.position(posicionInicial)
 	}
+
 	method hacerAlgo(direccion) {
-		if (!configuraciones.libreMoviento()){
-		self.cambiarPosicion(direccion)
-		}	
+		if (!configuraciones.libreMoviento() or configuraciones.nivelActual().soyUnNivelCreativo()) {
+			self.cambiarPosicion(direccion)
+		}
 	}
+
 	method cambiarPosicion(direccion)
-	
-	method modoCreativoAgregarVisual(){
-		if(quieroAgregarAlTablero){
+
+	method modoCreativoAgregarVisual() {
+		if (quieroAgregarAlTablero) {
 			game.addVisual(self)
-			quieroAgregarAlTablero=false
-		}	
+			quieroAgregarAlTablero = false
+		}
 	}
-	method modoCreativoBorrarVisual(){
-			game.removeVisual(self)			
+
+	method modoCreativoBorrarVisual() {
+		game.removeVisual(self)
 	}
-	
+
 }
 
 class Caja inherits Posicion {

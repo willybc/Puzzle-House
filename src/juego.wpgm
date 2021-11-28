@@ -36,4 +36,4 @@ program juego {
 	
 	game.start()
 	
-}
+} 

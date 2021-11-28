@@ -7,6 +7,13 @@ import jugador.*
 import niveles.*
 import objetosDelModoCreativo.*
 
+
+class Creativo inherits Nivel{
+	
+	
+	
+}
+
 object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	
 	const jugador1 = new JugadorConstructor (position = game.center() , resolucion="menorResolucion",nombreJugador = "jugador1" ,tipo=66)
@@ -14,9 +21,17 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const listaMeta =[]
 	const listaCajas=[]
 	const listaMuros=[]
-	
+	var cajasEnMeta=[]
+
 	const conjuntoDeListas=[listaMeta,listaCajas,listaMuros]
 
+
+	override method reiniciarNivel(){
+		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
+		configuraciones.elJugador().posicioninicial()
+		cajasEnMeta.forEach({unaCaja=>unaCaja.flag(true)})
+		cajasEnMeta.clear()
+	}
 	method retornarJugador()=jugador1
 
 	method borrarObjetos(objeto) = objeto.forEach{ unObjeto => game.removeVisual(unObjeto)}
@@ -37,18 +52,15 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		nivel0.posicionInitial(game.at(21,3))	
 		game.say(jugador1,"presiona ENTER para probar el nivel creado!!")
 	}
-	override method listaCajas() = listaCajas
- 	method listaMeta()= listaMeta
+ 	
 	override method verificarMetas() {
-		const verificador = self.listaCajas().all({ unaCaja => unaCaja.llegoMeta() })
 		
+		const verificador = self.listaCajas().size()==cajasEnMeta.size()
 		
 		if (verificador) {
-			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
-			game.say(configuraciones.elJugador(), "ganaste!")
-			game.schedule(1200,{self.reiniciarNivel()})
-		}
-		
+			sonidoObjeto.emitirSonido("ok.mp3") // es temporal
+			game.say(configuraciones.elJugador(), "BIEN!!! Este puzzle se puede RESOLVER! ")
+		}		
 	}
 	method agregarNuevaCajaAlaLista(unaCaja){
 		listaCajas.add(unaCaja)
@@ -68,10 +80,14 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		self.agregarObjetosAlTablero()
 		self.borrarObjetosDelTableroTemporalmente()
 		game.removeVisual(jugador1)
+		game.removeVisual(posicionInicialDelConstructor)
+		
 		self.habilitarLaAdicionDeLosObjetosAlTablero()
 		self.agregarObjetosAlTablero()
+		game.addVisual(posicionInicialDelConstructor)
 		game.addVisual(jugador1)
-	}
+
+			}
 	method agregarObjetosAlTablero(){
 		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoAgregarVisual()})
 	}
@@ -88,8 +104,8 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		listaMeta.clear()
 		listaMuros.clear()
 		listaCajas.clear()
-		game.clear()
-		
+		cajasEnMeta.clear()
+		game.clear()	
 		siguienteNivel.cargarNivel()	
 	}
 	method borrarObjetosDeLaLista(listaDeObjetos){
@@ -103,17 +119,36 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	method hacerAlgo(direccion){
 	}
 	method jugarNivelCreado(){
+		var numeroDeCajasEnTotal=0
 		self.reiniciarNivel()
-		//self.borrarObjetosDelTableroTemporalmente()
+		numeroDeCajasEnTotal=self.numeroDeCajas()
+		nivelCreativoJugar.numeroDeCajasTotales(numeroDeCajasEnTotal)
 		self.habilitarLaAdicionDeLosObjetosAlTablero()
+		cajasEnMeta.clear()
 		game.clear()
 		nivelCreativoJugar.preCargar()
+	
+	}
+	method numeroDeCajas()=listaCajas.size()
 		
-		
+	
+
+	method listaMuros()=listaMuros
+	
+	method cajasEnMeta()=unaCaja
+	
+	
+	method cajasEnMeta(unaCaja){
+		cajasEnMeta.add(unaCaja)
+	}
+	method cajasEnMetaRemover(unaCaja){
+		cajasEnMeta.remove(unaCaja)
 	}
 	
-	override method soyUnNivelCreativo()=true
-	method listaMuros()=listaMuros
+	
+	override method listaCajas() = listaCajas
+
+ 	method listaMeta()= listaMeta
 }
 
 
@@ -139,29 +174,27 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 	var listaMeta =[]
 	var listaCajas=[]
 	var listaMuros=[]
-	var numeroDeCajasEnMeta=0
-	
+	var property numeroDeCajasTotales=0
 	var cajasEnMeta=[]
-	
+	var	numeroDeCajasEnMetas=0
+	var numeroDeCajas=0
 	override method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
 		configuraciones.elJugador().posicioninicial()
 		cajasEnMeta.forEach({unaCaja=>unaCaja.flag(true)})
 		cajasEnMeta.clear()
 	}
-	
-	
-	
+
 	override method verificarMetas() {
 		
-		const verificador = self.listaCajas().size()==cajasEnMeta.size()
+		const verificador = self.numeroDeCajasTotales()==cajasEnMeta.size()
 		
 		
 		if (verificador) {
-			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
+			sonidoObjeto.emitirSonido("nivelPruebaOk.mp3") // es temporal
 			game.say(configuraciones.elJugador(), "ganaste!")
 			configuraciones.configStopMusic()
-			game.schedule(1200,{self.cambiarNivel()})
+			game.schedule(1500,{self.cambiarNivel()})
 		}
 		
 	}
@@ -185,16 +218,16 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 	}
 
 	method cargarNivel(){
-		
+		configuraciones.nivelActual(self)	
 		configuraciones.configMusic("niveL.mp3")
 		game.addVisual(self)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		self.cargarObjetos(listaMuros)
 		jugador1.position(posicionInicialDelConstructor.position())
+		jugador1.posicionInicial(posicionInicialDelConstructor.position())
 		game.addVisual(jugador1)
 		game.say(jugador1,"Presiona ENTER para volver al modo creativo")
-		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
 		jugador1.TeclasAdicionales()
 	
@@ -218,5 +251,5 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 
  	method listaMeta()= listaMeta
  	
- 	
+ 	override method soyUnNivelCreativo()=true
 }
