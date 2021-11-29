@@ -55,14 +55,12 @@ object sombraHab2Dream inherits Imagen(	esPisable = false, position = game.at(0,
 object pasadizo3Dream inherits Imagen ( esPisable = false, position = game.at(0,0), imagen = "nivel0/habitaciones/pasadizo3Dream.png"){}
 object sombraHab3Dream inherits Imagen(	esPisable = false, position = game.at(0,0), imagen = "nivel0/habitaciones/sombraHab3Dream.png"){}
 
-class CheckpointDeSombras{
+class CheckpointDeSombras inherits Posicion{
 
-	var property position = game.at(6,2)
-	
 	var property esPisable = true
 	var property seAtraveso=false
 	const sombraDeReferencia=sombra1
-	method hacerAlgo(direccion){
+	override method hacerAlgo(direccion){
 		if(!seAtraveso){
 			game.removeVisual(sombraDeReferencia)
 			seAtraveso=true
@@ -70,6 +68,9 @@ class CheckpointDeSombras{
 	}
 	method agregarSombra(){
 		game.addVisual(sombraDeReferencia)
+	}
+	override method  cambiarPosicion(direccion){
+		
 	}
 
 }

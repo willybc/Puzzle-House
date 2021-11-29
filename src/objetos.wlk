@@ -110,7 +110,7 @@ class Caballo inherits Oveja {
 	}
 
 }
-class MuroVisible inherits Posicion {
+class MuroVisible inherits Posicion(modoCreativo_soyUnMuro=true) {
 
 	const property tipo = 0
 	var property image = "menorResolucion/muro.png"
@@ -119,12 +119,13 @@ class MuroVisible inherits Posicion {
 
 	override method cambiarPosicion(direccion) {
 		
-		configuraciones.elJugador().retroceder(direccion)
+	configuraciones.elJugador().retroceder(direccion)  //29-11-2021 Con el el metodo antiBug del jugador uno pensaria que este metodo quedo inservible pero no es asi, EN el modo creativo esto se sigue usando ya que en el jugador
+	//constructor no existe el metodo antibug por lo que el jugador puede empujar una caja incluso si esta arriba de un muro (para lograr eso hay que apretar la Z obviamente)
 	}
 }
 class Pisable inherits Posicion { 
 
-	var property image
+	var property image = "menorResolucion/invisible.png"
 
 	method esPisable() = true
 
@@ -154,6 +155,9 @@ class CheckpointSalir inherits Checkpoint {
 		game.clear()
 		game.stop()
 	}
+	override method  cambiarPosicion(direccion){
+		
+	}
 }
 
 object paleta {
@@ -163,19 +167,20 @@ object paleta {
 
 }
 
-class CheckpointBonus {
+class CheckpointBonus inherits Posicion (position = game.at(16, 4)) {
 	var property nivelBase
 	var property bonus
-	
-	var property position = game.at(16, 4)
 
-	method hacerAlgo(direccion) {
+	override method hacerAlgo(direccion) {
 		if (!nivelBase.nivelBonusHabilitado()) {
 			self.error("No puedes pasar si no terminas todos los puzzles!!")
 		}
 		configuraciones.configStopMusic()
 		game.clear()
 		bonus.cargarNivel()
+	}
+	override method  cambiarPosicion(direccion){
+		
 	}
 
 }
@@ -191,3 +196,4 @@ class CambiarRopa {
 	}
 
 }
+

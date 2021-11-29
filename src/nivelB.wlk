@@ -104,7 +104,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
-		nivel0.posicionInitial(game.at(17,4))
+		nivel0.posicionInitial(game.at(17,3))
 		nivel0.image("nivel0/map2.png")
 		nivel0.sonido("fin.mp3")
 		

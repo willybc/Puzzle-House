@@ -45,7 +45,7 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
-		nivel0.posicionInitial(game.at(12,11))
+		nivel0.posicionInitial(game.at(12,10))
 		nivel0.agregarNivelCompletado(self)
 		
 	}
@@ -87,3 +87,4 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 
  	method listaMeta()= listaMeta
 }
+

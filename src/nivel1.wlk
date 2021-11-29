@@ -32,6 +32,7 @@ object nivel1 inherits Nivel (siguienteNivel = nivel0 ,duplicador=2){
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
+		nivel0.posicionInitial(game.at(3,1))
 	}
 
 	override method listaCajas() = listaCajas

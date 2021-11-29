@@ -11,10 +11,16 @@ import creativo.*
 
 class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
 	var property flag=true
-	override method image() =resolucion + "/" + stringDeObjeto
+	var property imagen = resolucion + "/" + stringDeObjeto
+	
+	override method image() =imagen
 
 
 	method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+	
+	method reiniciarImagen(){
+		imagen=resolucion + "/" + stringDeObjeto
+	}
 
 	override method cambiarPosicion(direccion) {
 		const siguienteUbicacion = direccion.moverse(self)
@@ -32,16 +38,27 @@ class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a 
 		if (self.llegoMeta()) {
 			if (flag) {
 				configuraciones.nivelActual().cajasEnMeta(self)
+				imagen= resolucion + "/" + cajaEnMeta
 				flag = false
 			}
 			configuraciones.nivelActual().verificarMetas()
 		} else {
 			configuraciones.nivelActual().cajasEnMetaRemover(self)
+			imagen=resolucion + "/" + stringDeObjeto
 			flag = true
 		}
 	}
 
 }
+object ui inherits Pisable(position=game.at(10,0),image="menorResolucion/doblehud39.png") {
+	override method modoCreativoBorrarVisual(){}
+}
+object contadorDeCajas inherits Pisable(position=game.at(0,12)){
+	method text ()= nivelCreativo.listaCajas().size().toString() +"/" + nivelCreativo.numeroDeCajasEnLaMeta().toString()
+	method textColor() = paleta.verde()
+	override method modoCreativoBorrarVisual(){}
+}
+
 
 object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
 	var property tipo =0
@@ -56,14 +73,12 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 		guardarPosicion=self.position()
 		self.position(game.center())
 		self.position(guardarPosicion)
-		
 	}
 	method esPisable()=true
 	
 	override method modoCreativoBorrarVisual(){
 		
 	}
-
 }
 
 class JugadorDelNivelCreado inherits Jugador{
@@ -93,12 +108,20 @@ class JugadorConstructor inherits Jugador{
 	const cajaMeta3 = "caja3_ok.png"
 	const cajaMeta4 = "caja4_ok.png"
     const cajaMeta5 = "caja5_ok.png"
+    
+    override method cambiarPosicion(direccion) {
+	 	ultimaDireccion=direccion
+		self.position(direccion.moverse(self))
+		sonidoObjeto.emitirSonido("pasosf.mp3")
+	}
 
 	method posicionActual()=self.position()
 
 	method TeclasAdicionales(){
 
 	//Se podria usar Self.position, osea la posicion del jugador pero por razones que desconosco da un rendimiento MUY POBRE!! Los frames bajan mucho!
+		
+		keyboard.f().onPressDo{nivelCreativo.formatearNivel()}
 		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1))}
 		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2))}
 		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta1,modoCreativo_soyMeta=true))}
@@ -142,11 +165,14 @@ class JugadorConstructor inherits Jugador{
 		posicionInicialDelConstructor.cambiarPosicion(self.position())
 	}
 	method eliminarObjeto(){
-		self.validadLibreMovimiento()
-	
+		nivelCreativo.cajasEnMetaBorrar(self.objetosConElQueElConstructorEstaColisionando()) //agregado el 29/11/2021 luego de que se descubrio un bug que aparece cuando borramos  una caja y una meta a la vez
 		nivelCreativo.borrarObjetosDeLaLista(self.objetosConElQueElConstructorEstaColisionando())
-
+		
+	
 	}
+	
+
+	
 	method objetosConElQueElConstructorEstaColisionando(){
 		return game.colliders(self)
 	}

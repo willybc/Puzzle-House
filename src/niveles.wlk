@@ -71,7 +71,7 @@ class Nivel {
 }
 
 object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
-	
+
 	const jugador1 = new Jugador(position = game.at(11, 5) ,resolucion="mayorResolucion",nombreJugador = "jugador1")
 	
 	method cargarNivel(){
@@ -81,16 +81,14 @@ object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
 		game.addVisual(new Checkpoint(position = game.at(9,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
 		game.addVisual(new Checkpoint(position = game.at(11,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
 		game.addVisual(new Checkpoint(position = game.at(13,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
+		game.addVisual(new Checkpoint(position = game.at(3,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivelCreativo))
+		game.addVisual(new Checkpoint(position = game.at(5,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivelCreativo))
+		
 		
 		game.addVisual(new CheckpointSalir(position = game.at(17,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
 		game.addVisual(new CheckpointSalir(position = game.at(19,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivel0))
 		
-		/*
-		game.addVisual(new CheckpointSalir(position = game.at(3,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivelCreativo))
-		game.addVisual(new CheckpointSalir(position = game.at(5,5), image = "mayorResolucion/invisible.png", siguienteNivel = nivelCreativo))
-		Al ingresar al mapa creativo desde menu se cierra
-		*/
-		
+		jugador1.position(game.at(11, 5))
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
