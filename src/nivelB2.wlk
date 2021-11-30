@@ -13,7 +13,7 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2)
 
 	method cargarNivel(){
 		const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = "chara3")
-		configuraciones.configMusic("pasadizo.mp3")
+		//configuraciones.configMusic("pasadizo.mp3")
 		game.addVisual(self)
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
@@ -51,57 +51,34 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2)
 object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	
 	//const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())
-	const jugador1 = new Jugador(position = game.at(0, 3) ,resolucion="menorResolucion",nombreJugador = "chara3")
+	const jugador1 = new Jugador(position = game.at(0, 4) ,resolucion="menorResolucion",nombreJugador = "chara3")
 	
-	const meta1 = "menorResolucion/meta_bonus11.png"
-	const meta2 = "menorResolucion/meta_bonus22.png"
-	const meta3 = "menorResolucion/meta_bonus33.png"
-	const meta4 = "menorResolucion/meta_bonus44.png"
+	const meta1 = "menorResolucion/vagoneta1.png"
+	const meta2 = "menorResolucion/vagoneta2.png"
+	
+	const caja1 = "diamante.png"
+	const caja2 = "rubi.png"
+	
+	const cajaMeta1 = "vagoneta_ok1.png"
+	const cajaMeta2 = "vagoneta_ok2.png"
+	
 	const resolucionCaja = "menorResolucion"
-	const caja1 = "oveja"
-	const caja2 = "oveja2"
-	const caballo2="caballo2"
-	const caballo1="caballo"
-	const sonidoOveja="oveja1a.mp3"
-	const sonidoOveja2="oveja2a.mp3"
+
+	//const sonidoOveja="oveja1a.mp3"
+	//const sonidoOveja2="oveja2a.mp3"
 	
 
-	const listaMeta =[   new Meta(position = game.at(11,3), image= meta1)/*  ,
-						 new Meta(position = game.at(10,1),image= meta2,tipo=2),
-						 new Meta(position = game.at(7,2), image= meta2,tipo=2),
-						 new Meta(position = game.at(7,3), image= meta1),
-						 new Meta(position = game.at(7,4), image= meta1),
-						 new Meta(position = game.at(7,5), image= meta2,tipo=2),
-						 new Meta(position = game.at(8,3), image= meta1),
-						 new Meta(position = game.at(8,4), image= meta1),
-						 new Meta(position = game.at(8,5), image= meta1),
-						
-						 new Meta(position = game.at(17,3), image= meta4,tipo=4),	
-						  new Meta(position = game.at(17,2), image= meta3,tipo=3)	*/			
-		
-	]
-	const listaCajas=[   
-		
-		
-						 new Oveja(position = game.at(13,3),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=arriba)/* ,
-						 new Oveja(position = game.at(12,9),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=abajo),
-						 new Oveja(position = game.at(10,5),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=izquierda),
-						 new Oveja(position = game.at(11,2),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=derecha),
-						 new Oveja(position = game.at(13,6),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=derecha),
-						 new Oveja(position = game.at(11,7),resolucion=resolucionCaja,stringDeObjeto=caja1,tipo=1,sonido=sonidoOveja,ultimaDireccion=izquierda),
+	const listaMeta =[   new Meta(position = game.at(19,8), image= meta1),
+						 new Meta(position = game.at(19,2), image= meta2,tipo=2)		
+					]
 					
-						 new Oveja(position = game.at(13,9),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=abajo),
-						 new Oveja(position = game.at(9,9),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=derecha),
-						
-						 new Caballo(position = game.at(8,4),resolucion=resolucionCaja,stringDeObjeto=caballo1,tipo=4,sonido="caballo1.mp3",ultimaDireccion=abajo),
-					   
-						 new Caballo(position = game.at(11,9),resolucion=resolucionCaja,stringDeObjeto=caballo2,tipo=3,sonido="caballo2.mp3",ultimaDireccion=arriba),
-						 new Oveja(position = game.at(13,1),resolucion=resolucionCaja,stringDeObjeto=caja2,tipo=2,sonido=sonidoOveja2,ultimaDireccion=arriba)*/	    
-	]
+	const listaCajas=[	new Caja(position = game.at(14,8),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						new Caja(position = game.at(14,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+					]
 
 	method cargarNivel(){
 		
-		configuraciones.configMusic("nivelBonusb.mp3")
+		//configuraciones.configMusic("nivelBonusb.mp3")
 		game.addVisual(self)
 		self.cargarObjetos(listaMeta)
 		//self.cargarObjetos(listaCajas)
@@ -123,14 +100,16 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 		
 
 		
-		/* Vallas Horizontales */
+		/* Vallas Horizontales 
 		self.bordearHorizontalmente(7,20,1,vallaH)
 		self.bordearHorizontalmente(7,20,11,vallaH)
+		*/
 		
-		/* Vallas Verticales */
+		/* Vallas Verticales 
 		self.bordearVerticalmente(2,10,21,vallaV)
 		self.bordearVerticalmente(4,10,6,vallaV)
 		self.bordearVerticalmente(2,2,6,vallaV)
+		*/
 
 		
 		/* Muros invisibles 
