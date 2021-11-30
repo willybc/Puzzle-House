@@ -9,17 +9,17 @@ import nivelDream.*
 
 object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2){
 	
-	var property vestimenta = "chara2"
+	var property vestimenta = "chara3"
 
 	method cargarNivel(){
-		const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = "chara2")
+		const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = "chara3")
 		configuraciones.configMusic("pasadizo.mp3")
 		game.addVisual(self)
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
-		game.addVisual(new CambiarRopa(position=game.at(6,5),vestimenta="jugadorGranja2") )
-		game.addVisual(new CambiarRopa(position=game.at(16,5),vestimenta="jugadorGranja") )
+		game.addVisual(new CambiarRopa(position=game.at(6,5),vestimenta="chara2") )
+		game.addVisual(new CambiarRopa(position=game.at(16,5),vestimenta="chara3") )
 		game.addVisual(new Checkpoint(position = game.at(24,3), image = "mayorResolucion/invisible.png", siguienteNivel = nivel_bonus))
 		
 		self.generarMuros()	
@@ -50,7 +50,9 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2)
 
 object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	
-	const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())
+	//const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())
+	const jugador1 = new Jugador(position = game.at(0, 3) ,resolucion="menorResolucion",nombreJugador = "chara3")
+	
 	const meta1 = "menorResolucion/meta_bonus11.png"
 	const meta2 = "menorResolucion/meta_bonus22.png"
 	const meta3 = "menorResolucion/meta_bonus33.png"
@@ -64,7 +66,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	const sonidoOveja2="oveja2a.mp3"
 	
 
-	const listaMeta =[   new Meta(position = game.at(7,1), image= meta1)/*  ,
+	const listaMeta =[   new Meta(position = game.at(11,3), image= meta1)/*  ,
 						 new Meta(position = game.at(10,1),image= meta2,tipo=2),
 						 new Meta(position = game.at(7,2), image= meta2,tipo=2),
 						 new Meta(position = game.at(7,3), image= meta1),
@@ -114,45 +116,34 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	}
 	
 	method generarMuros(){
-		const vallaH = "menorResolucion/vallaH1.png"
-		const vallaV = "menorResolucion/vallaV1.png"
+		const vallaH = "menorResolucion/paredH1.png"
+		const vallaV = "menorResolucion/paredV1.png"
 		const arbusto = "menorResolucion/arbusto2.png"
 		const muroInvisible = "menorResolucion/invisible.png"
 		
-		/* Arbustos */
-		self.bordearHorizontalmente(8,9,1,arbusto)
-		self.bordearHorizontalmente(8,9,2,arbusto)
-		self.bordearHorizontalmente(12,13,4,arbusto)
-		self.bordearHorizontalmente(12,13,5,arbusto)
+
 		
 		/* Vallas Horizontales */
-		self.bordearHorizontalmente(7,15,0,vallaH)
-		self.bordearHorizontalmente(10,10,2,vallaH)
-		self.bordearHorizontalmente(12,14,2,vallaH)
-		self.bordearHorizontalmente(7,13,11,vallaH)
-		self.bordearHorizontalmente(17,17,1,vallaH)
-		self.bordearHorizontalmente(16,17,5,vallaH)
-		self.bordearHorizontalmente(7,8,6,vallaH)
-		self.bordearHorizontalmente(7,8,8,vallaH)
+		self.bordearHorizontalmente(7,20,1,vallaH)
+		self.bordearHorizontalmente(7,20,11,vallaH)
 		
 		/* Vallas Verticales */
-		self.bordearVerticalmente(1,5,6,vallaV)
-		self.bordearVerticalmente(6,6,15,vallaV)
-		self.bordearVerticalmente(8,10,14,vallaV)
-		self.bordearVerticalmente(2,4,18,vallaV)
-		self.bordearVerticalmente(7,7,9,vallaV)
-		self.bordearVerticalmente(9,10,6,vallaV)
+		self.bordearVerticalmente(2,10,21,vallaV)
+		self.bordearVerticalmente(4,10,6,vallaV)
+		self.bordearVerticalmente(2,2,6,vallaV)
+
 		
-		/* Muros invisibles */
+		/* Muros invisibles 
 		self.bordearVerticalmente(1,2,16,muroInvisible)
 		self.bordearVerticalmente(7,7,14,muroInvisible)
 		self.bordearVerticalmente(5,5,15,muroInvisible)
 		self.bordearVerticalmente(6,6,9,muroInvisible)
 		self.bordearVerticalmente(8,8,9,muroInvisible)
+		*/
 		
 	}
 	
-	method image() = "nivelBonus/map_bonus2.png"
+	method image() = "nivelBonus/map_dream.png"
 	method position()=game.at(0,0)
 	
 	override method listaCajas() = listaCajas
