@@ -5,6 +5,7 @@ import niveles.*
 import jugador.*
 import sonido.*
 import nivelB.*
+import objetosDelModoCreativo.*
 
 object sonidoObjeto {
 
@@ -47,6 +48,8 @@ class Posicion {
 	method modoCreativoBorrarVisual() {
 		game.removeVisual(self)
 	}
+	
+	
 
 }
 
@@ -179,9 +182,7 @@ class CheckpointBonus inherits Posicion (position = game.at(16, 4)) {
 		game.clear()
 		bonus.cargarNivel()
 	}
-	override method  cambiarPosicion(direccion){
-		
-	}
+	override method  cambiarPosicion(direccion){}
 
 }
 class CambiarRopa {
@@ -196,4 +197,5 @@ class CambiarRopa {
 	}
 
 }
+
 

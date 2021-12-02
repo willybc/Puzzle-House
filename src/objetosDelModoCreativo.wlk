@@ -9,14 +9,13 @@ import objetos.*
 import creativo.*
 
 
-class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a su meta. Ganamos mucho rendimiento si el pre calculo de la imagen es lo menos complicado posible. Estas cajas solo son usadas en el nivel creativo 
+class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){  
+
 	var property flag=true
 	var property imagen = resolucion + "/" + stringDeObjeto
 	
 	override method image() =imagen
-
-
-	method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+	//method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 	
 	method reiniciarImagen(){
 		imagen=resolucion + "/" + stringDeObjeto
@@ -38,23 +37,42 @@ class CajaEstatica inherits  Caja{ //sta caja no cambia de color cuando llega a 
 		if (self.llegoMeta()) {
 			if (flag) {
 				configuraciones.nivelActual().cajasEnMeta(self)
-				imagen= resolucion + "/" + cajaEnMeta
+				imagen= resolucion + "/" + cajaEnMeta // Tranquilamente podriamos hacer esto en el method image = method image()=if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto} pero el rendimiento del juego empeora!! El precalculo causa perdida de cuadros por segundos
 				flag = false
 			}
 			configuraciones.nivelActual().verificarMetas()
 		} else {
 			configuraciones.nivelActual().cajasEnMetaRemover(self)
-			imagen=resolucion + "/" + stringDeObjeto
+			imagen=resolucion + "/" + stringDeObjeto // Tranquilamente podriamos hacer esto en el method image = method image()=if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto} pero el rendimiento del juego empeora!! El precalculo causa perdida de cuadros por segundos
 			flag = true
 		}
 	}
 
 }
-object ui inherits Pisable(position=game.at(10,0),image="menorResolucion/doblehud39.png") {
+
+object ui2 inherits Pisable(position=game.at(8,12)) {
+	const property tipo=100
+	
+	override method image()="MCMenorResolucion/hud.png"
+
+	override method modoCreativoBorrarVisual(){}
+}
+
+
+object ui inherits Pisable(position=game.at(9,0)) {
+	const property tipo=100
+	override method image()="MCMenorResolucion/hud"+nivelCreativo.retornarJugador().numeroSelector().toString()+".png"
+
 	override method modoCreativoBorrarVisual(){}
 }
 object contadorDeCajas inherits Pisable(position=game.at(0,12)){
 	method text ()= nivelCreativo.listaCajas().size().toString() +"/" + nivelCreativo.numeroDeCajasEnLaMeta().toString()
+	method textColor() = paleta.verde()
+	override method modoCreativoBorrarVisual(){}
+}
+
+object numero inherits Pisable(position=game.at(10,12)){
+	method text ()= configuraciones.elJugador().numeroSelector().toString()
 	method textColor() = paleta.verde()
 	override method modoCreativoBorrarVisual(){}
 }
@@ -75,13 +93,14 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 		self.position(guardarPosicion)
 	}
 	method esPisable()=true
-	
-	override method modoCreativoBorrarVisual(){
-		
+
+	override method modoCreativoBorrarVisual(){		
 	}
 }
 
 class JugadorDelNivelCreado inherits Jugador{
+	
+	
 	method TeclasAdicionales(){
 		keyboard.enter().onPressDo{nivelCreativoJugar.cambiarNivel()}
 	}	
@@ -90,29 +109,29 @@ class JugadorDelNivelCreado inherits Jugador{
 }
 
 class JugadorConstructor inherits Jugador{
-	
+	var  pasos="pasosf.mp3"
 	var property  elJugadorNoPudoAvanzar=false
-	const meta1 = "menorResolucion/meta1.png"
-	const meta2 = "menorResolucion/meta2.png"
-	const meta3=  "menorResolucion/meta3.png"
-	const meta4=  "menorResolucion/meta4.png"
-	const meta5=  "menorResolucion/meta5.png"
-	const resolucionCaja = "menorResolucion"
-	const caja1 = "caja1.png"
-	const caja2 = "caja2.png"
-	const caja3 = "caja3.png"
-	const caja4 = "caja4.png"
-	const caja5 = "caja5.png"
-	const cajaMeta1 = "caja_ok.png"
-	const cajaMeta2 = "caja_ok2.png"
-	const cajaMeta3 = "caja3_ok.png"
-	const cajaMeta4 = "caja4_ok.png"
-    const cajaMeta5 = "caja5_ok.png"
+	var property banderaDeSonido=true // tambien podriamos haber usado variables o constante en los metodos correspondiente y nos ahorrariamos estos atributos  ,pero por falta de tiempo lo hago asi para no tener que modificar logica y hacer que los metodos existentes  reciban ahora parametros... 
+	var property banderaDeSonido2=true //
+
+   
+    var property numeroSelector = 0
+   
     
     override method cambiarPosicion(direccion) {
 	 	ultimaDireccion=direccion
 		self.position(direccion.moverse(self))
-		sonidoObjeto.emitirSonido("pasosf.mp3")
+		sonidoObjeto.emitirSonido(pasos)
+	}
+	method sumar2() {
+		
+		
+		if (numeroSelector < 4) {
+			numeroSelector = numeroSelector + 2
+		} else {
+			numeroSelector = 0
+		}
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/cambiarColores.mp3")
 	}
 
 	method posicionActual()=self.position()
@@ -120,23 +139,41 @@ class JugadorConstructor inherits Jugador{
 	method TeclasAdicionales(){
 
 	//Se podria usar Self.position, osea la posicion del jugador pero por razones que desconosco da un rendimiento MUY POBRE!! Los frames bajan mucho!
-		
+		keyboard.e().onPressDo{self.sumar2()}
+		keyboard.x().onPressDo{self.resetRespawn()}
 		keyboard.f().onPressDo{nivelCreativo.formatearNivel()}
-		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1))}
-		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaEstatica(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2))}
-		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta1,modoCreativo_soyMeta=true))}
-		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image=meta2,tipo=2,modoCreativo_soyMeta=true))}
-	    keyboard.space().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true))}
-	    keyboard.alt().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true))}
+		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaFullPerfomance(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto="caja"+(1+numeroSelector).toString()+".png",cajaEnMeta="caja_ok"+(1+numeroSelector).toString()+".png",tipo=1+numeroSelector))}
+		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaFullPerfomance(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto="caja"+(2+numeroSelector).toString()+".png",cajaEnMeta="caja_ok"+(2+numeroSelector).toString()+".png",tipo=2+numeroSelector))}
+		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image="MCMenorResolucion/meta"+(1+numeroSelector).toString()+".png",tipo=1+numeroSelector,modoCreativo_soyMeta=true))}
+		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image="MCMenorResolucion/meta"+(2+numeroSelector).toString()+".png",tipo=2+numeroSelector,modoCreativo_soyMeta=true))}
+	    keyboard.space().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true,tipo=10))}
+	    keyboard.alt().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true,tipo=11))}
 	    
 	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		keyboard.control().onPressDo{self.generarPuntoDeReinicio()}
 		keyboard.enter().onPressDo{nivelCreativo.jugarNivelCreado()}
 		keyboard.backspace().onPressDo{nivelCreativo.salirDelNivel()}
+		keyboard.z().onPressDo{self.cambiarAssetsEnElModolibre()}
+	}
+	method cambiarAssetsEnElModolibre(){
+		if(configuraciones.libreMoviento()){
+			sonidoObjeto.emitirSonido("modoCreativoSonidos/builderMode.mp3")
+			self.resolucion("MCMenorResolucion")
+			self.nombreJugador("libre")
+			pasos="modoCreativoSonidos/pasos.mp3"
+		}
+		else{
+			sonidoObjeto.emitirSonido("modoCreativoSonidos/builderModeOFF.mp3")
+			self.resolucion("menorResolucion")
+			self.nombreJugador("jugador1")
+			pasos="pasosf.mp3"
+		}
+
 	}
 
 	method validadLibreMovimiento(){
 		if(!configuraciones.libreMoviento()){
+			self.errorSonido()
 			self.error("Presiona la Z primero")
 		}
 	}
@@ -144,35 +181,42 @@ class JugadorConstructor inherits Jugador{
 		self.validadLibreMovimiento()
 		self.validarObjetoPisable("No puedes generar una caja aqui")
 		self.validacionPuntoDeReinicio()
+		
+		
 		nivelCreativo.agregarNuevaCajaAlaLista(unObjeto)
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/caja"+unObjeto.tipo().toString()+".mp3")	
 	}
 	method generarUnaMeta(unObjeto){
 		self.validadLibreMovimiento()
 		self.validacionDeMetas()
 		nivelCreativo.agregarNuevaMetaAlaLista(unObjeto)
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/meta"+unObjeto.tipo().toString()+".mp3")	
 	}
 	method generarUnMuro(unObjeto){
 		self.validacionPuntoDeReinicio()
 		self.validadLibreMovimiento()
 		self.validarObjetoPisable("No puedes generar un muro aqui")
 		self.validacionDeMetas()
-		nivelCreativo.agregarNuevoMuroAlaLista(unObjeto)	
+		nivelCreativo.agregarNuevoMuroAlaLista(unObjeto)
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/muro"+unObjeto.tipo().toString()+".mp3")	
 	}
 	method generarPuntoDeReinicio(){
 		
 		self.validarObjetoPisable("No puedes generar un punto de reinicio del jugador  aqui")
 		
 		posicionInicialDelConstructor.cambiarPosicion(self.position())
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/puntoDeReinicio.mp3")
 	}
 	method eliminarObjeto(){
+		if(self.verificarQueExisteUnObjeto() and self.banderaDeSonido()){
+			sonidoObjeto.emitirSonido("modoCreativoSonidos/remove.mp3")
+			
+		}
 		nivelCreativo.cajasEnMetaBorrar(self.objetosConElQueElConstructorEstaColisionando()) //agregado el 29/11/2021 luego de que se descubrio un bug que aparece cuando borramos  una caja y una meta a la vez
 		nivelCreativo.borrarObjetosDeLaLista(self.objetosConElQueElConstructorEstaColisionando())
-		
-	
-	}
-	
 
-	
+	}
+
 	method objetosConElQueElConstructorEstaColisionando(){
 		return game.colliders(self)
 	}
@@ -189,21 +233,29 @@ class JugadorConstructor inherits Jugador{
 	}
 	method elObjetoSeraPisable(unMensaje){
 		if(!self.verificarQueTodosLosObjetosSeanPisables()){
-			//self.error("No puedes agregar este objeto aqui") //"No puedes agregar este objeto aqui"
+			
+			self.errorSonido()
 			self.error(unMensaje)
 		}	
+	}
+	method errorSonido(){
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/errorMensaje.mp3")
+		
 	}
 	
 	method  validacionDeMetas(){
 		if( self.ValidacionMetaExistente()){
+			self.errorSonido()
 			self.error("Ya existe una meta en esta posicion!!")
 		}	
 		if(self.validacionMetaYmuro()){
+			self.errorSonido()
 			self.error("No tiene sentido agregar una meta aqui!")
 		}
 	}
 	method validacionPuntoDeReinicio(){
 		if(self.verificarPuntoDeReinicioExistente()){
+			self.errorSonido()
 			self.error("no puedes agregar este objeto aqui si existe un punto de reinicio del personaje")
 		}
 	
@@ -223,4 +275,17 @@ class JugadorConstructor inherits Jugador{
 	
 	method coordenadaX()=position.x()
 	method coordenadaY()=position.y()	
+	
+	method resetRespawn(){
+		self.position(game.center())
+		posicionInicialDelConstructor.position(game.center())
+		if(self.banderaDeSonido2()){
+
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/x.mp3")
+		}
+		self.banderaDeSonido(false)
+		self.eliminarObjeto()
+		self.banderaDeSonido(true)
+	}
 }
+

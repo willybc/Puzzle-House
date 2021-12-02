@@ -9,17 +9,26 @@ import objetosDelModoCreativo.*
 
 
 class Creativo inherits Nivel{
-	
-}
-
-object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const property modoCreativo_soyMeta = false
 	const property modoCreativo_soyUnMuro = false
 	const property modoCreativo_soyUnPuntoDeReinicio = false
 	const property tipo=100
+	override method reiniciarNivel(){
+		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
+		configuraciones.elJugador().posicioninicial()
+		self.cajasEnMeta().forEach({unaCaja=>unaCaja.flag(true)})
+		self.cajasEnMeta().forEach({unaCaja=>unaCaja.reiniciarImagen()})
+		self.cajasEnMeta().clear()
+	}
+
+	method cajasEnMeta()
+
+}
+
+object nivelCreativo inherits Creativo (siguienteNivel = menu) {
+
 	
-	
-	
+
 	const jugador1 = new JugadorConstructor (position = game.center() , resolucion="menorResolucion",nombreJugador = "jugador1" ,tipo=66)
 	
 	const listaMeta =[]
@@ -30,13 +39,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 	const conjuntoDeListas=[listaMeta,listaCajas,listaMuros]
 	method modoCreativoBorrarVisual(){}
 	method esPisable()=true
-	override method reiniciarNivel(){
-		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
-		configuraciones.elJugador().posicioninicial()
-		cajasEnMeta.forEach({unaCaja=>unaCaja.flag(true)})
-		cajasEnMeta.forEach({unaCaja=>unaCaja.reiniciarImagen()})
-		cajasEnMeta.clear()
-	}
+	
 	
 	method cajasEnMetaBorrar(objeto){
 		cajasEnMeta.removeAll(objeto)
@@ -46,9 +49,14 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 		conjuntoDeListas.forEach({lista=>lista.clear()})
 		cajasEnMeta.clear()
+		self.retornarJugador().banderaDeSonido(false)
+		self.retornarJugador().banderaDeSonido2(false)
+		self.retornarJugador().resetRespawn()
+		self.retornarJugador().banderaDeSonido(true)
+		self.retornarJugador().banderaDeSonido2(true)
+		sonidoObjeto.emitirSonido("modoCreativoSonidos/formatear.mp3")
 	}
-	
-	
+
 	method retornarJugador()=jugador1
 
 	method borrarObjetos(objeto) = objeto.forEach{ unObjeto => game.removeVisual(unObjeto)}
@@ -66,8 +74,10 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		self.configNivel(jugador1)
 		jugador1.TeclasAdicionales()
 		game.addVisual(ui)
+		game.addVisual(ui2)
+		
 		self.ordenarVisuales()
-		nivel0.posicionInitial(game.at(21,3))	
+		
 		game.say(jugador1,"presiona ENTER para probar el nivel creado!!")
 		
 	}
@@ -105,12 +115,14 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 		game.removeVisual(jugador1)
 		game.removeVisual(posicionInicialDelConstructor)
 		game.removeVisual(ui)
+		game.removeVisual(ui2)
 		game.removeVisual(contadorDeCajas)
 		self.habilitarLaAdicionDeLosObjetosAlTablero()
 		self.agregarObjetosAlTablero()
 		game.addVisual(posicionInicialDelConstructor)
 		game.addVisual(jugador1)
 		game.addVisual(ui)
+		game.addVisual(ui2)
 		game.addVisual(contadorDeCajas)
 		
 
@@ -169,7 +181,7 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 
 	method listaMuros()=listaMuros
 	
-	method cajasEnMeta()=unaCaja
+	override method cajasEnMeta()=cajasEnMeta
 	
 	
 	method cajasEnMeta(unaCaja){
@@ -186,7 +198,10 @@ object nivelCreativo inherits Nivel (siguienteNivel = menu) {
 }
 
 
-object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
+object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
+	
+	
+	
 	
 	const jugador1 = new JugadorDelNivelCreado(position =posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
 	
@@ -196,13 +211,7 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 	var property numeroDeCajasTotales=0
 	const cajasEnMeta=[]
 
-	override method reiniciarNivel(){
-		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
-		configuraciones.elJugador().posicioninicial()
-		cajasEnMeta.forEach({unaCaja=>unaCaja.flag(true)})
-		cajasEnMeta.forEach({unaCaja=>unaCaja.reiniciarImagen()})
-		cajasEnMeta.clear()
-	}
+	
 
 	override method verificarMetas() {
 		
@@ -217,7 +226,7 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 		}
 		
 	}
-	method cajasEnMeta()=unaCaja
+	override method cajasEnMeta()=cajasEnMeta
 	
 	
 	method cajasEnMeta(unaCaja){
@@ -238,7 +247,7 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
 
 	method cargarNivel(){
 		configuraciones.nivelActual(self)	
-		configuraciones.configMusic("niveL.mp3")
+		configuraciones.configMusic("modoCreativoSonidos/modoCreativo2.mp3")
 		game.addVisual(self)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
@@ -271,5 +280,8 @@ object nivelCreativoJugar inherits Nivel (siguienteNivel = nivelCreativo){
  	method listaMeta()= listaMeta
  	
  	override method soyUnNivelCreativo()=true
+ 	
+ 	method hacerAlgo(direccion){
+ 		
+ 	}
 }
-
