@@ -21,7 +21,8 @@ program juego {
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
   	
-	nivelDream.cargarNivel()
+  	nivelG2.cargarNivel()
+	//nivelDream.cargarNivel()
 	//nivelG1.cargarNivel()
 	//pasadizoDream.cargarNivel()
 	//nivelBonusDream.cargarNivel()
@@ -36,8 +37,6 @@ program juego {
 	//pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
 
-	
-	
 	game.start()
 	
 } 
