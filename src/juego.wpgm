@@ -20,11 +20,13 @@ program juego {
 	game.width( configuraciones.ancho() )
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
-	
-	pasadizoDream.cargarNivel()
+  	
+	nivelDream.cargarNivel()
+	//nivelG1.cargarNivel()
+	//pasadizoDream.cargarNivel()
+	//nivelBonusDream.cargarNivel()
 	
 	//nivel0.cargarNivel()
-	//nivelDream.cargarNivel()
 	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	

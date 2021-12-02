@@ -132,7 +132,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 
 object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	
-	const jugador1 = new Jugador(position = game.at(19, 0) , resolucion="menorResolucion",nombreJugador = "chara")
+	const jugador1 = new Jugador(position = game.at(7, 5) , resolucion="menorResolucion",nombreJugador = "chara")
 	const meta1 = "menorResolucion/meta1.png"
 	const meta2 = "menorResolucion/meta2.png"
 	const resolucionCaja = "menorResolucion"
@@ -141,15 +141,31 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	const cajaMeta1 = "caja_ok.png"
 	const cajaMeta2 = "caja_ok2.png"
 
-	const listaMeta =[   new Meta(position = game.at(5,2), image= meta1, tipo=1)
+	const listaMeta =[   new Meta(position = game.at(8,11), image= meta1, tipo=1),
+						 new Meta(position = game.at(10,11), image= meta1, tipo=1),
+						 new Meta(position = game.at(7,9), image= meta1, tipo=1),
+						 new Meta(position = game.at(7,10), image= meta1, tipo=1),
+						 new Meta(position = game.at(9,10), image= meta2, tipo=2),
+						 new Meta(position = game.at(7,11), image= meta2, tipo=2),
+						 new Meta(position = game.at(9,11), image= meta2, tipo=2),
+						 new Meta(position = game.at(11,11), image= meta2, tipo=2),
+						 new Meta(position = game.at(10,9), image= meta1, tipo=1)
 	]
 	
-	const listaCajas=[  new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)
+	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						new Caja(position = game.at(14,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						new Caja(position = game.at(11,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						new Caja(position = game.at(8,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						
+						new Caja(position = game.at(9,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
+						new Caja(position = game.at(12,7),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
+						new Caja(position = game.at(12,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
+						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
 	]
 
 	method cargarNivel(){
-		
-		configuraciones.configMusic("nivelW-D.mp3")
+		//configuraciones.configMusic("nivelW-D.mp3")
 		game.addVisual(self)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
@@ -164,33 +180,37 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	method generarMuros(){
 		const muro2 = "menorResolucion/muro2.png"
 		
-		/* Bordes */
-		self.bordearHorizontalmente(4,17,1,muro2)
-		self.bordearHorizontalmente(4,20,11,muro2)
-		self.bordearVerticalmente(2,4,4,muro2)
-		self.bordearVerticalmente(7,10,4,muro2)
-		self.bordearVerticalmente(0,4,20,muro2)
-		self.bordearVerticalmente(7,10,20,muro2)
-		self.bordearVerticalmente(0,0,17,muro2)
-	
-		self.bordearHorizontalmente(5,11,4,muro2)
-		self.bordearHorizontalmente(13,19,4,muro2)
-		self.bordearVerticalmente(5,6,5,muro2)
-		self.bordearVerticalmente(5,6,11,muro2)
-		self.bordearVerticalmente(5,6,13,muro2)
-		self.bordearVerticalmente(5,6,19,muro2)
-		self.bordearHorizontalmente(9,10,6,muro2)
-		self.bordearHorizontalmente(14,15,6,muro2)
+		self.bordearHorizontalmente(6,15,12,muro2)
+		self.bordearHorizontalmente(5,5,9,muro2)
+		self.bordearHorizontalmente(5,6,10,muro2)
 		self.bordearHorizontalmente(5,6,7,muro2)
-		self.bordearHorizontalmente(18,19,7,muro2)
-		self.bordearVerticalmente(8,10,8,muro2)
-		self.bordearVerticalmente(8,10,16,muro2)
+		self.bordearHorizontalmente(6,8,3,muro2)
+		self.bordearHorizontalmente(8,11,1,muro2)
+		self.bordearHorizontalmente(11,16,2,muro2)
+		self.bordearHorizontalmente(16,19,3,muro2)
+		self.bordearHorizontalmente(15,16,11,muro2)
+		self.bordearHorizontalmente(16,17,10,muro2)
+		self.bordearHorizontalmente(17,18,9,muro2)
+		self.bordearHorizontalmente(18,19,8,muro2)
 		
-		self.bordearHorizontalmente(12,12,10,muro2)
-		self.bordearHorizontalmente(10,10,9,muro2)
-		self.bordearHorizontalmente(14,14,9,muro2)
+		self.bordearVerticalmente(11,11,6,muro2)
+		self.bordearVerticalmente(8,8,5,muro2)
+		self.bordearVerticalmente(4,6,6,muro2)
+		self.bordearVerticalmente(2,2,8,muro2)
+		self.bordearVerticalmente(4,7,19,muro2)
 		
-		self.bordearHorizontalmente(18,19,-1,muro2)
+		self.bordearHorizontalmente(8,8,10,muro2)
+		self.bordearHorizontalmente(10,10,10,muro2)
+		self.bordearHorizontalmente(13,13,9,muro2)
+		self.bordearHorizontalmente(15,16,6,muro2)
+		self.bordearHorizontalmente(14,17,5,muro2)
+		self.bordearHorizontalmente(8,8,5,muro2)
+		self.bordearHorizontalmente(8,10,7,muro2)
+		self.bordearHorizontalmente(12,12,5,muro2)
+		self.bordearHorizontalmente(14,15,8,muro2)
+		self.bordearHorizontalmente(14,14,4,muro2)
+		self.bordearVerticalmente(8,9,11,muro2)
+		self.bordearVerticalmente(4,6,11,muro2)
 	}
 	
 	method image() = "menorResolucion/mapG1.png"
@@ -212,10 +232,10 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 	const cajaMeta1 = "caja_ok.png"
 	const cajaMeta2 = "caja_ok2.png"
 
-	const listaMeta =[   new Meta(position = game.at(5,2), image= meta1, tipo=1)
+	const listaMeta =[   new Meta(position = game.at(6,8), image= meta1, tipo=1)
 	]
 	
-	const listaCajas=[  new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)
+	const listaCajas=[  new Caja(position = game.at(6,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)
 	]
 
 	method cargarNivel(){
