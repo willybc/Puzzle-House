@@ -20,14 +20,6 @@ program juego {
 	game.width( configuraciones.ancho() )
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
-  	
-  	
-  	
-	//nivelDream.cargarNivel()
-	//nivelG1.cargarNivel()
-	//nivelG2.cargarNivel()
-	//pasadizoDream.cargarNivel()
-	//nivelBonusDream.cargarNivel()
 	
 	menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
@@ -37,7 +29,14 @@ program juego {
 	//nivelL.cargarNivel()
 	//pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
-
+	
+	/* Update 1.1v */	
+	//nivelDream.cargarNivel()
+	//nivelG1.cargarNivel()
+	//nivelG2.cargarNivel()
+	//pasadizoDream.cargarNivel()
+	//nivelBonusDream.cargarNivel()
+	
 	game.start()
 	
 } 
