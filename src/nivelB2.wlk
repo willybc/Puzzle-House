@@ -7,7 +7,7 @@ import jugador.*
 import niveles.*
 import nivelDream.*
 
-object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2){
+object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,soyUnNivelPuzzle=false){
 	
 	var property vestimenta = "chara3"
 
@@ -49,7 +49,8 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2)
 }
 
 object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
-	
+	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	//const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())
 	const jugador1 = new Jugador(position = game.at(0, 4) ,resolucion="menorResolucion",nombreJugador = "chara3")
 	
@@ -96,6 +97,10 @@ object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
 		
 		configuraciones.configMusic("musicaOpcionales/dreamOp2.mp3")
 		game.addVisual(self)
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)	
 		self.cargarObjetos(listaMeta)
 		//self.cargarObjetos(listaCajas)
 		self.generarMuros()

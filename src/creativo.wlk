@@ -9,9 +9,6 @@ import objetosDelModoCreativo.*
 
 
 class Creativo inherits Nivel{
-	//const property modoCreativo_soyMeta = false
-	//const property modoCreativo_soyUnMuro = false
-	//const property modoCreativo_soyUnPuntoDeReinicio = false
 	const property tipo=100
 	override method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
@@ -165,16 +162,14 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu) {
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
- 	override method cambiarPosicion(direccion){}
+ 	
 }
 
 
 
 object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
-	
-	
-
-	
+	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new JugadorDelNivelCreado(position =posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
 	
 	var listaMeta =[]
@@ -220,6 +215,10 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
 	method cargarNivel() {
 		configuraciones.nivelActual(self)
 		configuraciones.configMusic("modoCreativoSonidos/modoCreativo2.mp3")
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)	
 		game.addVisual(self)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)

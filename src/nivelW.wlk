@@ -7,7 +7,8 @@ import jugador.*
 import niveles.*
 
 object nivelW inherits Nivel (siguienteNivel = nivel0){
-	
+	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(19, 0) , resolucion="menorResolucion",nombreJugador = "jugador2")
 	const meta1 = "menorResolucion/meta1.png"
 	const meta2 = "menorResolucion/meta2.png"
@@ -17,7 +18,7 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 	const cajaMeta1 = "caja_ok.png"
 	const cajaMeta2 = "caja_ok2.png"
 
-	const listaMeta =[   new Meta(position = game.at(9,5),image= meta1)/*,
+	const listaMeta =[   new Meta(position = game.at(9,5),image= meta1),
 						 new Meta(position = game.at(8,5), image= meta2,tipo=2),
 						 new Meta(position = game.at(10,5), image= meta1),
 						 
@@ -27,11 +28,11 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 						 
 						 new Meta(position = game.at(5,2), image= meta1),
 						 new Meta(position = game.at(6,2), image= meta2, tipo=2),
-						 new Meta(position = game.at(5,3), image= meta2, tipo=2)*/
+						 new Meta(position = game.at(5,3), image= meta2, tipo=2)
 					
 		
 	]
-	const listaCajas=[   new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)/*,
+	const listaCajas=[   new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(6,9) ,resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(9,9) ,resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						 
@@ -41,13 +42,18 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 						 
 						 new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(8,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/	  
+						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)	  
 	]
 
 	method cargarNivel(){
-		
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
 		configuraciones.configMusic("nivelW-D.mp3")
 		game.addVisual(self)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)		
+		
+		
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		self.generarMuros()

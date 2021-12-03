@@ -10,6 +10,9 @@ object configuraciones {
 
 	const property altura = 13 
 	const property ancho = 25 
+	var property elcontadorDePasos=null
+	var property contadorDeEmpujes=null
+	var property habilitarConteo=true
 	var jugadorp
 	var numero = 1
 	var nivelActual
@@ -18,6 +21,7 @@ object configuraciones {
 	method nivelActual(unNivel) {
 		nivelActual = unNivel
 	}
+	
 
 	method nivelActual() = nivelActual
 
@@ -66,5 +70,6 @@ object configuraciones {
 	method cambio() {
 		numero += 1
 	}
+	
 
 }

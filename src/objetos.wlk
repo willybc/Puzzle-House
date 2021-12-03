@@ -23,7 +23,9 @@ class Posicion {
 	const property modoCreativo_soyMeta = false
 	const property modoCreativo_soyUnMuro = false
 	const property modoCreativo_soyUnPuntoDeReinicio = false
+	const property soyUnaCaja=false //agregado el 3/12/2021 para el contador de movimientos
 	var property quieroAgregarAlTablero = true
+	var property estaBloqueado=false
 
 	method posicioninicial() {
 		sonidoObjeto.emitirSonido("reinicio.mp3")
@@ -53,7 +55,7 @@ class Posicion {
 
 }
 
-class Caja inherits Posicion {
+class Caja inherits Posicion (soyUnaCaja=true){
 	
 	const resolucion = "menorResolucion"
 	const stringDeObjeto = "caja1.png"
@@ -61,21 +63,29 @@ class Caja inherits Posicion {
 	const property tipo = 1
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
+	var mensaje="no bloqueado"
 	
-	
+	method texto ()= mensaje
 	
 	method esPisable() = false
 
 	method image() = if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 
 	override method cambiarPosicion(direccion) {
-		const siguienteUbicacion = direccion.moverse(self)
+		var siguienteUbicacion = direccion.moverse(self)
 		ultimaDireccion = direccion
 		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
 			self.position(direccion.moverse(self))
+			self.contador()
 			configuraciones.nivelActual().verificarMetas()
+			siguienteUbicacion=direccion.moverse(self)
+			
+			
+			
 		} else {
 			configuraciones.elJugador().retroceder(direccion)
+			
+			
 		}
 		sonidoObjeto.emitirSonido(sonido)
 	}
@@ -83,6 +93,11 @@ class Caja inherits Posicion {
 	
 	method llegoMeta() = game.colliders(self).any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() } // configuraciones.nivelActual().listaMeta().any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() }
 	
+	method contador(){
+		if(configuraciones.nivelActual().soyUnNivelPuzzle())
+		configuraciones.elcontadorDePasos().incrementar()
+		configuraciones.contadorDeEmpujes().incrementar()
+	}
 
 	
 }
@@ -121,8 +136,8 @@ class MuroVisible inherits Posicion(modoCreativo_soyUnMuro=true) {
 	method esPisable() = false
 
 	override method cambiarPosicion(direccion) {
-		
-	configuraciones.elJugador().retroceder(direccion)  //29-11-2021 Con el el metodo antiBug del jugador uno pensaria que este metodo quedo inservible pero no es asi, EN el modo creativo esto se sigue usando ya que en el jugador
+	game.say(self,"colision")
+	//configuraciones.elJugador().retroceder(direccion)  //29-11-2021 Con el el metodo antiBug del jugador uno pensaria que este metodo quedo inservible pero no es asi, EN el modo creativo esto se sigue usando ya que en el jugador
 	//constructor no existe el metodo antibug por lo que el jugador puede empujar una caja incluso si esta arriba de un muro (para lograr eso hay que apretar la Z obviamente)
 	}
 }
@@ -197,5 +212,28 @@ class CambiarRopa {
 	}
 
 }
+class ContadorDePasos inherits Posicion(position=game.at(12,5)){
+	var property texto ="Moves : "
+	const colorTexto="FF0000FF"
 
-
+	
+	var numeroDePasos=0
+	
+	method incrementar(){
+		if(configuraciones.habilitarConteo()){
+			numeroDePasos=numeroDePasos+1
+		}
+		
+	}
+	method reset(){
+		numeroDePasos=0
+	}
+	method text()=texto+numeroDePasos.toString()
+	
+	method textColor()=colorTexto
+	override method cambiarPosicion(direccion){	
+	}
+	override method hacerAlgo(direccion) {
+	}
+	
+}

@@ -13,7 +13,7 @@ import creativo.*
 import nivelDream.*
 
 class Nivel{
-	
+	var property soyUnNivelPuzzle=true
 	var property siguienteNivel
 	
 	const duplicador=1
@@ -58,6 +58,11 @@ class Nivel{
 	method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
 		configuraciones.elJugador().posicioninicial()
+		if(self.soyUnNivelPuzzle()){
+			configuraciones.elcontadorDePasos().reset()
+			configuraciones.contadorDeEmpujes().reset()
+		}
+		
 	}
 	
 	
@@ -70,7 +75,7 @@ class Nivel{
 	method soyUnNivelCreativo()=false
 }
 
-object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
+object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2,soyUnNivelPuzzle=false){
 
 	const jugador1 = new Jugador(position = game.at(11, 5) ,resolucion="mayorResolucion",nombreJugador = "jugador1")
 	
@@ -111,7 +116,7 @@ object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2){
 	method position()= game.at(0,0)
 }
 
-object nivel0 inherits Nivel (siguienteNivel = pasadizo){
+object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	var property sonido = "hogar1.mp3"
 	var property image = "nivel0/map3.png"
 	const jugador1 = new Jugador(position = game.at(3, 1) ,resolucion="menorResolucion",nombreJugador = "jugador1")

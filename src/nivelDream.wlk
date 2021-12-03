@@ -8,7 +8,7 @@ import niveles.*
 import ghost.*
 import nivelB2.*
 
-object nivelDream inherits Nivel (siguienteNivel = nivel0){
+object nivelDream inherits Nivel (siguienteNivel = nivel0,soyUnNivelPuzzle=false){
 	var property sonido = "Dreams/dreams.mp3"
 	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
@@ -131,6 +131,10 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 
 
 object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
+	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
+	
+	
 	
 	const jugador1 = new Jugador(position = game.at(7, 5) , resolucion="menorResolucion",nombreJugador = "chara")
 	const meta1 = "menorResolucion/meta1.png"
@@ -167,6 +171,10 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	method cargarNivel(){
 		//configuraciones.configMusic("nivelW-D.mp3")
 		game.addVisual(self)
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		self.generarMuros()
@@ -222,7 +230,8 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 }
 
 object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
-	
+	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(9, 9) , resolucion="menorResolucion",nombreJugador = "chara")
 	const meta1 = "menorResolucion/meta1.png"
 	const meta2 = "menorResolucion/meta2.png"
@@ -260,7 +269,12 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 
 	method cargarNivel(){
 		//configuraciones.configMusic("nivelW-D.mp3")
+
 		game.addVisual(self)
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		self.generarMuros()
