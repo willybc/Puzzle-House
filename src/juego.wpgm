@@ -21,13 +21,13 @@ program juego {
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
 	
-	menu.cargarNivel() 			/* MENU */
+	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
 	//nivelW.cargarNivel()			
 	//nivelBel.cargarNivel()
 	//nivelL.cargarNivel()
-	//pasadizo.cargarNivel()
+	pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
 	
 	/* Update 1.1v */	

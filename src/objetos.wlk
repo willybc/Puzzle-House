@@ -200,17 +200,17 @@ class CheckpointBonus inherits Posicion (position = game.at(16, 4)) {
 	override method  cambiarPosicion(direccion){}
 
 }
-class CambiarRopa {
+class CambiarRopa  inherits Posicion(position = game.at(6, 5)){
 
-	var property position = game.at(6, 5)
 	var vestimenta
-
-	method hacerAlgo(direccion) {
-		configuraciones.elJugador().nombreJugador(vestimenta)
-		configuraciones.elJugador().retroceder(direccion)
+	override method hacerAlgo(direccion) {
+		self.cambiarPosicion(direccion)
 		pasadizo.vestimenta(vestimenta)
 	}
-
+	override method cambiarPosicion(direccion){
+		configuraciones.elJugador().nombreJugador(vestimenta)
+		configuraciones.elJugador().retroceder(direccion)
+	}
 }
 class ContadorDePasos inherits Posicion(position=game.at(12,5)){
 	var property texto ="Moves : "

@@ -28,7 +28,7 @@ object nivelL inherits Nivel (siguienteNivel = nivel0){
     const cajaMeta5 = "caja5_ok.png"
 	const listaMeta =[ 
 						 
-						 new Meta(position = game.at(21,2),image= meta1) ,
+						 new Meta(position = game.at(21,2),image= meta1)/*  ,
 						 new Meta(position = game.at(22,2), image= meta1),
 						 new Meta(position = game.at(17,7), image= meta1),
 						 new Meta(position = game.at(4,5), image= meta2,tipo=2),
@@ -36,10 +36,10 @@ object nivelL inherits Nivel (siguienteNivel = nivel0){
 						 new Meta(position = game.at(4,3), image= meta4,tipo=4),
 						 new Meta(position = game.at(4,2), image= meta3,tipo=3),
 						 new Meta(position = game.at(4,1), image= meta2,tipo=2),
-						 new Meta(position = game.at(17,6), image= meta1)
+						 new Meta(position = game.at(17,6), image= meta1)*/
 	]
 	const listaCajas=[  
-						 new Caja(position = game.at(18,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1), 
+						 new Caja(position = game.at(18,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)/*, 
 						 new Caja(position = game.at(19,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(20,4),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(21,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -49,7 +49,7 @@ object nivelL inherits Nivel (siguienteNivel = nivel0){
 						 new Caja(position = game.at(21,9),resolucion=resolucionCaja,stringDeObjeto=caja4,cajaEnMeta=cajaMeta4,tipo=4),
 						 new Caja(position = game.at(3,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja5,cajaEnMeta=cajaMeta5,tipo=5),
-						 new Caja(position = game.at(16,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+						 new Caja(position = game.at(16,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
 						
 	
 	]
