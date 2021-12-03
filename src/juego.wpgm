@@ -16,7 +16,7 @@ import nivelB2.*
 
 program juego {
 	
-	game.title( "TP" )
+	game.title( "Puzzle House v1.2" )
 	game.width( configuraciones.ancho() )
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
