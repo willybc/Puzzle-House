@@ -9,7 +9,7 @@ import ghost.*
 import nivelB2.*
 
 object nivelDream inherits Nivel (siguienteNivel = nivel0){
-	var property sonido = "dreams.mp3"
+	var property sonido = "Dreams/dreams.mp3"
 	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
 	const jugador1 = new Jugador(position = game.at(13, 11) ,resolucion="menorResolucion",nombreJugador = "chara")
@@ -35,7 +35,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0){
 	var property posicionInitial = game.at(13,11)
 		method cargarNivel(){		
 		
-		//configuraciones.configMusic(self.sonido())
+		configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
 		
 		//Bonus

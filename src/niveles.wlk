@@ -12,7 +12,7 @@ import nivelL.*
 import creativo.*
 import nivelDream.*
 
-class Nivel {
+class Nivel{
 	
 	var property siguienteNivel
 	

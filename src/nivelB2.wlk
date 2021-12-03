@@ -94,7 +94,7 @@ object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
 
 	method cargarNivel(){
 		
-		//configuraciones.configMusic("nivelBonusb.mp3")
+		configuraciones.configMusic("musicaOpcionales/dreamOp2.mp3")
 		game.addVisual(self)
 		self.cargarObjetos(listaMeta)
 		//self.cargarObjetos(listaCajas)
