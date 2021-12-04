@@ -17,6 +17,7 @@ class Creativo inherits Nivel{
 		self.listaCajas().forEach({unaCaja=>unaCaja.reiniciarImagen()})
 		self.cajasEnMeta().clear()
 	}
+	
 
 	method cajasEnMeta()
 
@@ -40,6 +41,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		cajasEnMeta.removeAll(objeto)
 		
 	}
+	
 	
 	
 	method formatearNivel(){

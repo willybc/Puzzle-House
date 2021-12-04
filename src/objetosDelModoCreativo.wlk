@@ -20,19 +20,9 @@ class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){
 	method reiniciarImagen(){
 		imagen=resolucion + "/" + stringDeObjeto
 	}
-
-	override method cambiarPosicion(direccion) {
-		const siguienteUbicacion = direccion.moverse(self)
-		ultimaDireccion = direccion
-		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
-			self.position(direccion.moverse(self))
-			self.activarVerificador()
-		} else {
-			configuraciones.elJugador().retroceder(direccion)
-		}
-		sonidoObjeto.emitirSonido(sonido)
-	}
 	
+	
+
 	override method activarVerificador(){
 		
 		if(self.llegoMeta()){
@@ -46,6 +36,8 @@ class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){
 				estoyEnMeta=false
 				imagen=resolucion + "/" + stringDeObjeto // Tranquilamente podriamos hacer esto en el method image = method image()=if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto} pero el rendimiento del juego empeora!! El precalculo causa perdida de cuadros por segundos
 			}	
+	}
+	override method contador(){	
 	}
 
 
@@ -79,7 +71,7 @@ object numero inherits Pisable(position=game.at(10,12)){
 }
 
 
-object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
+object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true,position=game.center()){
 	
 	
 	method image()="menorResolucion/pos00.png"
