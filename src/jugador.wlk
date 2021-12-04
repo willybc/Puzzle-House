@@ -77,7 +77,13 @@ class Jugador inherits Posicion{
 				
 		}
 	}
-	//Se va achicar la cantidad de ifs antes de entregar el juego al CONCURSO!!
+	
+	
+	
+	
+	method verificarQueNoHayaUnMuroAdelante(direccion) = game.getObjectsIn(direccion).any{ unObj => unObj.modoCreativo_soyUnMuro() }
+	method colisionaConUnaCaja()= game.colliders(self).any({unObjeto=>unObjeto.soyUnaCaja()})
+//Se va achicar la cantidad de ifs antes de entregar el juego al CONCURSO!!
 	
 	
 	
@@ -97,11 +103,6 @@ class Jugador inherits Posicion{
 		}
 	}
 	 */
-	
-	
-	
-	method verificarQueNoHayaUnMuroAdelante(direccion) = game.getObjectsIn(direccion).any{ unObj => unObj.modoCreativo_soyUnMuro() }
-	method colisionaConUnaCaja()= game.colliders(self).any({unObjeto=>unObjeto.soyUnaCaja()})
 }
 
 	

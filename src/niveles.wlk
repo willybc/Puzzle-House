@@ -40,7 +40,7 @@ class Nivel{
 	}
 
 	method verificarMetas() {
-		const verificador = self.listaCajas().all({ unaCaja => unaCaja.llegoMeta() })
+		const verificador = self.listaCajas().all({ unaCaja => unaCaja.estoyEnMeta() })
 		if (verificador) {
 			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
 			game.say(configuraciones.elJugador(), "ganaste!")
@@ -57,6 +57,7 @@ class Nivel{
 	
 	method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
+		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.estoyEnMeta(false)}
 		configuraciones.elJugador().posicioninicial()
 		if(self.soyUnNivelPuzzle()){
 			configuraciones.elcontadorDePasos().reset()

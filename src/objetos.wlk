@@ -50,8 +50,6 @@ class Posicion {
 	method modoCreativoBorrarVisual() {
 		game.removeVisual(self)
 	}
-	
-	
 
 }
 
@@ -63,13 +61,14 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	const property tipo = 1
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
-	var mensaje="no bloqueado"
 	
-	method texto ()= mensaje
+	var property estoyEnMeta=false
+	
+	
 	
 	method esPisable() = false
 
-	method image() = if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+	method image() = if (self.estoyEnMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 
 	override method cambiarPosicion(direccion) {
 		var siguienteUbicacion = direccion.moverse(self)
@@ -77,11 +76,7 @@ class Caja inherits Posicion (soyUnaCaja=true){
 		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
 			self.position(direccion.moverse(self))
 			self.contador()
-			configuraciones.nivelActual().verificarMetas()
-			siguienteUbicacion=direccion.moverse(self)
-			
-			
-			
+			self.activarVerificador()
 		} else {
 			configuraciones.elJugador().retroceder(direccion)
 			
@@ -89,7 +84,25 @@ class Caja inherits Posicion (soyUnaCaja=true){
 		}
 		sonidoObjeto.emitirSonido(sonido)
 	}
+	
+	method activarVerificador(){
+		
+		if(self.llegoMeta()){
+				estoyEnMeta=true
+				configuraciones.nivelActual().verificarMetas()
+			}
+			else{
+				estoyEnMeta=false
+			}
+		
+	}
+	
 	method proximaUbicacionLibre(direccion) = game.getObjectsIn(direccion).all{ unObj => unObj.esPisable() }
+	
+	method coordenadaX()=position.x()
+	method coordenadaY()=position.y()
+	
+	
 	
 	method llegoMeta() = game.colliders(self).any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() } // configuraciones.nivelActual().listaMeta().any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() }
 	
@@ -102,7 +115,7 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	
 }
 class Oveja inherits Caja {
-	override method image() = if (!self.llegoMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
+	override method image() = if (!self.estoyEnMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
 }
 
 class Caballo inherits Oveja {
@@ -120,12 +133,14 @@ class Caballo inherits Oveja {
 		ultimaDireccion = direccion
 		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
 			self.position(direccion.moverse(self))
-			configuraciones.nivelActual().verificarMetas()
+			self.contador()
+			self.activarVerificador()
 			seTrabo = false
 		} else {
 			seTrabo = true
 		}
 	}
+
 
 }
 class MuroVisible inherits Posicion(modoCreativo_soyUnMuro=true) {
