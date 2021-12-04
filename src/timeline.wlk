@@ -6,26 +6,21 @@ import objetos.*
 import jugador.*
 
 
-class Imagen {
-	var property position = game.at(0,0)
+class Imagen inherits Estatico {
+	
 	var property imagen = null
 	var property esPisable = true
 	
 	method esEmpujable() = false
 	method image() = imagen
-	method hacerAlgo(direccion){
-		
-	}
+	
 }
 
-class SombraInvisible{
-	var property position
+class SombraInvisible inherits Estatico{
+
 	var property esPisable = true
 	method esEmpujable() = false
 	
-	method hacerAlgo(direccion){
-		
-	}
 }
 									
 object sombra1 inherits Imagen(	esPisable = false, position = game.at(0,0), imagen = "nivel0/sombras1.png"){}
@@ -55,7 +50,7 @@ object sombraHab2Dream inherits Imagen(	esPisable = false, position = game.at(0,
 object pasadizo3Dream inherits Imagen ( esPisable = false, position = game.at(0,0), imagen = "nivel0/habitaciones/pasadizo3Dream.png"){}
 object sombraHab3Dream inherits Imagen(	esPisable = false, position = game.at(0,0), imagen = "nivel0/habitaciones/sombraHab3Dream.png"){}
 
-class CheckpointDeSombras inherits Posicion{
+class CheckpointDeSombras inherits Estatico{
 
 	var property esPisable = true
 	var property seAtraveso=false
@@ -68,9 +63,6 @@ class CheckpointDeSombras inherits Posicion{
 	}
 	method agregarSombra(){
 		game.addVisual(sombraDeReferencia)
-	}
-	override method  cambiarPosicion(direccion){
-		
 	}
 
 }

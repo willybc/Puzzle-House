@@ -9,12 +9,12 @@ import objetosDelModoCreativo.*
 
 
 class Creativo inherits Nivel{
-	const property tipo=100
+	
 	override method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
 		configuraciones.elJugador().posicioninicial()
-		self.cajasEnMeta().forEach({unaCaja=>unaCaja.flag(true)})
-		self.cajasEnMeta().forEach({unaCaja=>unaCaja.reiniciarImagen()})
+		self.listaCajas().forEach({unaCaja=>unaCaja.estoyEnMeta(false)})
+		self.listaCajas().forEach({unaCaja=>unaCaja.reiniciarImagen()})
 		self.cajasEnMeta().clear()
 	}
 
@@ -22,7 +22,7 @@ class Creativo inherits Nivel{
 
 }
 
-object nivelCreativo inherits Creativo (siguienteNivel = menu) {
+object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=false) {
 
 	const jugador1 = new JugadorConstructor (position = game.center() , resolucion="menorResolucion",nombreJugador = "jugador1" ,tipo=66)
 	const objetosPorDefecto=[posicionInicialDelConstructor,jugador1,ui,ui2,contadorDeCajas] //Estos objetos no se pueden eliminar adentro del modo creativo
@@ -32,7 +32,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu) {
 	const cajasEnMeta=[]
 
 	const conjuntoDeListas=[listaMeta,listaCajas,listaMuros]
-	method modoCreativoBorrarVisual(){}
+	
 	method esPisable()=true
 	
 	
@@ -40,6 +40,8 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu) {
 		cajasEnMeta.removeAll(objeto)
 		
 	}
+	
+	
 	method formatearNivel(){
 		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 		conjuntoDeListas.forEach({lista=>lista.clear()})
@@ -68,15 +70,28 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu) {
  	
 	override method verificarMetas() {
 		
-		const verificador = self.listaCajas().size()==cajasEnMeta.size()
+		const verificador =self.listaCajas().all({ unaCaja => unaCaja.estoyEnMeta()})
 		
 		if (verificador) {
 			sonidoObjeto.emitirSonido("ok.mp3") // es temporal
 			game.say(configuraciones.elJugador(), "BIEN!!! Este puzzle se puede RESOLVER! ")
 		}		
 	}
+	override method cajasEnMeta()=cajasEnMeta
+	
+	
+	method cajasEnMeta(unaCaja){
+		
+		cajasEnMeta.add(unaCaja)
+		
+	}
+	method cajasEnMetaRemover(unaCaja){
+		cajasEnMeta.remove(unaCaja)
+	}
+	
+	
 	method numeroDeCajasEnLaMeta(){
-		return cajasEnMeta.size()
+		return cajasEnMeta.asSet().size()
 	}
 	method agregarNuevaCajaAlaLista(unaCaja){
 		listaCajas.add(unaCaja)
@@ -127,10 +142,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu) {
 	}
 	
 	method image() = "menorResolucion/modoCreativo.png"
-	method position()=game.at(0,0)
 	
-	method hacerAlgo(direccion){
-	}
 	method jugarNivelCreado(){
 		var numeroDeCajasEnTotal=0
 		self.reiniciarNivel()
@@ -148,26 +160,28 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu) {
 
 	method listaMuros()=listaMuros
 	
-	override method cajasEnMeta()=cajasEnMeta
-	
-	
-	method cajasEnMeta(unaCaja){
-		cajasEnMeta.add(unaCaja)
-	}
-	method cajasEnMetaRemover(unaCaja){
-		cajasEnMeta.remove(unaCaja)
-	}
+
 	
 	
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
  	
+ 	override method position()=game.at(0,0)
+	
+	override method hacerAlgo(direccion){
+	}
+	
+	
+	override method modoCreativoBorrarVisual(){}
+	override method cambiarPosicion(direccion){	
+	}
+ 	
 }
 
 
 
-object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
+object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo,soyUnNivelPuzzle=false){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new JugadorDelNivelCreado(position =posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
@@ -182,7 +196,7 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
   
 	override method verificarMetas() {
 		
-		const verificador = self.numeroDeCajasTotales()==cajasEnMeta.size()
+		const verificador = self.listaCajas().all({ unaCaja => unaCaja.estoyEnMeta()})
 		
 		
 		if (verificador) {
@@ -244,7 +258,7 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
 
 	method image() = "menorResolucion/modoLibre.png"
 
-	method position() = game.at(0, 0)
+	override method position() = game.at(0, 0)
 
 	override method listaCajas() = listaCajas
 
@@ -252,6 +266,12 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo){
 
 	override method soyUnNivelCreativo() = true
 
-	method hacerAlgo(direccion) {
+	
+	override method hacerAlgo(direccion){
+	}
+	
+	
+	override method modoCreativoBorrarVisual(){}
+	override method cambiarPosicion(direccion){	
 	}
 }

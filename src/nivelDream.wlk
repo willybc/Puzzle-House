@@ -126,7 +126,8 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 		self.bordearVerticalmente(8,11,15,muroInvisible)
 	}
 	
-	method position()=game.at(0,0)
+	
+	
 }
 
 
@@ -222,7 +223,8 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	}
 	
 	method image() = "menorResolucion/mapG1.png"
-	method position()=game.at(0,0)
+	
+	
 	
 	override method listaCajas() = listaCajas
 	
@@ -315,9 +317,10 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 	}
 	
 	method image() = "menorResolucion/mapG2.png"
-	method position()=game.at(0,0)
+	
 	
 	override method listaCajas() = listaCajas
 	
  	method listaMeta()= listaMeta
+ 	
 }

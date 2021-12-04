@@ -61,7 +61,7 @@ object nivel1 inherits Nivel (siguienteNivel = nivel0 ,duplicador=2){
 	
 	method image()   = "nivel1/nivel1RA-map.png"
 	
-	method position() = game.origin()
+	
 
 }
 

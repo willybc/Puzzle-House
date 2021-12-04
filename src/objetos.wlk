@@ -15,10 +15,15 @@ object sonidoObjeto {
 		sonido.play()
 	}
 }
+class Estatico inherits Posicion {
+	override method cambiarPosicion(direccion){	
+	}
+	override method hacerAlgo(direccion) {
+	}
+}
 class Posicion {
-
 	var property ultimaDireccion = abajo
-	var property position = game.center()
+	var property position = game.origin()
 	var property posicionInicial = position
 	const property modoCreativo_soyMeta = false
 	const property modoCreativo_soyUnMuro = false
@@ -26,6 +31,7 @@ class Posicion {
 	const property soyUnaCaja=false //agregado el 3/12/2021 para el contador de movimientos
 	var property quieroAgregarAlTablero = true
 	var property estaBloqueado=false
+	var property tipo=100
 
 	method posicioninicial() {
 		sonidoObjeto.emitirSonido("reinicio.mp3")
@@ -50,7 +56,6 @@ class Posicion {
 	method modoCreativoBorrarVisual() {
 		game.removeVisual(self)
 	}
-
 }
 
 class Caja inherits Posicion (soyUnaCaja=true){
@@ -58,20 +63,18 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	const resolucion = "menorResolucion"
 	const stringDeObjeto = "caja1.png"
 	const cajaEnMeta = "caja_ok.png"
-	const property tipo = 1
+	
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
 	
 	var property estoyEnMeta=false
-	
-	
-	
+
 	method esPisable() = false
 
 	method image() = if (self.estoyEnMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
 
 	override method cambiarPosicion(direccion) {
-		var siguienteUbicacion = direccion.moverse(self)
+		const siguienteUbicacion = direccion.moverse(self)
 		ultimaDireccion = direccion
 		if (self.proximaUbicacionLibre(siguienteUbicacion)) {
 			self.position(direccion.moverse(self))
@@ -89,9 +92,11 @@ class Caja inherits Posicion (soyUnaCaja=true){
 		
 		if(self.llegoMeta()){
 				estoyEnMeta=true
+				
 				configuraciones.nivelActual().verificarMetas()
 			}
 			else{
+				
 				estoyEnMeta=false
 			}
 		
@@ -101,9 +106,7 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	
 	method coordenadaX()=position.x()
 	method coordenadaY()=position.y()
-	
-	
-	
+
 	method llegoMeta() = game.colliders(self).any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() } // configuraciones.nivelActual().listaMeta().any{ unaMeta => unaMeta.position() == self.position() && unaMeta.tipo() == self.tipo() }
 	
 	method contador(){
@@ -112,7 +115,6 @@ class Caja inherits Posicion (soyUnaCaja=true){
 		configuraciones.contadorDeEmpujes().incrementar()
 	}
 
-	
 }
 class Oveja inherits Caja {
 	override method image() = if (!self.estoyEnMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
@@ -141,35 +143,32 @@ class Caballo inherits Oveja {
 		}
 	}
 
-
 }
 class MuroVisible inherits Posicion(modoCreativo_soyUnMuro=true) {
 
-	const property tipo = 0
+	
 	var property image = "menorResolucion/muro.png"
 	
 	method esPisable() = false
 
 	override method cambiarPosicion(direccion) {
-	game.say(self,"colision")
-	//configuraciones.elJugador().retroceder(direccion)  //29-11-2021 Con el el metodo antiBug del jugador uno pensaria que este metodo quedo inservible pero no es asi, EN el modo creativo esto se sigue usando ya que en el jugador
+	
+	configuraciones.elJugador().retroceder(direccion)  //29-11-2021 Con el el metodo antiBug del jugador uno pensaria que este metodo quedo inservible pero no es asi, EN el modo creativo esto se sigue usando ya que en el jugador
 	//constructor no existe el metodo antibug por lo que el jugador puede empujar una caja incluso si esta arriba de un muro (para lograr eso hay que apretar la Z obviamente)
 	}
 }
-class Pisable inherits Posicion { 
+class Pisable inherits Estatico { 
 
 	var property image = "menorResolucion/invisible.png"
 
 	method esPisable() = true
 
-	override method hacerAlgo(direccion) {
-	}
-	override method cambiarPosicion(unaDireccion){}
+	
 }
 class Checkpoint inherits Pisable {
 
 	var property siguienteNivel
-	const property tipo = 6
+	
 
 	override method hacerAlgo(direccion) {
 		configuraciones.configStopMusic()
@@ -177,9 +176,7 @@ class Checkpoint inherits Pisable {
 		siguienteNivel.cargarNivel()
 	}
 }
-class Meta inherits Pisable {
-	var property tipo = 1
-
+class Meta inherits Pisable(tipo=1) {
 }
 
 class CheckpointSalir inherits Checkpoint {
@@ -188,19 +185,16 @@ class CheckpointSalir inherits Checkpoint {
 		game.clear()
 		game.stop()
 	}
-	override method  cambiarPosicion(direccion){
-		
-	}
+	
 }
 
 object paleta {
 
 	const property verde = "00FF00FF"
 	const property rojo = "FF0000FF"
-
 }
 
-class CheckpointBonus inherits Posicion (position = game.at(16, 4)) {
+class CheckpointBonus inherits Estatico (position = game.at(16, 4)) {
 	var property nivelBase
 	var property bonus
 
@@ -212,22 +206,20 @@ class CheckpointBonus inherits Posicion (position = game.at(16, 4)) {
 		game.clear()
 		bonus.cargarNivel()
 	}
-	override method  cambiarPosicion(direccion){}
+	
 
 }
-class CambiarRopa  inherits Posicion(position = game.at(6, 5)){
+class CambiarRopa  inherits Estatico(position = game.at(6, 5)){
 
 	var vestimenta
 	override method hacerAlgo(direccion) {
-		self.cambiarPosicion(direccion)
-		pasadizo.vestimenta(vestimenta)
-	}
-	override method cambiarPosicion(direccion){
 		configuraciones.elJugador().nombreJugador(vestimenta)
 		configuraciones.elJugador().retroceder(direccion)
+		pasadizo.vestimenta(vestimenta)
 	}
+	
 }
-class ContadorDePasos inherits Posicion(position=game.at(12,5)){
+class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	var property texto ="Moves : "
 	const colorTexto="FF0000FF"
 
@@ -246,9 +238,6 @@ class ContadorDePasos inherits Posicion(position=game.at(12,5)){
 	method text()=texto+numeroDePasos.toString()
 	
 	method textColor()=colorTexto
-	override method cambiarPosicion(direccion){	
-	}
-	override method hacerAlgo(direccion) {
-	}
+	
 	
 }

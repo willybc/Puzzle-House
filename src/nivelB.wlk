@@ -40,7 +40,7 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 	}
 	
 	method image() = "nivelBonus/pasadizo2-map.png"
-	method position()=game.at(0,0)
+	
 
 
 	
@@ -155,7 +155,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	}
 	
 	method image() = "nivelBonus/map_bonus2.png"
-	method position()=game.at(0,0)
+	
 	
 	override method listaCajas() = listaCajas
 

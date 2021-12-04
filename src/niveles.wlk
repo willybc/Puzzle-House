@@ -12,7 +12,7 @@ import nivelL.*
 import creativo.*
 import nivelDream.*
 
-class Nivel{
+class Nivel inherits Posicion{
 	var property soyUnNivelPuzzle=true
 	var property siguienteNivel
 	
@@ -74,6 +74,9 @@ class Nivel{
 	}
 	
 	method soyUnNivelCreativo()=false
+	
+	override method cambiarPosicion(direccion){		
+	}
 }
 
 object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2,soyUnNivelPuzzle=false){
@@ -114,7 +117,7 @@ object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2,soyUnNivelPuz
 	override method listaCajas() = []
 	
 	method image() = "oscuro.png"
-	method position()= game.at(0,0)
+	
 }
 
 object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
@@ -235,6 +238,6 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		
 		//self.bordearHorizontalmente(16,16,11,muroInvisible)	/* Cama */
 	}
-	method position()=game.at(0,0)
+	
 }
  

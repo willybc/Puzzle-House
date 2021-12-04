@@ -42,7 +42,7 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 	}
 	
 	method image() = "nivelBonus/pasadizoDream.png"
-	method position()=game.at(0,0)
+	
 
 
 	
@@ -175,7 +175,7 @@ object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
 	}
 	
 	method image() = "nivelBonus/map_dream.png"
-	method position()=game.at(0,0)
+	
 	
 	override method listaCajas() = listaCajas
 

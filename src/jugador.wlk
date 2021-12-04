@@ -11,11 +11,11 @@ class Jugador inherits Posicion{
 	var property impedirConteo=false
 	var property nombreJugador
 	var property resolucion
-	var property tipo =99
-
-
-	method image() = resolucion + "/" + nombreJugador.toString() + ultimaDireccion.toString() + ".png"
 	
+	
+	 method  image()=resolucion + "/" + nombreJugador.toString() + ultimaDireccion.toString() + ".png"
+
+
 	override method cambiarPosicion(direccion) {
 		ultimaDireccion=direccion
 		self.verificarColisionConMuro(direccion)

@@ -87,7 +87,7 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 	}
 	
 	method image() = "menorResolucion/mapBel2.png"
-	method position()=game.at(0,0)
+	
 	
 	override method listaCajas() = listaCajas
 

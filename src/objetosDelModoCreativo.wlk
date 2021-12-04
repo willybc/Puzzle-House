@@ -11,11 +11,11 @@ import creativo.*
 
 class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){  
 
-	var property flag=true
-	var property imagen = resolucion + "/" + stringDeObjeto
 	
+	var property imagen = resolucion + "/" + stringDeObjeto // con pre calculo seria asi  : if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+															// pero relentiza demasiado al modo creativo 
 	override method image() =imagen
-	//method imagenARetornar()=  if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
+	
 	
 	method reiniciarImagen(){
 		imagen=resolucion + "/" + stringDeObjeto
@@ -32,26 +32,27 @@ class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){
 		}
 		sonidoObjeto.emitirSonido(sonido)
 	}
-
-	method activarVerificador() {
-		if (self.llegoMeta()) {
-			if (flag) {
-				configuraciones.nivelActual().cajasEnMeta(self)
+	
+	override method activarVerificador(){
+		
+		if(self.llegoMeta()){
+				estoyEnMeta=true
 				imagen= resolucion + "/" + cajaEnMeta // Tranquilamente podriamos hacer esto en el method image = method image()=if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto} pero el rendimiento del juego empeora!! El precalculo causa perdida de cuadros por segundos
-				flag = false
+				configuraciones.nivelActual().verificarMetas()
+				configuraciones.nivelActual().cajasEnMeta(self)
 			}
-			configuraciones.nivelActual().verificarMetas()
-		} else {
-			configuraciones.nivelActual().cajasEnMetaRemover(self)
-			imagen=resolucion + "/" + stringDeObjeto // Tranquilamente podriamos hacer esto en el method image = method image()=if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto} pero el rendimiento del juego empeora!! El precalculo causa perdida de cuadros por segundos
-			flag = true
-		}
+			else{
+				configuraciones.nivelActual().cajasEnMetaRemover(self)
+				estoyEnMeta=false
+				imagen=resolucion + "/" + stringDeObjeto // Tranquilamente podriamos hacer esto en el method image = method image()=if (self.llegoMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto} pero el rendimiento del juego empeora!! El precalculo causa perdida de cuadros por segundos
+			}	
 	}
+
 
 }
 
 object ui2 inherits Pisable(position=game.at(8,12)) {
-	const property tipo=100
+	
 	
 	override method image()="MCMenorResolucion/hud.png"
 
@@ -60,7 +61,7 @@ object ui2 inherits Pisable(position=game.at(8,12)) {
 
 
 object ui inherits Pisable(position=game.at(9,0)) {
-	const property tipo=100
+	
 	override method image()="MCMenorResolucion/hud"+nivelCreativo.retornarJugador().numeroSelector().toString()+".png"
 
 	override method modoCreativoBorrarVisual(){}
@@ -79,7 +80,7 @@ object numero inherits Pisable(position=game.at(10,12)){
 
 
 object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDeReinicio=true){
-	var property tipo =0
+	
 	
 	method image()="menorResolucion/pos00.png"
 	override method hacerAlgo(direccion) {
