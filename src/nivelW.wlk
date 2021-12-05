@@ -64,7 +64,7 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
 		nivel0.posicionInitial(game.at(5,10))
-		nivel0.agregarNivelCompletado(self)
+		
 	}
 	
 	method generarMuros(){

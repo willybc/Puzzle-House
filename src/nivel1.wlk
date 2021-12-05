@@ -61,7 +61,16 @@ object nivel1 inherits Nivel (siguienteNivel = nivel0 ,duplicador=2){
 	
 	method image()   = "nivel1/nivel1RA-map.png"
 	
-	
+	override method abandonarNivel(){
+			
+			game.schedule(50,{
+			game.clear()
+			self.reiniciarNivel()
+			configuraciones.configStopMusic()
+			menu.cargarNivel()	
+			})
+			
+		}
 
 }
 

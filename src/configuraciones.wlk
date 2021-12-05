@@ -39,6 +39,7 @@ object configuraciones {
 		keyboard.r().onPressDo{ nivelActual.reiniciarNivel()}
 		keyboard.z().onPressDo{ self.cambio()}
 		keyboard.p().onPressDo({ self.configStopMusic()})
+		keyboard.backspace().onPressDo({self.nivelActual().abandonarNivel()})
 
 	}
 

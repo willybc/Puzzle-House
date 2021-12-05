@@ -7,8 +7,25 @@ import jugador.*
 import niveles.*
 import ghost.*
 import nivelB2.*
-
-object nivelDream inherits Nivel (siguienteNivel = nivel0,soyUnNivelPuzzle=false){
+class Dream inherits Nivel(pertenescoAlDream=true){
+	
+override method abandonarNivel(){
+			
+			game.schedule(50,{
+			game.clear()
+			self.reiniciarNivel()
+			configuraciones.configStopMusic()
+			siguienteNivel.cargarNivel()	
+			})
+			
+		}
+	
+	
+	
+	
+	
+}
+object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false){
 	var property sonido = "Dreams/dreams.mp3"
 	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
@@ -63,6 +80,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 		
 			
 		self.cargarObjetos(listaSombras)
+		game.addVisual(listasNivelesCompletados)
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
 	}	
 		override method configNivel(personaje1){
@@ -131,7 +149,7 @@ object nivelDream inherits Nivel (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 }
 
 
-object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
+object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	
@@ -185,7 +203,8 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
 		nivelDream.posicionInitial(game.at(19,10))
-		nivelDream.agregarNivelCompletado(self)
+		
+		
 	}
 	
 	method generarMuros(){
@@ -233,7 +252,7 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
  	method listaMeta()= listaMeta
 }
 
-object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
+object nivelG2 inherits Dream (siguienteNivel = nivelDream){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(9, 9) , resolucion="menorResolucion",nombreJugador = "chara")
@@ -284,6 +303,7 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
 		game.addVisual(unContadorDePasos)
 		game.addVisual(unContadorDeEmpujes)
+		
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		self.generarMuros()
@@ -291,7 +311,7 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
 		nivelDream.posicionInitial(game.at(4,10))
-		nivelDream.agregarNivelCompletado(self)
+		
 	}
 	
 	method generarMuros(){
@@ -330,4 +350,10 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 	
  	method listaMeta()= listaMeta
  	
+}
+object listasNivelesCompletados{
+	var property position=game.at(7,0)
+	
+	method text()=nivelDream.listaDeNivelesCompletados().asSet().toString()
+	
 }

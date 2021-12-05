@@ -15,7 +15,7 @@ import nivelDream.*
 class Nivel inherits Posicion{
 	var property soyUnNivelPuzzle=true
 	var property siguienteNivel
-	
+	var property pertenescoAlDream=false
 	const duplicador=1
 	method listaCajas()
 	
@@ -52,8 +52,24 @@ class Nivel inherits Posicion{
 	method cambiarNivel(){
 		self.reiniciarNivel()
 		game.clear()
+		if(!self.pertenescoAlDream()){
+			nivel0.agregarNivelCompletado(self)
+		}
+		else{
+			nivelDream.agregarNivelCompletado(self)
+		}
+		
 		siguienteNivel.cargarNivel()
 	}
+	method abandonarNivel(){
+			game.schedule(50,{
+			game.clear()
+			self.reiniciarNivel()
+			configuraciones.configStopMusic()
+			siguienteNivel.cargarNivel()	
+			})
+			
+		}
 	
 	method reiniciarNivel(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
@@ -86,6 +102,7 @@ object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2,soyUnNivelPuz
 	method cargarNivel(){
 		
 		configuraciones.configMusic("menu.mp3")
+		pasadizo.vestimenta("jugador1")
 		game.addVisual(self)
 		game.addVisual(new Checkpoint(position = game.at(9,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
 		game.addVisual(new Checkpoint(position = game.at(11,1), image = "mayorResolucion/invisible.png", siguienteNivel = nivel1))
@@ -117,6 +134,12 @@ object menu inherits Nivel(siguienteNivel = nivel1, duplicador = 2,soyUnNivelPuz
 	override method listaCajas() = []
 	
 	method image() = "oscuro.png"
+	
+	override method abandonarNivel(){
+			
+			game.stop()
+			
+		}
 	
 }
 
@@ -166,6 +189,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		self.generarMuros()
 		
 		//Esposo
+		jugador1.nombreJugador(pasadizo.vestimenta())
 		jugador1.position(posicionInitial)
 		game.addVisual(jugador1)
 		self.configNivel(jugador1)
@@ -180,6 +204,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		game.addVisual(new Checkpoint(position = game.at(10,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelBel))		
 		game.addVisual(new Checkpoint(position = game.at(23,4), image = "menorResolucion/invisible.png", siguienteNivel = nivelL))	
 		self.cargarObjetos(listaSombras)
+		game.addVisual(listasNivelesCompletados2)
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
 	
 	}	
@@ -197,7 +222,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		listaDeNivelesCompletados.add(unNivel)
 	}
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
-	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()==3
+	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=4
 	
 	override method listaCajas() = listaCajas
 
@@ -238,6 +263,25 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		
 		//self.bordearHorizontalmente(16,16,11,muroInvisible)	/* Cama */
 	}
+	
+	override method abandonarNivel(){
+			game.schedule(50,{
+			listaSombras.forEach({unaSombra=>unaSombra.seAtraveso(false)})
+			listaDeNivelesCompletados.clear()
+			game.clear()
+			self.sonido("hogar1.mp3")
+			image = "nivel0/map3.png"
+			configuraciones.configStopMusic()
+			menu.cargarNivel()	
+			})
+			
+		}
+	
+}
+object listasNivelesCompletados2{
+	var property position=game.at(7,0)
+	
+	method text()=nivel0.listaDeNivelesCompletados().asSet().toString()
 	
 }
  

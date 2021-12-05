@@ -48,7 +48,7 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 	
 }
 
-object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
+object nivelBonusDream inherits Dream (siguienteNivel = nivel0){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,8))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,7))
 	//const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())
@@ -112,7 +112,8 @@ object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
-		nivel0.posicionInitial(game.at(17,4))
+		nivel0.posicionInitial(game.at(17,3))
+		nivelDream.posicionInitial(game.at(17,3))
 		nivel0.image("nivel0/map2.png")
 		nivel0.sonido("fin.mp3")
 	}
@@ -184,5 +185,16 @@ object nivelBonusDream inherits Nivel (siguienteNivel = nivel0){
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
+ 	
+ 	override method abandonarNivel(){
+			
+			game.schedule(50,{
+			game.clear()
+			self.reiniciarNivel()
+			configuraciones.configStopMusic()
+			nivelDream.cargarNivel()	
+			})
+			
+		}
 	
 }

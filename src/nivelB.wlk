@@ -10,18 +10,20 @@ import niveles.*
 object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNivelPuzzle=false){
 	
 	var property vestimenta = "jugador1"
-
+	const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = self.vestimenta())
 	method cargarNivel(){
-		const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = "jugador1")
+		
 		configuraciones.configMusic("pasadizo.mp3")
 		game.addVisual(self)
+		jugador1.position(game.at(2, 3) )//denuevo para evitar un bug
 		game.addVisual(jugador1)
+		
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
 		game.addVisual(new CambiarRopa(position=game.at(6,5),vestimenta="jugadorGranja2") )
 		game.addVisual(new CambiarRopa(position=game.at(16,5),vestimenta="jugadorGranja") )
 		game.addVisual(new Checkpoint(position = game.at(24,3), image = "mayorResolucion/invisible.png", siguienteNivel = nivel_bonus))
-		
+		nivel0.posicionInitial(game.at(17,4))
 		self.generarMuros()	
 		
 	}
@@ -108,6 +110,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 		//self.cargarObjetos(listaCajas)
 		self.generarMuros()
 		self.cargarObjetos(listaCajas)
+		jugador1.nombreJugador(pasadizo.vestimenta())
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
@@ -162,5 +165,19 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
-	
+ 	
+ 	
+	override method abandonarNivel(){
+			
+			game.schedule(50,{
+			game.clear()
+			self.reiniciarNivel()
+			configuraciones.configStopMusic()
+			nivel0.sonido("hogar1.mp3")
+			nivel0.image("nivel0/map3.png")
+			nivel0.cargarNivel()	
+			
+			})
+			
+		}
 }
