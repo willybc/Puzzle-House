@@ -44,7 +44,9 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 	method image() = "nivelBonus/pasadizoDream.png"
 	
 
-
+	override method abandonarNivel(){
+		game.say(configuraciones.elJugador(),"NO HAY VUELTA ATRAS!")
+	}
 	
 }
 
@@ -112,7 +114,7 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0){
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
-		nivel0.posicionInitial(game.at(17,3))
+		nivel0.posicionInitial(game.at(14,11))
 		nivelDream.posicionInitial(game.at(17,3))
 		nivel0.image("nivel0/map2.png")
 		nivel0.sonido("fin.mp3")

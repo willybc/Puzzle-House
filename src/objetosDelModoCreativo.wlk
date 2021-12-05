@@ -20,8 +20,6 @@ class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){
 	method reiniciarImagen(){
 		imagen=resolucion + "/" + stringDeObjeto
 	}
-	
-	
 
 	override method activarVerificador(){
 		
@@ -92,12 +90,7 @@ object posicionInicialDelConstructor inherits Posicion(modoCreativo_soyUnPuntoDe
 }
 
 class JugadorDelNivelCreado inherits Jugador{
-	
-	
-	method TeclasAdicionales(){
-		keyboard.enter().onPressDo{nivelCreativoJugar.cambiarNivel()}
-	}	
-	
+
 	override method text() =""
 }
 
@@ -145,7 +138,6 @@ class JugadorConstructor inherits Jugador{
 	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		keyboard.control().onPressDo{self.generarPuntoDeReinicio()}
 		keyboard.enter().onPressDo{nivelCreativo.jugarNivelCreado()}
-		keyboard.backspace().onPressDo{nivelCreativo.salirDelNivel()}
 		keyboard.z().onPressDo{self.cambiarAssetsEnElModolibre()}
 	}
 	method cambiarAssetsEnElModolibre(){

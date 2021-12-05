@@ -199,13 +199,14 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		dream.position( game.at(16,11) )
 		game.addVisual(dream)
 		
-		
 		game.addVisual(new Checkpoint(position = game.at(7,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelW))
+
 		game.addVisual(new Checkpoint(position = game.at(10,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelBel))		
 		game.addVisual(new Checkpoint(position = game.at(23,4), image = "menorResolucion/invisible.png", siguienteNivel = nivelL))	
 		self.cargarObjetos(listaSombras)
 		game.addVisual(listasNivelesCompletados2)
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
+		nivelDream.posicionInitial(game.at(13, 11)) //por si entramos nuevamente al nivel dream
 	
 	}	
 		override method configNivel(personaje1){
@@ -263,11 +264,13 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		
 		//self.bordearHorizontalmente(16,16,11,muroInvisible)	/* Cama */
 	}
-	
+	method limpiarlistaDeNivelesCompletados(){
+		listaDeNivelesCompletados.clear()
+	}
 	override method abandonarNivel(){
 			game.schedule(50,{
 			listaSombras.forEach({unaSombra=>unaSombra.seAtraveso(false)})
-			listaDeNivelesCompletados.clear()
+			self.limpiarlistaDeNivelesCompletados()
 			game.clear()
 			self.sonido("hogar1.mp3")
 			image = "nivel0/map3.png"

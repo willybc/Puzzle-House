@@ -7,7 +7,6 @@ import jugador.*
 import niveles.*
 import objetosDelModoCreativo.*
 
-
 class Creativo inherits Nivel{
 	
 	override method reiniciarNivel(){
@@ -17,10 +16,8 @@ class Creativo inherits Nivel{
 		self.listaCajas().forEach({unaCaja=>unaCaja.reiniciarImagen()})
 		self.cajasEnMeta().clear()
 	}
-	
 
 	method cajasEnMeta()
-
 }
 
 object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=false) {
@@ -41,9 +38,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		cajasEnMeta.removeAll(objeto)
 		
 	}
-	
-	
-	
+
 	method formatearNivel(){
 		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 		conjuntoDeListas.forEach({lista=>lista.clear()})
@@ -129,7 +124,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 	method ordenarCajasPorTipo(){
 		listaCajas.sortedBy{ a, b => b.tipo() > a.tipo()}
 	}
-	method salirDelNivel(){
+	override method abandonarNivel(){
 		conjuntoDeListas.forEach({unaLista=>unaLista.clear()})
 		game.schedule(20,{self.volverAlMenu()})
 	}
@@ -240,21 +235,12 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo,soyU
 		jugador1.position(posicionInicialDelConstructor.position())
 		jugador1.posicionInicial(posicionInicialDelConstructor.position())
 		game.addVisual(jugador1)
-		game.say(jugador1, "Presiona ENTER para volver al modo creativo")
+		game.say(jugador1, "Presiona BACKSPACE para volver al modo creativo")
 		self.configNivel(jugador1)
-		jugador1.TeclasAdicionales()
+		
 	}
 	
-	override method  cambiarNivel(){
-		configuraciones.configStopMusic()
-		self.reiniciarNivel()
-		game.schedule(10,{self.transicion()})
-	
-	}
-	method transicion(){
-		game.clear()
-		siguienteNivel.cargarNivel()
-	}
+
 
 	method image() = "menorResolucion/modoLibre.png"
 

@@ -96,7 +96,7 @@ object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 		listaDeNivelesCompletados.add(unNivel)
 	}
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
-	method nivelBonusHabilitado() =self.listaDeNivelesCompletados().asSet().size()==2
+	method nivelBonusHabilitado() =self.listaDeNivelesCompletados().asSet().size()>=2
 	
 	override method listaCajas() = listaCajas
 

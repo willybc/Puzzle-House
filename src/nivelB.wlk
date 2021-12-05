@@ -13,6 +13,8 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 	const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = self.vestimenta())
 	method cargarNivel(){
 		
+
+		game.addVisual(new Checkpoint(position = game.at(0,3), image = "menorResolucion/invisible.png", siguienteNivel = nivel0))
 		configuraciones.configMusic("pasadizo.mp3")
 		game.addVisual(self)
 		jugador1.position(game.at(2, 3) )//denuevo para evitar un bug
@@ -34,7 +36,7 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 		
 		const muroInvisible = "menorResolucion/invisible.png"
 		
-		self.bordearHorizontalmente(-2,0,3,muroInvisible)
+		//self.bordearHorizontalmente(-2,0,3,muroInvisible)
 		self.bordearHorizontalmente(0,4,5,muroInvisible)
 		self.bordearHorizontalmente(8,14,5,muroInvisible)
 		self.bordearHorizontalmente(18,24,5,muroInvisible)
@@ -43,7 +45,9 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 	
 	method image() = "nivelBonus/pasadizo2-map.png"
 	
-
+	override method abandonarNivel(){
+		game.say(configuraciones.elJugador(),"Sube las escaleras para volver!")
+	}
 
 	
 }
