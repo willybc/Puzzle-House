@@ -114,7 +114,8 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		objetosPorDefecto.forEach({unObjeto=>game.removeVisual(unObjeto)})
 		self.habilitarLaAdicionDeLosObjetosAlTablero()
 		self.agregarObjetosAlTablero()
-		self.cargarObjetos(objetosPorDefecto)
+		objetosPorDefecto.forEach({unObjeto=>game.addVisual(unObjeto)})
+		
 		}
 	method agregarObjetosAlTablero(){
 		conjuntoDeListas.flatten().forEach({unObjeto=>unObjeto.modoCreativoAgregarVisual()})
@@ -129,7 +130,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		listaCajas.sortedBy{ a, b => b.tipo() > a.tipo()}
 	}
 	method salirDelNivel(){
-		conjuntoDeListas.clear()
+		conjuntoDeListas.forEach({unaLista=>unaLista.clear()})
 		game.schedule(20,{self.volverAlMenu()})
 	}
 	method volverAlMenu(){
@@ -157,14 +158,11 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 	
 	}
 	method numeroDeCajas()=listaCajas.size()
-		
-	
+
 
 	method listaMuros()=listaMuros
 	
 
-	
-	
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta

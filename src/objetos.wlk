@@ -241,3 +241,38 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	
 	
 }
+object cronometro inherits Estatico(position=game.at(1,5)){
+	var property segundos= 8
+	var property nivelCompletado=false
+	//method image()="menorResolucion/reloj.png"
+	
+	method descontar(){
+		if(segundos>0){
+			segundos=segundos-1
+		}
+		else{
+			segundos=8
+			configuraciones.nivelActual().reiniciarNivel()
+		}
+		
+	}
+	
+	method reset(){
+		segundos=8
+	}
+	
+	method text()=if(!self.nivelCompletado()){self.segundos().toString()}else{"FELICITACIONES"}
+	
+	method activarCronometro(){
+		game.onTick(1000,"Cronometro",{self.descontar()})
+	}
+	
+	method desactivarCronometro(){
+		game.removeTickEvent("Cronometro")
+		nivelCompletado=true
+	}
+	
+	method esPisable()=true
+	
+	
+}

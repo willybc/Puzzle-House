@@ -19,12 +19,13 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0){
 	
 	const listaMeta =[ 
 						 
-						 new Meta(position = game.at(11,6),image= meta1)  
+						 new Meta(position = game.at(23,11),image= meta1)  ,
+						 new Meta(position = game.at(1,1),image= meta1)  
 					
 	]
 	const listaCajas=[  
-						 new Caja(position = game.at(13,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1) 
-				
+						 new Caja(position = game.at(13,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1), 
+						 new Caja(position = game.at(14,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1) 
 	
 	]
 	
@@ -32,16 +33,17 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0){
 		const verificador = self.listaCajas().all({ unaCaja => unaCaja.estoyEnMeta() })
 		if (verificador) {
 			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
-		
-			game.schedule(300,{self.reiniciarNivel()})
+			cronometro.desactivarCronometro()
+			game.say(configuraciones.elJugador(),"LO LOGRASTE!")
 		}
 	}
 
 
 
 	method cargarNivel(){
+		configuraciones.configMusic("NivelBelCronometro.mp3")
 		unContadorDePasos.reset()
-
+		
 		
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
@@ -50,12 +52,16 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0){
 		game.addVisual(unContadorDeEmpujes)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
+		
+		cronometro.activarCronometro()
 		self.generarMuros()
+		
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
 		nivel0.posicionInitial(game.at(21,3))
 		nivel0.agregarNivelCompletado(self)
+		game.addVisual(cronometro)
 	}
 	
 	method generarMuros(){

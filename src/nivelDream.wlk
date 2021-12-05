@@ -146,18 +146,20 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	const cajaMeta1 = "ataud_ok1.png"
 	const cajaMeta2 = "ataud_ok2.png"
 
-	const listaMeta =[   new Meta(position = game.at(8,11), image= meta1, tipo=1),
+	const listaMeta =[   
+						  new Meta(position = game.at(7,9), image= meta1, tipo=1)/* ,
+						 new Meta(position = game.at(8,11), image= meta1, tipo=1),
 						 new Meta(position = game.at(10,11), image= meta1, tipo=1),
-						 new Meta(position = game.at(7,9), image= meta1, tipo=1),
+						
 						 new Meta(position = game.at(7,10), image= meta1, tipo=1),
 						 new Meta(position = game.at(9,10), image= meta2, tipo=2),
 						 new Meta(position = game.at(7,11), image= meta2, tipo=2),
 						 new Meta(position = game.at(9,11), image= meta2, tipo=2),
 						 new Meta(position = game.at(11,11), image= meta2, tipo=2),
-						 new Meta(position = game.at(10,9), image= meta1, tipo=1)
+						 new Meta(position = game.at(10,9), image= meta1, tipo=1)*/
 	]
 	
-	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)/*,
 						new Caja(position = game.at(14,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(11,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -166,7 +168,7 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 						new Caja(position = game.at(9,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(12,7),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(12,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
 	]
 
 	method cargarNivel(){
@@ -243,7 +245,10 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 	const cajaMeta1 = "ataud_ok1.png"
 	const cajaMeta2 = "ataud_ok2.png"
 
-	const listaMeta =[   new Meta(position = game.at(15,6), image= meta1, tipo=1),
+	const listaMeta =[   
+		
+						 new Meta(position = game.at(13,5), image= meta2, tipo=2)/*,
+						 new Meta(position = game.at(15,6), image= meta1, tipo=1),
 						 new Meta(position = game.at(15,4), image= meta1, tipo=1),
 						 new Meta(position = game.at(15,3), image= meta1, tipo=1),
 						 new Meta(position = game.at(14,3), image= meta1, tipo=1),
@@ -251,12 +256,14 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 						 
 						 new Meta(position = game.at(13,4), image= meta2, tipo=2),
 						 new Meta(position = game.at(14,4), image= meta2, tipo=2),
-						 new Meta(position = game.at(13,5), image= meta2, tipo=2),
+						
 						 new Meta(position = game.at(14,5), image= meta2, tipo=2),
-						 new Meta(position = game.at(15,5), image= meta2, tipo=2)
+						 new Meta(position = game.at(15,5), image= meta2, tipo=2)*/
 	]
 	
-	const listaCajas=[  new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+	const listaCajas=[  
+						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)/* ,
+		                new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(15,10),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(10,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(14,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -264,9 +271,9 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 						
 						new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(7,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
+						
 						new Caja(position = game.at(7,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(8,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+						new Caja(position = game.at(8,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
 	]
 
 	method cargarNivel(){
