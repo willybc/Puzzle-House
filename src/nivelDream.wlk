@@ -138,13 +138,13 @@ object nivelG1 inherits Nivel (siguienteNivel = nivelDream){
 	
 	
 	const jugador1 = new Jugador(position = game.at(7, 5) , resolucion="menorResolucion",nombreJugador = "chara")
-	const meta1 = "menorResolucion/meta1.png"
-	const meta2 = "menorResolucion/meta2.png"
+	const meta1 = "menorResolucion/meta_dream1.png"
+	const meta2 = "menorResolucion/meta_dream2.png"
 	const resolucionCaja = "menorResolucion"
-	const caja1 = "caja1.png"
-	const caja2 = "caja2.png"
-	const cajaMeta1 = "caja_ok.png"
-	const cajaMeta2 = "caja_ok2.png"
+	const caja1 = "ataud1.png"
+	const caja2 = "ataud2.png"
+	const cajaMeta1 = "ataud_ok1.png"
+	const cajaMeta2 = "ataud_ok2.png"
 
 	const listaMeta =[   new Meta(position = game.at(8,11), image= meta1, tipo=1),
 						 new Meta(position = game.at(10,11), image= meta1, tipo=1),
@@ -235,13 +235,13 @@ object nivelG2 inherits Nivel (siguienteNivel = nivelDream){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(9, 9) , resolucion="menorResolucion",nombreJugador = "chara")
-	const meta1 = "menorResolucion/meta1.png"
-	const meta2 = "menorResolucion/meta2.png"
+	const meta1 = "menorResolucion/meta_dream1.png"
+	const meta2 = "menorResolucion/meta_dream2.png"
 	const resolucionCaja = "menorResolucion"
-	const caja1 = "caja1.png"
-	const caja2 = "caja2.png"
-	const cajaMeta1 = "caja_ok.png"
-	const cajaMeta2 = "caja_ok2.png"
+	const caja1 = "ataud1.png"
+	const caja2 = "ataud2.png"
+	const cajaMeta1 = "ataud_ok1.png"
+	const cajaMeta2 = "ataud_ok2.png"
 
 	const listaMeta =[   new Meta(position = game.at(15,6), image= meta1, tipo=1),
 						 new Meta(position = game.at(15,4), image= meta1, tipo=1),
