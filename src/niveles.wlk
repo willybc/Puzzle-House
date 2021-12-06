@@ -11,9 +11,11 @@ import nivelBel.*
 import nivelL.*
 import creativo.*
 import nivelDream.*
+import nivelTests.*
 
 class Nivel inherits Posicion{
 	var property soyUnNivelPuzzle=true
+	var property soyUnNivelHardcoreTime=false
 	var property siguienteNivel
 	var property pertenescoAlDream=false
 	const duplicador=1
@@ -52,12 +54,13 @@ class Nivel inherits Posicion{
 	method cambiarNivel(){
 		self.reiniciarNivel()
 		game.clear()
-		if(!self.pertenescoAlDream()){
+		if(!self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivel0.agregarNivelCompletado(self)
 		}
-		else{
+		else (self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivelDream.agregarNivelCompletado(self)
 		}
+		
 		
 		siguienteNivel.cargarNivel()
 	}
@@ -78,6 +81,10 @@ class Nivel inherits Posicion{
 		if(self.soyUnNivelPuzzle()){
 			configuraciones.elcontadorDePasos().reset()
 			configuraciones.contadorDeEmpujes().reset()
+		}
+		if(self.soyUnNivelHardcoreTime()){
+			configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.yaEstubeEnMeta(false)}
+			configuraciones.nivelActual().cronometro().reset()
 		}
 		
 	}
@@ -159,8 +166,13 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		new CheckpointDeSombras(position=game.at(12,2),sombraDeReferencia=sombra2),
 		new CheckpointDeSombras(position=game.at(18,2 ),sombraDeReferencia=sombra3)
 	]
+	const nivelBel = new NivelBel()
+	const nivelL = new NivelL()
+	const nivelW= new NivelW ()
 	
 	const listaDeNivelesCompletados=[]
+	
+	
 	
 	var property posicionInitial = game.at(3,1)
 		method cargarNivel(){		
@@ -199,10 +211,11 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		dream.position( game.at(16,11) )
 		game.addVisual(dream)
 		
-		game.addVisual(new Checkpoint(position = game.at(7,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelW))
+		game.addVisual(new Checkpoint(position = game.at(7,11), image = "menorResolucion/invisible.png", siguienteNivel = self.nivelW()))
 
-		game.addVisual(new Checkpoint(position = game.at(10,11), image = "menorResolucion/invisible.png", siguienteNivel = nivelBel))		
-		game.addVisual(new Checkpoint(position = game.at(23,4), image = "menorResolucion/invisible.png", siguienteNivel = nivelL))	
+		game.addVisual(new Checkpoint(position = game.at(10,11), image = "menorResolucion/invisible.png", siguienteNivel = self.nivelBel()))
+		//game.addVisual(new Checkpoint(position = game.at(12,11), image = "menorResolucion/reloj.png", siguienteNivel = nivelBelHardcoreTime))	 el png ese es horrible ,lo puse para probar pero ni asi lo quiero jaja		
+		game.addVisual(new Checkpoint(position = game.at(23,4), image = "menorResolucion/invisible.png", siguienteNivel = self.nivelL()))	
 		self.cargarObjetos(listaSombras)
 		game.addVisual(listasNivelesCompletados2)
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
@@ -216,6 +229,9 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		configuraciones.nivelActual(self)
 
 	}
+	method nivelBel()=nivelBel
+	method nivelW()=nivelW
+	method nivelL()=nivelL
 	
 	method listaSombras()=listaSombras
 	method listaSombrasNoAtravesadas()=self.listaSombras().filter({unaSombra=>!unaSombra.seAtraveso()})

@@ -6,7 +6,7 @@ import timeline.*
 import jugador.*
 import niveles.*
 
-object nivelW inherits Nivel (siguienteNivel = nivel0){
+class NivelW inherits Nivel (siguienteNivel = nivel0){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(19, 0) , resolucion="menorResolucion",nombreJugador = "jugador2")
@@ -19,7 +19,7 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 	const cajaMeta2 = "caja_ok2.png"
 
 	const listaMeta =[   
-						 new Meta(position = game.at(5,2), image= meta1)/* ,
+						 new Meta(position = game.at(5,2), image= meta1) ,
 						 new Meta(position = game.at(9,5),image= meta1) ,
 						 new Meta(position = game.at(8,5), image= meta2,tipo=2),
 						 new Meta(position = game.at(10,5), image= meta1),
@@ -30,11 +30,11 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 						 
 						 
 						 new Meta(position = game.at(6,2), image= meta2, tipo=2),
-						 new Meta(position = game.at(5,3), image= meta2, tipo=2) */
+						 new Meta(position = game.at(5,3), image= meta2, tipo=2) 
 					
 		
 	]
-	const listaCajas=[   new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)/*,
+	const listaCajas=[   new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1) ,
 						 new Caja(position = game.at(6,9) ,resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						 new Caja(position = game.at(9,9) ,resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
@@ -45,7 +45,7 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 						 
 						
 						 new Caja(position = game.at(8,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/	  
+						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)	  
 	]
 
 	method cargarNivel(){
@@ -106,4 +106,34 @@ object nivelW inherits Nivel (siguienteNivel = nivel0){
 
  	method listaMeta()= listaMeta
 
+}
+object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
+	const unCronometro=new Cronometro(segundos=10,bonificacionDeSegundos=3,segundoDeReset=10)
+	
+	override method cargarNivel(){
+	
+		//configuraciones.configMusic("NivelBelCronometro.mp3")
+		
+		game.addVisual(self)
+		unCronometro.activarCronometro()
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)	
+		self.cargarObjetos(listaMeta)
+		self.cargarObjetos(listaCajas)
+		self.generarMuros()
+		game.addVisual(jugador1)
+		configuraciones.nivelActual(self)	
+		self.configNivel(jugador1)
+		nivel0.posicionInitial(game.at(5,10))
+		game.addVisual(unCronometro)
+	
+	}
+	
+	method cronometro()=unCronometro
+	
+	
+	
+	
 }

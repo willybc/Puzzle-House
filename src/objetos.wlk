@@ -59,7 +59,7 @@ class Posicion {
 }
 
 class Caja inherits Posicion (soyUnaCaja=true){
-	
+	var property yaEstubeEnMeta=false
 	const resolucion = "menorResolucion"
 	const stringDeObjeto = "caja1.png"
 	const cajaEnMeta = "caja_ok.png"
@@ -92,13 +92,24 @@ class Caja inherits Posicion (soyUnaCaja=true){
 		
 		if(self.llegoMeta()){
 				estoyEnMeta=true
-				
 				configuraciones.nivelActual().verificarMetas()
+				if(configuraciones.nivelActual().soyUnNivelHardcoreTime()){self.modoCronometro()}
 			}
 			else{
 				
 				estoyEnMeta=false
 			}
+		
+	}
+	
+	method modoCronometro(){
+		
+		if(!self.yaEstubeEnMeta()){
+					configuraciones.nivelActual().cronometro().sumarSegundos()
+					yaEstubeEnMeta=true
+		}
+		
+		
 		
 	}
 	
@@ -116,6 +127,13 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	}
 
 }
+
+
+
+
+
+
+
 class Oveja inherits Caja {
 	override method image() = if (!self.estoyEnMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
 }
@@ -240,10 +258,14 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	method textColor()=colorTexto
 	
 	
+	
+	
 }
-object cronometro inherits Estatico(position=game.at(1,5)){
-	var property segundos= 8
+class Cronometro inherits Estatico(position=game.at(1,3)){
+	var property segundos=8
 	var property nivelCompletado=false
+	var property segundoDeReset=8
+	var property bonificacionDeSegundos=7
 	//method image()="menorResolucion/reloj.png"
 	
 	method descontar(){
@@ -251,14 +273,17 @@ object cronometro inherits Estatico(position=game.at(1,5)){
 			segundos=segundos-1
 		}
 		else{
-			segundos=8
+			self.reset()
 			configuraciones.nivelActual().reiniciarNivel()
-		}
-		
+		}		
+	}
+	
+	method sumarSegundos(){
+		segundos=segundos+bonificacionDeSegundos
 	}
 	
 	method reset(){
-		segundos=8
+		segundos=segundoDeReset
 	}
 	
 	method text()=if(!self.nivelCompletado()){self.segundos().toString()}else{"FELICITACIONES"}
@@ -274,5 +299,5 @@ object cronometro inherits Estatico(position=game.at(1,5)){
 	
 	method esPisable()=true
 	
-	
 }
+

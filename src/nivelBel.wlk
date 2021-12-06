@@ -6,7 +6,7 @@ import timeline.*
 import jugador.*
 import niveles.*
 
-object nivelBel inherits Nivel(siguienteNivel = nivel0){
+class NivelBel inherits Nivel(siguienteNivel = nivel0){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(17,10) , resolucion="menorResolucion",nombreJugador = "jugadora2")
@@ -14,7 +14,7 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 	const meta2=  "menorResolucion/meta2.png"
 	const resolucionCaja = "menorResolucion"
 	
-	const listaMeta =[   new Meta(position = game.at(17,2), image= meta1) /* ,
+	const listaMeta =[   new Meta(position = game.at(17,2), image= meta1)  ,
 						 new Meta(position = game.at(7,1), image= meta2,tipo=2),
 						 new Meta(position = game.at(7,10), image= meta2,tipo=2),
 						 new Meta(position = game.at(15,1), image= meta2,tipo=2),
@@ -22,11 +22,11 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 						 new Meta(position = game.at(11,10), image= meta1),
 						 new Meta(position = game.at(7,9), image = meta1),
 						 new Meta(position = game.at(14,1), image = meta1),
-						 new Meta(position = game.at(8,3), image= meta1)*/
+						 new Meta(position = game.at(8,3), image= meta1)
 						 ]
 						 
 	const listaCajas=[   
-						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1)/*,
+						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1),
 						 new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1) ,
 						 new Caja(position = game.at(16,7),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2),
 						 new Caja(position = game.at(16,6),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2),
@@ -34,7 +34,7 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 						 new Caja(position = game.at(13,2),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1),
 						 new Caja(position= game.at(11,4),resolucion=resolucionCaja,stringDeObjeto ="caja1.png", cajaEnMeta="caja_ok.png",tipo=1),
 						 new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto= "caja1.png", cajaEnMeta = "caja_ok.png",tipo=1),
-						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2)*/
+						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2)
 						
 						 ]
 
@@ -95,4 +95,39 @@ object nivelBel inherits Nivel(siguienteNivel = nivel0){
 
  	method listaMeta()= listaMeta
 }
+
+
+object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
+	
+	const unCronometro=new Cronometro()
+	
+
+	override method cargarNivel(){
+	
+		configuraciones.configMusic("NivelBelCronometro.mp3")
+		
+		game.addVisual(self)
+		unCronometro.activarCronometro()
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)	
+		self.cargarObjetos(listaMeta)
+		self.cargarObjetos(listaCajas)
+		self.generarMuros()
+		game.addVisual(jugador1)
+		configuraciones.nivelActual(self)	
+		self.configNivel(jugador1)
+		nivel0.posicionInitial(game.at(12,10))
+		game.addVisual(unCronometro)
+	
+	}
+
+ 	method cronometro()=unCronometro
+}
+
+
+
+
+
 

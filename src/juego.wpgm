@@ -25,9 +25,11 @@ program juego {
 	menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
 	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
-	//nivelW.cargarNivel()			
-	//nivelBel.cargarNivel()
-	//nivelL.cargarNivel()
+	
+	//nivel0.nivelW().cargarNivel()		
+	//nivel0.nivelBel().cargarNivel()
+	//nivel0.nivelL().cargarNivel()
+	
 	//pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
 	
@@ -38,7 +40,8 @@ program juego {
 	//pasadizoDream.cargarNivel()
 	//nivelBonusDream.cargarNivel()
 	//nivelTest.cargarNivel()
-	
+	//nivelWHardcoreTime.cargarNivel()
+	//nivelBelHardcoreTime.cargarNivel()
 	game.start()
 	
 } 
