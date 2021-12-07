@@ -100,7 +100,7 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 	}
 	
 	method image() = "menorResolucion/mapW.png"
-	method position()=game.at(0,0)
+	
 	
 	override method listaCajas() = listaCajas
 
@@ -108,7 +108,7 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 
 }
 object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
-	const unCronometro=new Cronometro(segundos=10,bonificacionDeSegundos=3,segundoDeReset=10)
+	const unCronometro=new Cronometro(segundos=14,bonificacionDeSegundos=3,segundoDeReset=14)
 	
 	override method cargarNivel(){
 	

@@ -146,3 +146,29 @@ class NivelL inherits Nivel (siguienteNivel = nivel0){
  	method listaMeta()= listaMeta
 
 }
+object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
+	const unCronometro=new Cronometro(segundos=24,bonificacionDeSegundos=11,segundoDeReset=24)
+	override method cargarNivel(){
+	
+		configuraciones.configMusic("NivelBelCronometro.mp3")
+		
+		game.addVisual(self)
+		unCronometro.activarCronometro()
+		configuraciones.elcontadorDePasos(unContadorDePasos)
+		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(unContadorDePasos)
+		game.addVisual(unContadorDeEmpujes)	
+		self.cargarObjetos(listaMeta)
+		self.cargarObjetos(listaCajas)
+		self.generarMuros()
+		game.addVisual(jugador1)
+		configuraciones.nivelActual(self)	
+		self.configNivel(jugador1)
+		nivel0.posicionInitial(game.at(12,10))
+		game.addVisual(unCronometro)
+	
+	}
+	
+	method cronometro()=unCronometro
+	
+}

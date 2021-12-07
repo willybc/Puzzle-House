@@ -262,9 +262,9 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	
 }
 class Cronometro inherits Estatico(position=game.at(1,3)){
-	var property segundos=8
+	var property segundos=6
 	var property nivelCompletado=false
-	var property segundoDeReset=8
+	var property segundoDeReset=7
 	var property bonificacionDeSegundos=7
 	//method image()="menorResolucion/reloj.png"
 	

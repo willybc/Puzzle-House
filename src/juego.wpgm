@@ -42,6 +42,7 @@ program juego {
 	//nivelTest.cargarNivel()
 	//nivelWHardcoreTime.cargarNivel()
 	//nivelBelHardcoreTime.cargarNivel()
+	//nivelLHardcoreTime.cargarNivel()
 	game.start()
 	
 } 

@@ -41,7 +41,7 @@ class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){
 
 }
 
-object ui2 inherits Pisable(position=game.at(8,12)) {
+object ui2 inherits Pisable(position=game.at(6,12)) {
 	
 	
 	override method image()="MCMenorResolucion/hud.png"
@@ -128,6 +128,9 @@ class JugadorConstructor inherits Jugador{
 		keyboard.e().onPressDo{self.sumar2()}
 		keyboard.x().onPressDo{self.resetRespawn()}
 		keyboard.f().onPressDo{nivelCreativo.formatearNivel()}
+		keyboard.c().onPressDo{nivelCreativo.eliminarTodasLasCajas()}
+		keyboard.v().onPressDo{nivelCreativo.eliminarTodasLasMetas()}
+		keyboard.b().onPressDo{nivelCreativo.eliminarTodosLosMuros()}
 		keyboard.num1().onPressDo{self.generarUnaCaja(new CajaFullPerfomance(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto="caja"+(1+numeroSelector).toString()+".png",cajaEnMeta="caja_ok"+(1+numeroSelector).toString()+".png",tipo=1+numeroSelector))}
 		keyboard.num2().onPressDo{self.generarUnaCaja(new CajaFullPerfomance(position =game.at(self.coordenadaX(),self.coordenadaY()),stringDeObjeto="caja"+(2+numeroSelector).toString()+".png",cajaEnMeta="caja_ok"+(2+numeroSelector).toString()+".png",tipo=2+numeroSelector))}
 		keyboard.num3().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image="MCMenorResolucion/meta"+(1+numeroSelector).toString()+".png",tipo=1+numeroSelector,modoCreativo_soyMeta=true))}

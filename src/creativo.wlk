@@ -50,6 +50,21 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		self.retornarJugador().banderaDeSonido2(true)
 		sonidoObjeto.emitirSonido("modoCreativoSonidos/formatear.mp3")
 	}
+	
+	method eliminarTodasLasMetas(){
+		listaMeta.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
+		listaMeta.clear()
+	}
+	
+	method eliminarTodasLasCajas(){
+		listaCajas.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
+		listaCajas.clear()
+	}
+	method eliminarTodosLosMuros(){
+		listaMuros.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
+		listaMuros.clear()
+		
+	}
 
 	method retornarJugador()=jugador1
 
