@@ -190,7 +190,7 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 	]
 
 	method cargarNivel(){
-		//configuraciones.configMusic("nivelW-D.mp3")
+		configuraciones.configMusic("nivelg2.mp3") //me equivoque con el nombre
 		game.addVisual(self)
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
@@ -266,7 +266,7 @@ object nivelG2 inherits Dream (siguienteNivel = nivelDream){
 
 	const listaMeta =[   
 		
-						 new Meta(position = game.at(13,5), image= meta2, tipo=2)/*,
+						 new Meta(position = game.at(13,5), image= meta2, tipo=2),
 						 new Meta(position = game.at(15,6), image= meta1, tipo=1),
 						 new Meta(position = game.at(15,4), image= meta1, tipo=1),
 						 new Meta(position = game.at(15,3), image= meta1, tipo=1),
@@ -277,11 +277,11 @@ object nivelG2 inherits Dream (siguienteNivel = nivelDream){
 						 new Meta(position = game.at(14,4), image= meta2, tipo=2),
 						
 						 new Meta(position = game.at(14,5), image= meta2, tipo=2),
-						 new Meta(position = game.at(15,5), image= meta2, tipo=2)*/
+						 new Meta(position = game.at(15,5), image= meta2, tipo=2)
 	]
 	
 	const listaCajas=[  
-						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)/* ,
+						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2) ,
 		                new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(15,10),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(10,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -292,12 +292,12 @@ object nivelG2 inherits Dream (siguienteNivel = nivelDream){
 						new Caja(position = game.at(7,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						
 						new Caja(position = game.at(7,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(8,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
+						new Caja(position = game.at(8,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
 	]
 
 	method cargarNivel(){
-		//configuraciones.configMusic("nivelW-D.mp3")
-
+		
+		configuraciones.configMusic("nivelG2V.mp3")
 		game.addVisual(self)
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)

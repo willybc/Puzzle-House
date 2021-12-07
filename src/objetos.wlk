@@ -267,9 +267,8 @@ class Cronometro inherits Estatico(position=game.at(1,3)){
 	var property segundos=8
 	var property nivelCompletado=false
 	var property segundoDeReset=8
-	var property bonificacionDeSegundos=7
-	//method image()="menorResolucion/reloj.png"
 	
+
 	method descontar(){
 		if(segundos>0){
 			segundos=segundos-1

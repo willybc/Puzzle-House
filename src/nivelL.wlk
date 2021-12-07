@@ -147,10 +147,10 @@ class NivelL inherits Nivel (siguienteNivel = nivel0){
 
 }
 object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
-	const unCronometro=new Cronometro(segundos=6,bonificacionDeSegundos=11,segundoDeReset=6)
+	const unCronometro=new Cronometro(segundos=6,segundoDeReset=6)
 	override method cargarNivel(){
 	
-		configuraciones.configMusic("NivelBelCronometro.mp3")
+		configuraciones.configMusic("nivelLHardTimer.mp3")
 		
 		game.addVisual(self)
 		unCronometro.activarCronometro()

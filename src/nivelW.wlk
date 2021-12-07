@@ -108,7 +108,7 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 
 }
 object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
-	const unCronometro=new Cronometro(segundos=5,bonificacionDeSegundos=3,segundoDeReset=5)
+	const unCronometro=new Cronometro(segundos=5,segundoDeReset=5)
 	
 	override method cargarNivel(){
 	
