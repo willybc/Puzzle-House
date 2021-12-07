@@ -78,6 +78,8 @@ class Jugador inherits Posicion{
 		}
 	}
 	
+	method coordenadaX()=position.x()
+	method coordenadaY()=position.y()
 	
 	
 	

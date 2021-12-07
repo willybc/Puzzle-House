@@ -63,7 +63,7 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	const resolucion = "menorResolucion"
 	const stringDeObjeto = "caja1.png"
 	const cajaEnMeta = "caja_ok.png"
-	
+	var property hardCoreTimeBonificacion=7
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
 	
@@ -72,7 +72,12 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	method esPisable() = false
 
 	method image() = if (self.estoyEnMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
-
+	method textColor()="FF0000FF"
+	
+	method text() =if (configuraciones.nivelActual().soyUnNivelHardcoreTime()){self.modoHardCoreTimer()}else{""}
+	
+	method modoHardCoreTimer()=if(!yaEstubeEnMeta){"+"+self.hardCoreTimeBonificacion().toString()}else{""}
+	
 	override method cambiarPosicion(direccion) {
 		const siguienteUbicacion = direccion.moverse(self)
 		ultimaDireccion = direccion
@@ -102,15 +107,11 @@ class Caja inherits Posicion (soyUnaCaja=true){
 		
 	}
 	
-	method modoCronometro(){
-		
-		if(!self.yaEstubeEnMeta()){
-					configuraciones.nivelActual().cronometro().sumarSegundos()
-					yaEstubeEnMeta=true
+	method modoCronometro() {
+		if (!self.yaEstubeEnMeta()) {
+			configuraciones.nivelActual().cronometro().sumarSegundos(self.hardCoreTimeBonificacion())
+			yaEstubeEnMeta = true
 		}
-		
-		
-		
 	}
 	
 	method proximaUbicacionLibre(direccion) = game.getObjectsIn(direccion).all{ unObj => unObj.esPisable() }
@@ -127,6 +128,7 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	}
 
 }
+
 
 
 
@@ -262,9 +264,9 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	
 }
 class Cronometro inherits Estatico(position=game.at(1,3)){
-	var property segundos=6
+	var property segundos=8
 	var property nivelCompletado=false
-	var property segundoDeReset=7
+	var property segundoDeReset=8
 	var property bonificacionDeSegundos=7
 	//method image()="menorResolucion/reloj.png"
 	
@@ -278,12 +280,16 @@ class Cronometro inherits Estatico(position=game.at(1,3)){
 		}		
 	}
 	
-	method sumarSegundos(){
-		segundos=segundos+bonificacionDeSegundos
+	method sumarSegundos(bonificacion){
+		segundos=segundos+bonificacion
 	}
 	
 	method reset(){
 		segundos=segundoDeReset
+	}
+	method sumarSegundoNivel_L(cajaBonificacion){
+		segundos=segundos+cajaBonificacion
+
 	}
 	
 	method text()=if(!self.nivelCompletado()){self.segundos().toString()}else{"FELICITACIONES"}

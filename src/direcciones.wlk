@@ -16,7 +16,7 @@ object derecha{
 	
 }
 object abajo{
-
+	
 	method moverse(unObjeto) = unObjeto.position().down(duplicaDireccion.direccionDuplicador())
 	method dirOpuesto(unObjeto) = unObjeto.position().up(duplicaDireccion.direccionDuplicador())
 

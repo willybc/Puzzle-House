@@ -32,23 +32,23 @@ class NivelL inherits Nivel (siguienteNivel = nivel0){
 						 new Meta(position = game.at(22,2), image= meta1),
 						 new Meta(position = game.at(17,7), image= meta1),
 						 new Meta(position = game.at(4,5), image= meta2,tipo=2),
-						 new Meta(position = game.at(4,4), image= meta5,tipo=5),
-						 new Meta(position = game.at(4,3), image= meta4,tipo=4),
+						 new Meta(position = game.at(4,3), image= meta5,tipo=5),
+						 new Meta(position = game.at(4,4), image= meta4,tipo=4),
 						 new Meta(position = game.at(4,2), image= meta3,tipo=3),
 						 new Meta(position = game.at(4,1), image= meta2,tipo=2)
 						
 	]
 	const listaCajas=[  
-						 new Caja(position = game.at(18,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1) , 
-						 new Caja(position = game.at(19,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
-						 new Caja(position = game.at(20,4),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
-						 new Caja(position = game.at(21,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+						 new Caja(position = game.at(18,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=15) , 
+						 new Caja(position = game.at(19,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=20),
+						 new Caja(position = game.at(20,4),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=15),
+						 new Caja(position = game.at(21,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=30),
 						 
-						 new Caja(position = game.at(22,8),resolucion=resolucionCaja,stringDeObjeto=caja3,cajaEnMeta=cajaMeta3,tipo=3),
+						 new Caja(position = game.at(22,8),resolucion=resolucionCaja,stringDeObjeto=caja3,cajaEnMeta=cajaMeta3,tipo=3,hardCoreTimeBonificacion=6),
 						
-						 new Caja(position = game.at(21,9),resolucion=resolucionCaja,stringDeObjeto=caja4,cajaEnMeta=cajaMeta4,tipo=4),
+						 new Caja(position = game.at(21,9),resolucion=resolucionCaja,stringDeObjeto=caja4,cajaEnMeta=cajaMeta4,tipo=4,hardCoreTimeBonificacion=4),
 						 new Caja(position = game.at(3,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja5,cajaEnMeta=cajaMeta5,tipo=5),
+						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja5,cajaEnMeta=cajaMeta5,tipo=5,hardCoreTimeBonificacion=5),
 						 new Caja(position = game.at(16,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
 						
 	
@@ -147,7 +147,7 @@ class NivelL inherits Nivel (siguienteNivel = nivel0){
 
 }
 object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
-	const unCronometro=new Cronometro(segundos=24,bonificacionDeSegundos=11,segundoDeReset=24)
+	const unCronometro=new Cronometro(segundos=6,bonificacionDeSegundos=11,segundoDeReset=6)
 	override method cargarNivel(){
 	
 		configuraciones.configMusic("NivelBelCronometro.mp3")
