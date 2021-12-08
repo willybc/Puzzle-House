@@ -137,12 +137,16 @@ class JugadorConstructor inherits Jugador{
 		keyboard.num4().onPressDo{self.generarUnaMeta( new Meta(position =game.at(self.coordenadaX(),self.coordenadaY()),image="MCMenorResolucion/meta"+(2+numeroSelector).toString()+".png",tipo=2+numeroSelector,modoCreativo_soyMeta=true))}
 	    keyboard.space().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro3.png",modoCreativo_soyUnMuro=true,tipo=10))}
 	    keyboard.alt().onPressDo{self.generarUnMuro( new MuroVisible(position =game.at(self.coordenadaX(),self.coordenadaY()),image="menorResolucion/muro2.png",modoCreativo_soyUnMuro=true,tipo=11))}
-	    
+	   
 	    keyboard.shift().onPressDo{self.eliminarObjeto()}
 		keyboard.control().onPressDo{self.generarPuntoDeReinicio()}
 		keyboard.enter().onPressDo{nivelCreativo.jugarNivelCreado()}
 		keyboard.z().onPressDo{self.cambiarAssetsEnElModolibre()}
 	}
+	
+	
+	
+	
 	method cambiarAssetsEnElModolibre(){
 		if(configuraciones.libreMoviento()){
 			sonidoObjeto.emitirSonido("modoCreativoSonidos/builderMode.mp3")
@@ -261,8 +265,7 @@ class JugadorConstructor inherits Jugador{
 	}
 	method verificarPuntoDeReinicioExistente()=self.objetosConElQueElConstructorEstaColisionando().any({unObjeto=>unObjeto.modoCreativo_soyUnPuntoDeReinicio()})
 	
-	method coordenadaX()=position.x()
-	method coordenadaY()=position.y()	
+	
 	
 	method resetRespawn(){
 		self.position(game.center())

@@ -47,8 +47,17 @@ class Nivel inherits Posicion{
 			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
 			game.say(configuraciones.elJugador(), "ganaste!")
 			configuraciones.configStopMusic()
+			if(configuraciones.nivelActual().soyUnNivelHardcoreTime()){
+				self.desactivarCronometro()
+			}
+			
+			
 			game.schedule(1200,{self.cambiarNivel()})
 		}
+	}
+	method desactivarCronometro(){
+		configuraciones.nivelActual().cronometro().desactivarCronometro()
+		
 	}
 	
 	method cambiarNivel(){

@@ -34,18 +34,18 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 					
 		
 	]
-	const listaCajas=[   new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=4),
+	const listaCajas=[   new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.rosado()),
 						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=3) ,
-						 new Caja(position = game.at(6,9) ,resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=2),
-						 new Caja(position = game.at(9,9) ,resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
+						 new Caja(position = game.at(6,9) ,resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=2,colorDelTextoDeLaCaja=paleta.blanco()),
+						 new Caja(position = game.at(9,9) ,resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.violeta()),
 						 
-						 new Caja(position = game.at(17,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=3),
-						 new Caja(position = game.at(18,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
-						 new Caja(position = game.at(15,9),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
+						 new Caja(position = game.at(17,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=3,colorDelTextoDeLaCaja=paleta.amarillo()),
+						 new Caja(position = game.at(18,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,colorDelTextoDeLaCaja=paleta.verdeClaro()),
+						 new Caja(position = game.at(15,9),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.azul()),
 						 
 						
-						 new Caja(position = game.at(8,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,hardCoreTimeBonificacion=2),
-						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)	  
+						 new Caja(position = game.at(8,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,hardCoreTimeBonificacion=2,colorDelTextoDeLaCaja=paleta.negro()),
+						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.rojo())	  
 	]
 
 	method cargarNivel(){
@@ -109,26 +109,44 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 }
 object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
 	const unCronometro=new Cronometro(segundos=5,segundoDeReset=5)
-	
+	const readyGo=new ReadyYGO(delay1=2700)
 	override method cargarNivel(){
 	
-		configuraciones.configMusic("nivelWHardTimer.mp3")
+		configuraciones.configMusic("hardTimerW.mp3")
 		
-		game.addVisual(self)
-		unCronometro.activarCronometro()
+		unContadorDePasos.reset()
+		
+		
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(self)
 		game.addVisual(unContadorDePasos)
-		game.addVisual(unContadorDeEmpujes)	
+		game.addVisual(unContadorDeEmpujes)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
+		
+		
 		self.generarMuros()
+		
 		game.addVisual(jugador1)
-		configuraciones.nivelActual(self)	
-		self.configNivel(jugador1)
-		nivel0.posicionInitial(game.at(5,10))
+		configuraciones.nivelActual(self)
+
+		nivel0.posicionInitial(game.at(21,3))
+		nivel0.agregarNivelCompletado(self)
 		game.addVisual(unCronometro)
+		
+		game.schedule(1800,{readyGo.iniciarReady()})
+		
+		
+		
+		
+	}
 	
+	
+	method Comenzar(){
+		
+		self.configNivel(jugador1)
+		unCronometro.activarCronometro()
 	}
 	
 	method cronometro()=unCronometro

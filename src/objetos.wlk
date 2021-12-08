@@ -7,14 +7,7 @@ import sonido.*
 import nivelB.*
 import objetosDelModoCreativo.*
 
-object sonidoObjeto {
 
-	method emitirSonido(unSonido) {
-		const sonido = soundProducer.sound(unSonido) // game.sound(unSonido)
-		sonido.volume(0.3)
-		sonido.play()
-	}
-}
 class Estatico inherits Posicion {
 	override method cambiarPosicion(direccion){	
 	}
@@ -57,6 +50,26 @@ class Posicion {
 		game.removeVisual(self)
 	}
 }
+object paleta {
+
+	const property verdeClaro="#08ffda"
+	const property verde = "00FF00FF"
+	const property rojo = "FF0000FF"
+	const property aqua = "#00F1F4"
+	const property fuchsia ="#FC00FF"
+	const property amarillo ="#fcff00"
+	const property lima = "#82ff00"
+	const property naranja ="#ff6809"
+	const property negro= "#000000"
+	const property celeste= "#00d7ff"
+	const property azul = "#0800ff"
+	const property marron = "#501600"
+	const property blanco ="#ffffff"
+	const property crimson ="#ffffff"
+	const property violeta ="#7d00ff"
+	const property rosado = "#ff0087"
+	const property rosadoClaro ="#ffc3ed"
+}
 
 class Caja inherits Posicion (soyUnaCaja=true){
 	var property yaEstubeEnMeta=false
@@ -66,13 +79,16 @@ class Caja inherits Posicion (soyUnaCaja=true){
 	var property hardCoreTimeBonificacion=7
 	var property elCaballoSeTrabo = false
 	const sonido = "caja_mover2.mp3"
-	
+	const property colorDelTextoDeLaCaja=paleta.celeste()
 	var property estoyEnMeta=false
-
+	
+	method textColor()=colorDelTextoDeLaCaja
+	
 	method esPisable() = false
 
+	
 	method image() = if (self.estoyEnMeta()) {resolucion + "/" + cajaEnMeta} else {	resolucion + "/" + stringDeObjeto}
-	method textColor()="FF0000FF"
+
 	
 	method text() =if (configuraciones.nivelActual().soyUnNivelHardcoreTime()){self.modoHardCoreTimer()}else{""}
 	
@@ -208,11 +224,7 @@ class CheckpointSalir inherits Checkpoint {
 	
 }
 
-object paleta {
 
-	const property verde = "00FF00FF"
-	const property rojo = "FF0000FF"
-}
 
 class CheckpointBonus inherits Estatico (position = game.at(16, 4)) {
 	var property nivelBase
@@ -263,7 +275,7 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	
 	
 }
-class Cronometro inherits Estatico(position=game.at(1,3)){
+class Cronometro inherits Estatico(position=game.at(12,12)){
 	var property segundos=8
 	var property nivelCompletado=false
 	var property segundoDeReset=8
@@ -271,28 +283,30 @@ class Cronometro inherits Estatico(position=game.at(1,3)){
 
 	method descontar(){
 		if(segundos>0){
+			sonidoObjeto.emitirSonido("cronometro1.mp3")
 			segundos=segundos-1
+			
 		}
 		else{
+			sonidoObjeto.emitirSonido("tiempoAgotado.mp3")
 			self.reset()
 			configuraciones.nivelActual().reiniciarNivel()
+			
 		}		
 	}
 	
 	method sumarSegundos(bonificacion){
 		segundos=segundos+bonificacion
+		sonidoObjeto.emitirSonido("segBonificacion.mp3")
 	}
 	
 	method reset(){
 		segundos=segundoDeReset
 	}
-	method sumarSegundoNivel_L(cajaBonificacion){
-		segundos=segundos+cajaBonificacion
-
-	}
 	
-	method text()=if(!self.nivelCompletado()){self.segundos().toString()}else{"FELICITACIONES"}
 	
+	method text()=if(!self.nivelCompletado()){self.segundos().toString()}else{"YEAH!"}
+	method textColor()="FF0000FF"
 	method activarCronometro(){
 		game.onTick(1000,"Cronometro",{self.descontar()})
 	}
@@ -304,5 +318,48 @@ class Cronometro inherits Estatico(position=game.at(1,3)){
 	
 	method esPisable()=true
 	
+	method image()="cronometro.png"
+	
 }
+object sonidoObjeto {
 
+	method emitirSonido(unSonido) {
+		const sonido = soundProducer.sound(unSonido) // game.sound(unSonido)
+		sonido.volume(0.3)
+		
+		if(configuraciones.habilitarSonido()){
+			sonido.play()
+		}
+		
+	}
+}
+class ReadyYGO inherits Estatico{
+	
+	var property ready=true
+	var property delay1=2500
+	var property delay2=600
+	
+	override method position()=if(self.ready()){game.at(10,6)}else{game.at(11,6)}
+	method image()=if(self.ready()){"menorResolucion/ready.png"}else{"menorResolucion/go.png"}
+	
+	method iniciarReady(){
+		game.addVisual(self)
+		sonidoObjeto.emitirSonido("ready.mp3")
+		game.schedule(delay1,{self.go()})
+	}
+	method go(){
+		ready=false
+		sonidoObjeto.emitirSonido("go.mp3")
+		self.arrancar()
+		
+	}
+	method arrancar(){
+		game.schedule(delay2,{self.modoCreativoBorrarVisual()})
+		configuraciones.nivelActual().Comenzar()
+		
+	}
+	
+	method esPisable()=true
+	
+	
+}

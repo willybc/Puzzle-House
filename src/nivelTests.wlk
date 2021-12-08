@@ -12,6 +12,7 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0,soyUnNivelHardcoreTime=
 	const jugador1 = new Jugador(position = game.at(9,6 ) , resolucion="menorResolucion",nombreJugador = "jugador1")
 	const meta1 = "menorResolucion/meta1.png"
 	const unCronometro=new Cronometro()
+	const readyGo=new ReadyYGO()
 
 	const resolucionCaja = "menorResolucion"
 	const caja1 = "caja1.png"
@@ -66,7 +67,7 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0,soyUnNivelHardcoreTime=
 
 
 	method cargarNivel(){
-		configuraciones.configMusic("NivelBelCronometro.mp3")
+		configuraciones.configMusic("hardTimerBelRemix.mp3")
 		unContadorDePasos.reset()
 		
 		
@@ -78,15 +79,28 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0,soyUnNivelHardcoreTime=
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
 		
-		unCronometro.activarCronometro()
+		
 		self.generarMuros()
 		
 		game.addVisual(jugador1)
-		configuraciones.nivelActual(self)	
-		self.configNivel(jugador1)
+		configuraciones.nivelActual(self)
+
 		nivel0.posicionInitial(game.at(21,3))
 		nivel0.agregarNivelCompletado(self)
 		game.addVisual(unCronometro)
+		
+		game.schedule(1800,{readyGo.iniciarReady()})
+		
+		
+		
+		
+	}
+	
+	
+	method Comenzar(){
+		
+		self.configNivel(jugador1)
+		unCronometro.activarCronometro()
 	}
 	
 	method generarMuros(){

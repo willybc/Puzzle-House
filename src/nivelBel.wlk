@@ -34,15 +34,15 @@ class NivelBel inherits Nivel(siguienteNivel = nivel0){
 						 ]
 						 
 	const listaCajas=[   
-						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=6),
-						 new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=5) ,
-						 new Caja(position = game.at(16,7),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=9),
-						 new Caja(position = game.at(16,6),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=13),
-						 new Caja(position = game.at(16,3),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=6),
+						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rosado()),
+						 new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=5,colorDelTextoDeLaCaja=paleta.lima()) ,
+						 new Caja(position = game.at(16,7),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=9,colorDelTextoDeLaCaja=paleta.verde()),
+						 new Caja(position = game.at(16,6),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=13,colorDelTextoDeLaCaja=paleta.negro()),
+						 new Caja(position = game.at(16,3),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rojo()),
 						 new Caja(position = game.at(13,2),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1),
-						 new Caja(position= game.at(11,4),resolucion=resolucionCaja,stringDeObjeto ="caja1.png", cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=12),
-						 new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto= "caja1.png", cajaEnMeta = "caja_ok.png",tipo=1,hardCoreTimeBonificacion=4),
-						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2,hardCoreTimeBonificacion=8)
+						 new Caja(position= game.at(11,4),resolucion=resolucionCaja,stringDeObjeto ="caja1.png", cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=12,colorDelTextoDeLaCaja=paleta.amarillo()),
+						 new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto= "caja1.png", cajaEnMeta = "caja_ok.png",tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.naranja()),
+						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2,hardCoreTimeBonificacion=8,colorDelTextoDeLaCaja=paleta.azul())
 						
 						 ]
 
@@ -108,29 +108,45 @@ class NivelBel inherits Nivel(siguienteNivel = nivel0){
 object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
 	
 	const unCronometro=new Cronometro()
+	const readyGo=new ReadyYGO()
 	
 
 	override method cargarNivel(){
-	
-		configuraciones.configMusic("NivelBelCronometro.mp3")
+		configuraciones.configMusic("hardTimerBelRemix.mp3")
+		unContadorDePasos.reset()
 		
-		game.addVisual(self)
-		unCronometro.activarCronometro()
+		
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
+		game.addVisual(self)
 		game.addVisual(unContadorDePasos)
-		game.addVisual(unContadorDeEmpujes)	
+		game.addVisual(unContadorDeEmpujes)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
+		
+		
 		self.generarMuros()
+		
 		game.addVisual(jugador1)
-		configuraciones.nivelActual(self)	
-		self.configNivel(jugador1)
-		nivel0.posicionInitial(game.at(12,10))
-		game.addVisual(unCronometro)
-	
-	}
+		configuraciones.nivelActual(self)
 
+		nivel0.posicionInitial(game.at(21,3))
+		nivel0.agregarNivelCompletado(self)
+		game.addVisual(unCronometro)
+		
+		game.schedule(1800,{readyGo.iniciarReady()})
+		
+		
+		
+		
+	}
+	
+	
+	method Comenzar(){
+		
+		self.configNivel(jugador1)
+		unCronometro.activarCronometro()
+	}
  	method cronometro()=unCronometro
 }
 

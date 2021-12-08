@@ -13,6 +13,7 @@ object configuraciones {
 	var property elcontadorDePasos=null
 	var property contadorDeEmpujes=null
 	var property habilitarConteo=true
+	var property habilitarSonido=true
 	var jugadorp
 	var numero = 1
 	var nivelActual
@@ -71,6 +72,7 @@ object configuraciones {
 	method cambio() {
 		numero += 1
 	}
+	
 	
 
 }

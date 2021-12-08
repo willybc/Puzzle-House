@@ -165,7 +165,7 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 	const cajaMeta2 = "ataud_ok2.png"
 
 	const listaMeta =[   
-						  new Meta(position = game.at(7,9), image= meta1, tipo=1)/* ,
+						  new Meta(position = game.at(7,9), image= meta1, tipo=1) ,
 						 new Meta(position = game.at(8,11), image= meta1, tipo=1),
 						 new Meta(position = game.at(10,11), image= meta1, tipo=1),
 						
@@ -174,10 +174,10 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 						 new Meta(position = game.at(7,11), image= meta2, tipo=2),
 						 new Meta(position = game.at(9,11), image= meta2, tipo=2),
 						 new Meta(position = game.at(11,11), image= meta2, tipo=2),
-						 new Meta(position = game.at(10,9), image= meta1, tipo=1)*/
+						 new Meta(position = game.at(10,9), image= meta1, tipo=1)
 	]
 	
-	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)/*,
+	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(14,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(11,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -186,7 +186,8 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 						new Caja(position = game.at(9,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(12,7),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(12,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
+						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+						
 	]
 
 	method cargarNivel(){
