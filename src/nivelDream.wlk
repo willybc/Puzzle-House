@@ -19,11 +19,7 @@ override method abandonarNivel(){
 			})
 			
 		}
-	
-	
-	
-	
-	
+
 }
 object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false){
 	var property sonido = "Dreams/dreams.mp3"
@@ -149,7 +145,7 @@ object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 }
 
 
-object nivelG1 inherits Dream (siguienteNivel = nivelDream){
+object nivelG1 inherits Dream (siguienteNivel = nivelDream,pertenescoAlDream=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	
@@ -177,7 +173,7 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 						 new Meta(position = game.at(10,9), image= meta1, tipo=1)
 	]
 	
-	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
+	const listaCajas=[  new Caja(position = game.at(7,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1)/* ,
 						new Caja(position = game.at(14,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(11,3),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -186,7 +182,7 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
 						new Caja(position = game.at(9,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(12,7),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(12,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+						new Caja(position = game.at(13,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
 						
 	]
 
@@ -253,7 +249,7 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream){
  	method listaMeta()= listaMeta
 }
 
-object nivelG2 inherits Dream (siguienteNivel = nivelDream){
+object nivelG2 inherits Dream (siguienteNivel = nivelDream,pertenescoAlDream=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(9, 9) , resolucion="menorResolucion",nombreJugador = "chara")
@@ -282,7 +278,7 @@ object nivelG2 inherits Dream (siguienteNivel = nivelDream){
 	]
 	
 	const listaCajas=[  
-						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2) ,
+						new Caja(position = game.at(9,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2) /* ,
 		                new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(15,10),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(10,9),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -293,7 +289,7 @@ object nivelG2 inherits Dream (siguienteNivel = nivelDream){
 						new Caja(position = game.at(7,5),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						
 						new Caja(position = game.at(7,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(8,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
+						new Caja(position = game.at(8,3),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2) */
 	]
 
 	method cargarNivel(){

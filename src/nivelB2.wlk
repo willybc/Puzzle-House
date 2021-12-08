@@ -50,7 +50,7 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 	
 }
 
-object nivelBonusDream inherits Dream (siguienteNivel = nivel0){
+object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,8))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,7))
 	//const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())

@@ -66,7 +66,7 @@ class Nivel inherits Posicion{
 		if(!self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivel0.agregarNivelCompletado(self)
 		}
-		else (self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
+		if (self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivelDream.agregarNivelCompletado(self)
 		}
 		
