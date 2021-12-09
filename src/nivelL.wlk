@@ -5,8 +5,8 @@ import configuraciones.*
 import timeline.*
 import jugador.*
 import niveles.*
-
-class NivelL inherits Nivel (siguienteNivel = nivel0){
+import nivelB.*
+class NivelL inherits Nivel (siguienteNivel = nivel0,permitirAgregarAlAListaDeLnivel0Completado=true){
 	const unContadorDePasos = new ContadorDePasos()
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(12,4))
 	const jugador1 = new Jugador(position = game.at(10, 10 ) , resolucion="menorResolucion",nombreJugador = "jugadora1")
@@ -144,6 +144,8 @@ class NivelL inherits Nivel (siguienteNivel = nivel0){
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
+ 	
+ 	method nivelHardCoreTime()=nivelLHardcoreTime
 
 }
 object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
@@ -152,6 +154,8 @@ object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHard
 	override method cargarNivel(){
 	
 		configuraciones.configMusic("nivelLHardTimer.mp3")
+		jugador1.nombreJugador(pasadizo.vestimenta())
+		unCronometro.nivelCompletado(false) //por si un jugador vuelve a entrar al nivel
 		readyGo.reiniciar()
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
@@ -171,9 +175,7 @@ object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHard
 		game.addVisual(unCronometro)
 		
 		game.schedule(1800,{readyGo.iniciarReady()})
-		
-		
-		
+	
 		
 	}
 	
@@ -181,6 +183,7 @@ object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHard
 	method Comenzar(){
 		
 		self.configNivel(jugador1)
+		
 		unCronometro.activarCronometro()
 	}
 	

@@ -18,6 +18,7 @@ class Nivel inherits Posicion{
 	var property soyUnNivelHardcoreTime=false
 	var property siguienteNivel
 	var property pertenescoAlDream=false
+	var property permitirAgregarAlAListaDeLnivel0Completado=false
 	const duplicador=1
 	method listaCajas()
 	
@@ -47,7 +48,7 @@ class Nivel inherits Posicion{
 			sonidoObjeto.emitirSonido("victoriaFem.mp3") // es temporal
 			game.say(configuraciones.elJugador(), "ganaste!")
 			configuraciones.configStopMusic()
-			if(configuraciones.nivelActual().soyUnNivelHardcoreTime()){
+			if(self.soyUnNivelHardcoreTime()){
 				self.desactivarCronometro()
 			}
 			
@@ -56,15 +57,16 @@ class Nivel inherits Posicion{
 		}
 	}
 	method desactivarCronometro(){
-		configuraciones.nivelActual().cronometro().desactivarCronometro()
+		configuraciones.nivelActual().cronometro().desactivarCronometro() //self.cronometro().desactivarCronometro() funciona pero el ide da aviso de errores.
 		
 	}
 	
 	method cambiarNivel(){
 		self.reiniciarNivel()
 		game.clear()
-		if(!self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
+		if(self.permitirAgregarAlAListaDeLnivel0Completado() and !self.soyUnNivelHardcoreTime()){
 			nivel0.agregarNivelCompletado(self)
+			nivel0.agregarNivelHardTimeDesbloqueado(configuraciones.nivelActual().nivelHardCoreTime())
 		}
 		if (self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivelDream.agregarNivelCompletado(self)
@@ -87,16 +89,16 @@ class Nivel inherits Posicion{
 		}
 	
 	method reiniciarNivel(){
-		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
-		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.estoyEnMeta(false)}
+		self.listaCajas().forEach{ objeto => objeto.posicioninicial()}
+		self.listaCajas().forEach{ objeto => objeto.estoyEnMeta(false)}
 		configuraciones.elJugador().posicioninicial()
 		if(self.soyUnNivelPuzzle()){
 			configuraciones.elcontadorDePasos().reset()
 			configuraciones.contadorDeEmpujes().reset()
 		}
 		if(self.soyUnNivelHardcoreTime()){
-			configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.yaEstubeEnMeta(false)}
-			configuraciones.nivelActual().cronometro().reset()
+			self.listaCajas().forEach{ objeto => objeto.yaEstubeEnMeta(false)}
+			configuraciones.nivelActual().cronometro().reset() //Da error si uso self en vez de configuraciones.nivelActual() . No entiendo el porque. Asumo que es un error del iDe ,sin embargo si ignoramos el error y ejecutamos el juego todo anda normal!
 		}
 		
 		
@@ -185,15 +187,44 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	
 	const listaDeNivelesCompletados=[]
 	const listaDeNivelesHardTimeCompletados=[]
+	const listaDeNIvelesHardTimesDesbloqueados=[]
 	
+	const checkPointHardTimerW=new CheckpointHardTimer(position = game.at(3,11), imagen = "hardTimer/hardTimerW", siguienteNivel = nivelWHardcoreTime )
+	const checkPointHardTimerBel=new CheckpointHardTimer(position = game.at(13,11), imagen = "hardTimer/hardTimerBel", siguienteNivel = nivelBelHardcoreTime ,velocidad=60 ,limite=12)
+	const checkPointHardTimerL=new CheckpointHardTimer(position = game.at(19,4), imagen = "hardTimer/hardTimerL", siguienteNivel = nivelLHardcoreTime ,velocidad=60 ,limite=11)
 	
 	
 	var property posicionInitial = game.at(3,1)
+	
+	
+		method verificarSiEstaDesbloqueadoElNivel(unNivel)=listaDeNIvelesHardTimesDesbloqueados.contains(unNivel)
+		
+		
+		method agregarCheckPointHardTimer(unNivel,unCheckpoint){
+			if(self.verificarSiEstaDesbloqueadoElNivel(unNivel)){
+				game.addVisual(unCheckpoint)
+				unCheckpoint.animar()
+			}
+			
+			
+		}
 		method cargarNivel(){		
 		
 		configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
+		self.agregarCheckPointHardTimer(nivelWHardcoreTime,checkPointHardTimerW)
+		self.agregarCheckPointHardTimer(nivelBelHardcoreTime,checkPointHardTimerBel)
+		self.agregarCheckPointHardTimer(nivelLHardcoreTime,checkPointHardTimerL)
+		/* 
+		game.addVisual(checkPointHardTimerW)
+		checkPointHardTimerW.animar()
 		
+		game.addVisual(checkPointHardTimerBel)
+		checkPointHardTimerBel.animar()
+		
+		game.addVisual(checkPointHardTimerL)
+		checkPointHardTimerL.animar()
+		*/
 
 		//Habitación hijo
 		const hijo = new Jugador(position = game.at(7, 11) ,resolucion="menorResolucion" ,nombreJugador = "hijo")
@@ -256,11 +287,15 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	method agregarNivelHardTimeCompletado(unNivel){
 		listaDeNivelesHardTimeCompletados.add(unNivel)
 	}
+	method agregarNivelHardTimeDesbloqueado(unNivel){
+		listaDeNIvelesHardTimesDesbloqueados.add(unNivel)
+	}
+	method listaDeNIvelesHardTimesDesbloqueados()=listaDeNIvelesHardTimesDesbloqueados
 	
 	
 	
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
-	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=4
+	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=3
 	
 	override method listaCajas() = listaCajas
 
@@ -321,7 +356,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 object listasNivelesCompletados2{
 	var property position=game.at(7,0)
 	
-	method text()=nivel0.listaDeNivelesCompletados().asSet().toString()
+	method text()=nivel0.listaDeNIvelesHardTimesDesbloqueados().asSet().toString()
 	
 }
  

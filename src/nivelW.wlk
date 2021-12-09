@@ -5,8 +5,9 @@ import configuraciones.*
 import timeline.*
 import jugador.*
 import niveles.*
+import nivelB.*
 
-class NivelW inherits Nivel (siguienteNivel = nivel0){
+class NivelW inherits Nivel (siguienteNivel = nivel0,permitirAgregarAlAListaDeLnivel0Completado=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(19, 0) , resolucion="menorResolucion",nombreJugador = "jugador2")
@@ -105,6 +106,8 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
+ 	
+ 	method nivelHardCoreTime()=nivelWHardcoreTime
 
 }
 object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHardcoreTime=true){
@@ -113,10 +116,10 @@ object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHar
 	override method cargarNivel(){
 	
 		configuraciones.configMusic("hardTimerW.mp3")
-		
+		unCronometro.nivelCompletado(false) //por si un jugador vuelve a entrar al nivel
 		unContadorDePasos.reset()
 		readyGo.reiniciar()
-		
+		jugador1.nombreJugador(pasadizo.vestimenta())
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
 		game.addVisual(self)

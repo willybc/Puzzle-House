@@ -13,8 +13,9 @@ import configuraciones.*
 import timeline.*
 import jugador.*
 import niveles.*
+import nivelB.*
 
-class NivelBel inherits Nivel(siguienteNivel = nivel0){
+class NivelBel inherits Nivel(siguienteNivel = nivel0,permitirAgregarAlAListaDeLnivel0Completado=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(17,10) , resolucion="menorResolucion",nombreJugador = "jugadora2")
@@ -102,6 +103,8 @@ class NivelBel inherits Nivel(siguienteNivel = nivel0){
 	override method listaCajas() = listaCajas
 
  	method listaMeta()= listaMeta
+ 	
+ 	method nivelHardCoreTime()=nivelBelHardcoreTime
 }
 
 
@@ -115,7 +118,7 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 		configuraciones.configMusic("hardTimerBelRemix.mp3")
 		unContadorDePasos.reset()
 		readyGo.reiniciar()
-		
+		jugador1.nombreJugador(pasadizo.vestimenta())
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
 		game.addVisual(self)
@@ -123,7 +126,7 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 		game.addVisual(unContadorDeEmpujes)
 		self.cargarObjetos(listaMeta)
 		self.cargarObjetos(listaCajas)
-		
+		unCronometro.nivelCompletado(false) //por si un jugador vuelve a entrar al nivel
 		
 		self.generarMuros()
 		

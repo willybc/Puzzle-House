@@ -278,5 +278,7 @@ class JugadorConstructor inherits Jugador{
 		self.eliminarObjeto()
 		self.banderaDeSonido(true)
 	}
+	method coordenadaX()=position.x()
+	method coordenadaY()=position.y()
 }
 
