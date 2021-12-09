@@ -19,7 +19,7 @@ class Nivel inherits Posicion{
 	var property siguienteNivel
 	var property pertenescoAlDream=false
 	var property permitirAgregarAlAListaDeLnivel0Completado=false
-	const duplicador=1
+	var property duplicador=1
 	method listaCajas()
 	
 	method remove(p1){
@@ -292,10 +292,11 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	}
 	method listaDeNIvelesHardTimesDesbloqueados()=listaDeNIvelesHardTimesDesbloqueados
 	
+	method listaDeNIvelesHardTimesCompletados()=listaDeNivelesHardTimeCompletados
 	
 	
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
-	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=3
+	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=1
 	
 	override method listaCajas() = listaCajas
 
@@ -356,7 +357,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 object listasNivelesCompletados2{
 	var property position=game.at(7,0)
 	
-	method text()=nivel0.listaDeNIvelesHardTimesDesbloqueados().asSet().toString()
+	method text()=nivel0.listaDeNIvelesHardTimesCompletados().asSet().toString()
 	
 }
  

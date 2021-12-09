@@ -24,7 +24,7 @@ program juego {
 	
 	menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL 1 */
-	//nivel0.cargarNivel()			/* ESCENARIO CASA /*	
+	//menu.cargarNivel()			/* ESCENARIO CASA /*	
 	
 	//nivel0.nivelW().cargarNivel()		
 	//nivel0.nivelBel().cargarNivel()
@@ -43,6 +43,7 @@ program juego {
 	//nivelWHardcoreTime.cargarNivel()
 	//nivelBelHardcoreTime.cargarNivel()
 	//nivelLHardcoreTime.cargarNivel()
+	//pasadizoTest.cargarNivel()
 	game.start()
 	
 } 

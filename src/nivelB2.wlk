@@ -18,8 +18,8 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
-		game.addVisual(new CambiarRopa(position=game.at(6,5),vestimenta="chara2") )
-		game.addVisual(new CambiarRopa(position=game.at(16,5),vestimenta="chara3") )
+		game.addVisual(new DreamCambiarSkin(position=game.at(6,5),vestimenta="chara2") )
+		game.addVisual(new DreamCambiarSkin(position=game.at(16,5),vestimenta="chara3") )
 		game.addVisual(new Checkpoint(position = game.at(24,3), image = "mayorResolucion/invisible.png", siguienteNivel = nivelBonusDream))
 		
 		self.generarMuros()	

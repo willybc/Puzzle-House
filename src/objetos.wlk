@@ -6,6 +6,60 @@ import jugador.*
 import sonido.*
 import nivelB.*
 import objetosDelModoCreativo.*
+import nivelW.*
+import nivelBel.*
+import nivelL.*
+import nivelDream.*
+import nivelB2.*
+
+class CambiarSkin inherits Estatico(position = game.at(6, 5)){
+
+	var vestimenta
+	override method hacerAlgo(direccion) {
+		
+		if(self.condicion()){
+			configuraciones.elJugador().nombreJugador(vestimenta)
+			pasadizo.vestimenta(vestimenta)
+		}
+			configuraciones.elJugador().retroceder(direccion)
+
+	}
+	method condicion()
+	
+}
+object skin6  inherits CambiarSkin(position=game.at(22,5),vestimenta="jugadorGranja"){
+	override method condicion()=pasadizo.listaDeSkins().take(5).all({unaSkin=>unaSkin.condicion()})
+}
+
+object skin5  inherits CambiarSkin(position=game.at(18,5),vestimenta="jugadorGranja2"){
+	override method condicion()=nivelDream.listaDeNivelesCompletados().asSet().size()>=3
+}
+
+object skin4  inherits CambiarSkin(position=game.at(14,5),vestimenta="jugadorGranja"){
+	override method condicion()=nivel0.listaDeNivelesCompletados().asSet().size()>2
+}
+object skin1  inherits CambiarSkin(position=game.at(2,5),vestimenta="jugador2"){
+	override method condicion()=nivel0.listaDeNIvelesHardTimesCompletados().contains(nivelWHardcoreTime)
+}
+object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1"){
+	override method condicion()=nivel0.listaDeNIvelesHardTimesCompletados().contains(nivelBelHardcoreTime)
+}
+object skin3  inherits CambiarSkin(position=game.at(10,5),vestimenta="jugadora1"){
+	override method condicion()=nivel0.listaDeNIvelesHardTimesCompletados().contains(nivelLHardcoreTime)
+}
+
+class DreamCambiarSkin inherits Estatico {
+	var vestimenta
+	override method hacerAlgo(direccion) {
+		configuraciones.elJugador().nombreJugador(vestimenta)
+		configuraciones.elJugador().retroceder(direccion)
+		pasadizo.vestimenta(vestimenta)
+	}
+}
+
+
+
+
 
 
 class Estatico inherits Posicion {
@@ -146,12 +200,6 @@ class Caja inherits Posicion (soyUnaCaja=true){
 }
 
 
-
-
-
-
-
-
 class Oveja inherits Caja {
 	override method image() = if (!self.estoyEnMeta()) {resolucion + "/" + stringDeObjeto + self.ultimaDireccion().toString() + ".png"} else {resolucion + "/" + stringDeObjeto + "Ok.png"}
 }
@@ -213,14 +261,6 @@ class Checkpoint inherits Pisable {
 	}
 }
 
-
-
-
-
-
-
-
-
 class Meta inherits Pisable(tipo=1) {
 }
 
@@ -247,21 +287,10 @@ class CheckpointBonus inherits Estatico (position = game.at(16, 4)) {
 		game.clear()
 		bonus.cargarNivel()
 	}
-	
-	
-	
 
 }
-class CambiarRopa  inherits Estatico(position = game.at(6, 5)){
 
-	var vestimenta
-	override method hacerAlgo(direccion) {
-		configuraciones.elJugador().nombreJugador(vestimenta)
-		configuraciones.elJugador().retroceder(direccion)
-		pasadizo.vestimenta(vestimenta)
-	}
-	
-}
+
 class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	var property texto ="Moves : "
 	const colorTexto="FF0000FF"

@@ -7,26 +7,28 @@ import jugador.*
 import niveles.*
 
 
+
 object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNivelPuzzle=false){
 	
 	var property vestimenta = "jugador1"
 	const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = self.vestimenta())
+	const listaDeSkins=[skin1,skin2,skin3,skin4,skin5,skin6]
 	method cargarNivel(){
-		
 
 		game.addVisual(new Checkpoint(position = game.at(0,3), image = "menorResolucion/invisible.png", siguienteNivel = nivel0))
 		configuraciones.configMusic("pasadizo.mp3")
 		game.addVisual(self)
 		jugador1.position(game.at(2, 3) )//denuevo para evitar un bug
-		game.addVisual(jugador1)
-		
+	
 		configuraciones.nivelActual(self)
-		self.configNivel(jugador1)
-		game.addVisual(new CambiarRopa(position=game.at(6,5),vestimenta="jugadorGranja2") )
-		game.addVisual(new CambiarRopa(position=game.at(16,5),vestimenta="jugadorGranja") )
+		
+		listaDeSkins.forEach({unSkin=>game.addVisual(unSkin)})
+		//game.addVisual(skin6)
 		game.addVisual(new Checkpoint(position = game.at(24,3), image = "mayorResolucion/invisible.png", siguienteNivel = nivel_bonus))
 		nivel0.posicionInitial(game.at(17,4))
 		self.generarMuros()	
+		game.addVisual(jugador1)
+		self.configNivel(jugador1)
 		
 	}
 	
@@ -35,19 +37,19 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 	method generarMuros(){
 		
 		const muroInvisible = "menorResolucion/invisible.png"
-		
-		//self.bordearHorizontalmente(-2,0,3,muroInvisible)
-		self.bordearHorizontalmente(0,4,5,muroInvisible)
-		self.bordearHorizontalmente(8,14,5,muroInvisible)
-		self.bordearHorizontalmente(18,24,5,muroInvisible)
+		self.duplicador(4)
+		self.bordearHorizontalmente(0,22,5,muroInvisible)
+		self.duplicador(2)
 		self.bordearHorizontalmente(0,22,1,muroInvisible)
+		self.bordearHorizontalmente(0,22,7,muroInvisible)
 	}
 	
-	method image() = "nivelBonus/pasadizo2-map.png"
+	method image() = "nivelBonus/pasadizo-map4.png"
 	
 	override method abandonarNivel(){
 		game.say(configuraciones.elJugador(),"Sube las escaleras para volver!")
 	}
+	method listaDeSkins()=listaDeSkins
 
 	
 }
