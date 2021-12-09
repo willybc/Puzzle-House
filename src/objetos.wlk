@@ -212,6 +212,15 @@ class Checkpoint inherits Pisable {
 		siguienteNivel.cargarNivel()
 	}
 }
+
+
+
+
+
+
+
+
+
 class Meta inherits Pisable(tipo=1) {
 }
 
@@ -238,6 +247,8 @@ class CheckpointBonus inherits Estatico (position = game.at(16, 4)) {
 		game.clear()
 		bonus.cargarNivel()
 	}
+	
+	
 	
 
 }
@@ -358,8 +369,56 @@ class ReadyYGO inherits Estatico{
 		configuraciones.nivelActual().Comenzar()
 		
 	}
+	method reiniciar(){
+		ready=true
+	}
 	
 	method esPisable()=true
 	
 	
 }
+
+class CheckpointHardTimer inherits Estatico {
+
+	var property siguienteNivel
+	var property imagen
+	var property entero=1
+	var property limite=7
+	var property velocidad=50
+	
+	method image()=imagen+entero.toString()+".png"
+	
+	
+	
+	override method hacerAlgo(direccion) {
+		configuraciones.configStopMusic()
+		game.clear()
+		siguienteNivel.cargarNivel()
+	}
+	
+	method animar(){
+		game.onTick(velocidad,"animar", {self.aumentarEntero()})
+		
+	}
+
+	method aumentarEntero(){
+		if(entero<limite){
+			entero=entero+1
+		}
+		else{
+			entero=1
+		}
+		
+		
+	}
+		
+		
+		
+	
+	
+	
+	
+	
+	
+}
+

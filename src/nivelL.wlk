@@ -50,7 +50,7 @@ class NivelL inherits Nivel (siguienteNivel = nivel0){
 						 new Caja(position = game.at(3,11),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.rojo()),
 						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja5,cajaEnMeta=cajaMeta5,tipo=5,hardCoreTimeBonificacion=5,colorDelTextoDeLaCaja=paleta.blanco()),
 						 new Caja(position = game.at(16,10),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.negro())*/
-						
+					
 	
 	]
 
@@ -152,7 +152,7 @@ object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHard
 	override method cargarNivel(){
 	
 		configuraciones.configMusic("nivelLHardTimer.mp3")
-		
+		readyGo.reiniciar()
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
 		game.addVisual(self)
@@ -168,7 +168,6 @@ object nivelLHardcoreTime inherits NivelL(siguienteNivel = nivel0,soyUnNivelHard
 		configuraciones.nivelActual(self)
 
 		nivel0.posicionInitial(game.at(21,3))
-		nivel0.agregarNivelCompletado(self)
 		game.addVisual(unCronometro)
 		
 		game.schedule(1800,{readyGo.iniciarReady()})

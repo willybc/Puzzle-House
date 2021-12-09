@@ -20,7 +20,7 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 
 	const listaMeta =[   
 						 new Meta(position = game.at(5,2), image= meta1) ,
-						 new Meta(position = game.at(9,5),image= meta1)/*,
+						 new Meta(position = game.at(9,5),image= meta1),
 						 new Meta(position = game.at(8,5), image= meta2,tipo=2),
 						 new Meta(position = game.at(10,5), image= meta1),
 						 
@@ -30,11 +30,11 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 						 
 						 
 						 new Meta(position = game.at(6,2), image= meta2, tipo=2),
-						 new Meta(position = game.at(5,3), image= meta2, tipo=2)  */ 
+						 new Meta(position = game.at(5,3), image= meta2, tipo=2)   
 					
 		
 	]
-	const listaCajas=[   new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.rosado())/* ,
+	const listaCajas=[   new Caja(position = game.at(6,2),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.rosado())/*  ,
 						 new Caja(position = game.at(7,7),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=3) ,
 						 new Caja(position = game.at(6,9) ,resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1,hardCoreTimeBonificacion=2,colorDelTextoDeLaCaja=paleta.blanco()),
 						 new Caja(position = game.at(9,9) ,resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.violeta()),
@@ -45,7 +45,7 @@ class NivelW inherits Nivel (siguienteNivel = nivel0){
 						 
 						
 						 new Caja(position = game.at(8,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,hardCoreTimeBonificacion=2,colorDelTextoDeLaCaja=paleta.negro()),
-						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.rojo())	 */ 
+						 new Caja(position = game.at(12,8),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2,colorDelTextoDeLaCaja=paleta.rojo())	  */
 	]
 
 	method cargarNivel(){
@@ -115,7 +115,7 @@ object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHar
 		configuraciones.configMusic("hardTimerW.mp3")
 		
 		unContadorDePasos.reset()
-		
+		readyGo.reiniciar()
 		
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
@@ -131,8 +131,8 @@ object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHar
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 
-		nivel0.posicionInitial(game.at(21,3))
-		nivel0.agregarNivelCompletado(self)
+		nivel0.posicionInitial(game.at(5,9))
+		
 		game.addVisual(unCronometro)
 		
 		game.schedule(1800,{readyGo.iniciarReady()})

@@ -69,6 +69,9 @@ class Nivel inherits Posicion{
 		if (self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivelDream.agregarNivelCompletado(self)
 		}
+		if(self.soyUnNivelHardcoreTime()){
+			nivel0.agregarNivelHardTimeCompletado(self)
+		}
 		
 		
 		siguienteNivel.cargarNivel()
@@ -95,6 +98,7 @@ class Nivel inherits Posicion{
 			configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.yaEstubeEnMeta(false)}
 			configuraciones.nivelActual().cronometro().reset()
 		}
+		
 		
 	}
 	
@@ -180,6 +184,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	const nivelW= new NivelW ()
 	
 	const listaDeNivelesCompletados=[]
+	const listaDeNivelesHardTimeCompletados=[]
 	
 	
 	
@@ -189,6 +194,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
 		
+
 		//Habitación hijo
 		const hijo = new Jugador(position = game.at(7, 11) ,resolucion="menorResolucion" ,nombreJugador = "hijo")
 		game.addVisual(hijo)
@@ -229,7 +235,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		game.addVisual(listasNivelesCompletados2)
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
 		nivelDream.posicionInitial(game.at(13, 11)) //por si entramos nuevamente al nivel dream
-	
+
 	}	
 		override method configNivel(personaje1){
 		duplicaDireccion.direccionDuplicador(duplicador)
@@ -247,6 +253,12 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	method agregarNivelCompletado(unNivel){
 		listaDeNivelesCompletados.add(unNivel)
 	}
+	method agregarNivelHardTimeCompletado(unNivel){
+		listaDeNivelesHardTimeCompletados.add(unNivel)
+	}
+	
+	
+	
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
 	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=4
 	

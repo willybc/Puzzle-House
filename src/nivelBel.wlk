@@ -34,7 +34,7 @@ class NivelBel inherits Nivel(siguienteNivel = nivel0){
 						 ]
 						 
 	const listaCajas=[   
-						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rosado()),
+						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rosado())/* ,
 						 new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=5,colorDelTextoDeLaCaja=paleta.lima()) ,
 						 new Caja(position = game.at(16,7),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=9,colorDelTextoDeLaCaja=paleta.verde()),
 						 new Caja(position = game.at(16,6),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=13,colorDelTextoDeLaCaja=paleta.negro()),
@@ -42,7 +42,7 @@ class NivelBel inherits Nivel(siguienteNivel = nivel0){
 						 new Caja(position = game.at(13,2),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1),
 						 new Caja(position= game.at(11,4),resolucion=resolucionCaja,stringDeObjeto ="caja1.png", cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=12,colorDelTextoDeLaCaja=paleta.amarillo()),
 						 new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto= "caja1.png", cajaEnMeta = "caja_ok.png",tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.naranja()),
-						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2,hardCoreTimeBonificacion=8,colorDelTextoDeLaCaja=paleta.azul())
+						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2,hardCoreTimeBonificacion=8,colorDelTextoDeLaCaja=paleta.azul())*/
 						
 						 ]
 
@@ -114,7 +114,7 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 	override method cargarNivel(){
 		configuraciones.configMusic("hardTimerBelRemix.mp3")
 		unContadorDePasos.reset()
-		
+		readyGo.reiniciar()
 		
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
@@ -130,8 +130,8 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 
-		nivel0.posicionInitial(game.at(21,3))
-		nivel0.agregarNivelCompletado(self)
+		nivel0.posicionInitial(game.at(13,9))
+		
 		game.addVisual(unCronometro)
 		
 		game.schedule(1800,{readyGo.iniciarReady()})
