@@ -140,6 +140,7 @@ object pasadizoTest inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUn
 		
 		
 		configuraciones.nivelActual(self)
+		
 		game.addVisual(new CambiarRopa(position=game.at(22,5),vestimenta="jugador1") )
 		game.addVisual(new CambiarRopa(position=game.at(20,5),vestimenta="jugador1") )
 		game.addVisual(new CambiarRopa(position=game.at(18,5),vestimenta="jugador1") )

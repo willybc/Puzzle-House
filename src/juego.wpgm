@@ -22,9 +22,10 @@ program juego {
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
 	
-	menu.cargarNivel() 			/* MENU */
-	//nivel1.cargarNivel()			/* NIVEL 1 */
-	//menu.cargarNivel()			/* ESCENARIO CASA /*	
+	//menu.cargarNivel() 			/* MENU */
+	//nivel1.cargarNivel()			/* NIVEL TUTORIAL */
+	nivel0.cargarNivel()			/* NIVEL 0 CASA*/
+	
 	
 	//nivel0.nivelW().cargarNivel()		
 	//nivel0.nivelBel().cargarNivel()
@@ -45,5 +46,6 @@ program juego {
 	//nivelLHardcoreTime.cargarNivel()
 	//pasadizoTest.cargarNivel()
 	game.start()
+	
 	
 } 

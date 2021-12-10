@@ -19,32 +19,31 @@ class NivelBel inherits Nivel(siguienteNivel = nivel0,permitirAgregarAlAListaDeL
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
 	const jugador1 = new Jugador(position = game.at(17,10) , resolucion="menorResolucion",nombreJugador = "jugadora2")
-	const meta1 = "menorResolucion/meta1.png"
-	const meta2=  "menorResolucion/meta2.png"
-	const resolucionCaja = "menorResolucion"
+	const meta1B = "menorResolucion/caja1Bmeta.png"
+	const meta2B=  "menorResolucion/caja2Bmeta.png"
+	const resolucionCajaB = "menorResolucion"
 	
-	const listaMeta =[   new Meta(position = game.at(17,2), image= meta1)  ,
-						 new Meta(position = game.at(7,1), image= meta2,tipo=2),
-						 new Meta(position = game.at(7,10), image= meta2,tipo=2),
-						 new Meta(position = game.at(15,1), image= meta2,tipo=2),
-						 new Meta(position = game.at(12,10), image= meta2,tipo=2),
-						 new Meta(position = game.at(11,10), image= meta1),
-						 new Meta(position = game.at(7,9), image = meta1),
-						 new Meta(position = game.at(14,1), image = meta1),
-						 new Meta(position = game.at(8,3), image= meta1)
+	const listaMeta =[   new Meta(position = game.at(17,2), image= meta1B)  ,
+						 new Meta(position = game.at(7,1), image= meta2B,tipo=2),
+						 new Meta(position = game.at(7,10), image= meta2B,tipo=2),
+						 new Meta(position = game.at(15,1), image= meta2B,tipo=2),
+						 new Meta(position = game.at(12,10), image= meta2B,tipo=2),
+						 new Meta(position = game.at(11,10), image= meta1B),
+						 new Meta(position = game.at(7,9), image = meta1B),
+						 new Meta(position = game.at(14,1), image = meta1B),
+						 new Meta(position = game.at(8,3), image= meta1B)
 						 ]
 						 
 	const listaCajas=[   
-						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rosado())/* ,
-						 new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=5,colorDelTextoDeLaCaja=paleta.lima()) ,
-						 new Caja(position = game.at(16,7),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=9,colorDelTextoDeLaCaja=paleta.verde()),
-						 new Caja(position = game.at(16,6),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=13,colorDelTextoDeLaCaja=paleta.negro()),
-						 new Caja(position = game.at(16,3),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rojo()),
-						 new Caja(position = game.at(13,2),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1),
-						 new Caja(position= game.at(11,4),resolucion=resolucionCaja,stringDeObjeto ="caja1.png", cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=12,colorDelTextoDeLaCaja=paleta.amarillo()),
-						 new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto= "caja1.png", cajaEnMeta = "caja_ok.png",tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.naranja()),
-						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2,hardCoreTimeBonificacion=8,colorDelTextoDeLaCaja=paleta.azul())*/
-						
+						 new Caja(position = game.at(14,9),resolucion=resolucionCajaB,stringDeObjeto="caja1B.png",cajaEnMeta="caja1B_ok.png",tipo=1,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rosado()) ,
+						 new Caja(position = game.at(8,8),resolucion=resolucionCajaB,stringDeObjeto="caja1B.png",cajaEnMeta="caja1B_ok.png",tipo=1,hardCoreTimeBonificacion=5,colorDelTextoDeLaCaja=paleta.lima()) ,
+						 new Caja(position = game.at(16,7),resolucion=resolucionCajaB,stringDeObjeto="caja2B.png",cajaEnMeta="caja2B_ok.png",tipo=2,hardCoreTimeBonificacion=9,colorDelTextoDeLaCaja=paleta.verde()),
+						 new Caja(position = game.at(16,6),resolucion=resolucionCajaB,stringDeObjeto="caja2B.png",cajaEnMeta="caja2B_ok.png",tipo=2,hardCoreTimeBonificacion=13,colorDelTextoDeLaCaja=paleta.negro()),
+						 new Caja(position = game.at(16,3),resolucion=resolucionCajaB,stringDeObjeto="caja2B.png",cajaEnMeta="caja2B_ok.png",tipo=2,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rojo()),
+						 new Caja(position = game.at(13,2),resolucion=resolucionCajaB,stringDeObjeto="caja1B.png",cajaEnMeta="caja1B_ok.png",tipo=1),
+						 new Caja(position= game.at(11,4),resolucion=resolucionCajaB,stringDeObjeto ="caja1B.png", cajaEnMeta="caja1B_ok.png",tipo=1,hardCoreTimeBonificacion=12,colorDelTextoDeLaCaja=paleta.amarillo()),
+						 new Caja(position = game.at(10,2),resolucion=resolucionCajaB,stringDeObjeto= "caja1B.png", cajaEnMeta = "caja1B_ok.png",tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.naranja()),
+						 new Caja(position = game.at(11,6),resolucion=resolucionCajaB,stringDeObjeto= "caja2B.png", cajaEnMeta = "caja2B_ok.png",tipo=2,hardCoreTimeBonificacion=8,colorDelTextoDeLaCaja=paleta.azul())
 						 ]
 
 	method cargarNivel(){
@@ -114,6 +113,35 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 	const readyGo=new ReadyYGO()
 	
 
+	const meta1 = "menorResolucion/meta1.png"
+	const meta2=  "menorResolucion/meta2.png"
+	const resolucionCaja = "menorResolucion"
+	
+	const listaMeta2 =[   new Meta(position = game.at(17,2), image= meta1)  ,
+						 new Meta(position = game.at(7,1), image= meta2,tipo=2),
+						 new Meta(position = game.at(7,10), image= meta2,tipo=2),
+						 new Meta(position = game.at(15,1), image= meta2,tipo=2),
+						 new Meta(position = game.at(12,10), image= meta2,tipo=2),
+						 new Meta(position = game.at(11,10), image= meta1),
+						 new Meta(position = game.at(7,9), image = meta1),
+						 new Meta(position = game.at(14,1), image = meta1),
+						 new Meta(position = game.at(8,3), image= meta1)
+						 ]
+						 
+	const listaCajas2 =[   
+						 new Caja(position = game.at(14,9),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rosado()) ,
+						 new Caja(position = game.at(8,8),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=5,colorDelTextoDeLaCaja=paleta.lima()) ,
+						 new Caja(position = game.at(16,7),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=9,colorDelTextoDeLaCaja=paleta.verde()),
+						 new Caja(position = game.at(16,6),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=13,colorDelTextoDeLaCaja=paleta.negro()),
+						 new Caja(position = game.at(16,3),resolucion=resolucionCaja,stringDeObjeto="caja2.png",cajaEnMeta="caja_ok2.png",tipo=2,hardCoreTimeBonificacion=6,colorDelTextoDeLaCaja=paleta.rojo()),
+						 new Caja(position = game.at(13,2),resolucion=resolucionCaja,stringDeObjeto="caja1.png",cajaEnMeta="caja_ok.png",tipo=1),
+						 new Caja(position= game.at(11,4),resolucion=resolucionCaja,stringDeObjeto ="caja1.png", cajaEnMeta="caja_ok.png",tipo=1,hardCoreTimeBonificacion=12,colorDelTextoDeLaCaja=paleta.amarillo()),
+						 new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto= "caja1.png", cajaEnMeta = "caja_ok.png",tipo=1,hardCoreTimeBonificacion=4,colorDelTextoDeLaCaja=paleta.naranja()),
+						 new Caja(position = game.at(11,6),resolucion=resolucionCaja,stringDeObjeto= "caja2.png", cajaEnMeta = "caja_ok2.png",tipo=2,hardCoreTimeBonificacion=8,colorDelTextoDeLaCaja=paleta.azul())
+						 ]
+						 
+	
+
 	override method cargarNivel(){
 		configuraciones.configMusic("hardTimerBelRemix.mp3")
 		unContadorDePasos.reset()
@@ -124,8 +152,8 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 		game.addVisual(self)
 		game.addVisual(unContadorDePasos)
 		game.addVisual(unContadorDeEmpujes)
-		self.cargarObjetos(listaMeta)
-		self.cargarObjetos(listaCajas)
+		self.cargarObjetos(listaMeta2)
+		self.cargarObjetos(listaCajas2)
 		unCronometro.nivelCompletado(false) //por si un jugador vuelve a entrar al nivel
 		
 		self.generarMuros()
@@ -139,10 +167,11 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 		
 		game.schedule(1800,{readyGo.iniciarReady()})
 		
-		
-		
-		
 	}
+	
+	override method listaCajas() = listaCajas2
+
+ 	override method listaMeta()= listaMeta2
 	
 	
 	method Comenzar(){
