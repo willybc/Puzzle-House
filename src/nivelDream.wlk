@@ -9,21 +9,17 @@ import ghost.*
 import nivelB2.*
 class Dream inherits Nivel(pertenescoAlDream=true){
 	
-override method abandonarNivel(){
-			
-			game.schedule(50,{
-			game.clear()
-			self.reiniciarNivel()
-			configuraciones.configStopMusic()
-			siguienteNivel.cargarNivel()	
-			})
-			
-		}
-
+	override method abandonarNivel(){
+				game.schedule(50,{
+				game.clear()
+				self.reiniciarNivel()
+				configuraciones.configStopMusic()
+				siguienteNivel.cargarNivel()	
+				})
+	}
 }
 object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false){
 	var property sonido = "Dreams/dreams.mp3"
-	//var property image = "nivel0/map3.png"
 	var property image = "nivel0/dream.png"
 	const jugador1 = new Jugador(position = game.at(13, 11) ,resolucion="menorResolucion",nombreJugador = "chara")
 	const listaCajas=[]
@@ -140,16 +136,15 @@ object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 		self.bordearVerticalmente(8,11,15,muroInvisible)
 	}
 	
-	
-	
+	override method abandonarNivel(){
+				game.say(configuraciones.elJugador(),"Vuelve a la cama para volver!")
+	}	
 }
 
 
 object nivelG1 inherits Dream (siguienteNivel = nivelDream,pertenescoAlDream=true){
-	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
-	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
-	
-	
+	const unContadorDePasos = new ContadorDePasos(position=game.at(3,7))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(3,6))
 	
 	const jugador1 = new Jugador(position = game.at(7, 5) , resolucion="menorResolucion",nombreJugador = "chara")
 	const meta1 = "menorResolucion/meta_dream1.png"
@@ -242,16 +237,14 @@ object nivelG1 inherits Dream (siguienteNivel = nivelDream,pertenescoAlDream=tru
 	
 	method image() = "menorResolucion/mapG1.png"
 	
-	
-	
 	override method listaCajas() = listaCajas
 	
  	method listaMeta()= listaMeta
 }
 
 object nivelG2 inherits Dream (siguienteNivel = nivelDream,pertenescoAlDream=true){
-	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
-	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
+	const unContadorDePasos = new ContadorDePasos(position=game.at(3,7))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(3,6))
 	const jugador1 = new Jugador(position = game.at(9, 9) , resolucion="menorResolucion",nombreJugador = "chara")
 	const meta1 = "menorResolucion/meta_dream1.png"
 	const meta2 = "menorResolucion/meta_dream2.png"
@@ -341,7 +334,6 @@ object nivelG2 inherits Dream (siguienteNivel = nivelDream,pertenescoAlDream=tru
 	}
 	
 	method image() = "menorResolucion/mapG2.png"
-	
 	
 	override method listaCajas() = listaCajas
 	

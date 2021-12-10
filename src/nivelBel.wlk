@@ -16,8 +16,8 @@ import niveles.*
 import nivelB.*
 
 class NivelBel inherits Nivel(siguienteNivel = nivel0,permitirAgregarAlAListaDeLnivel0Completado=true){
-	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
-	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
+	const unContadorDePasos = new ContadorDePasos(position=game.at(3,6))
+	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(3,5))
 	const jugador1 = new Jugador(position = game.at(17,10) , resolucion="menorResolucion",nombreJugador = "jugadora2")
 	const meta1B = "menorResolucion/caja1Bmeta.png"
 	const meta2B=  "menorResolucion/caja2Bmeta.png"

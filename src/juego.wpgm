@@ -24,14 +24,14 @@ program juego {
 	
 	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL TUTORIAL */
-	nivel0.cargarNivel()			/* NIVEL 0 CASA*/
+	//nivel0.cargarNivel()			/* NIVEL 0 CASA*/
 	
 	
 	//nivel0.nivelW().cargarNivel()		
 	//nivel0.nivelBel().cargarNivel()
 	//nivel0.nivelL().cargarNivel()
 	
-	//pasadizo.cargarNivel()
+	pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
 	
 	/* Update 1.1v */	
