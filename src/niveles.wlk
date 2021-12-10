@@ -222,16 +222,13 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		self.agregarCheckPointHardTimer(nivelWHardcoreTime,checkPointHardTimerW)
 		self.agregarCheckPointHardTimer(nivelBelHardcoreTime,checkPointHardTimerBel)
 		self.agregarCheckPointHardTimer(nivelLHardcoreTime,checkPointHardTimerL)
-		/* 
-		game.addVisual(checkPointHardTimerW)
-		checkPointHardTimerW.animar()
 		
-		game.addVisual(checkPointHardTimerBel)
-		checkPointHardTimerBel.animar()
+	
 		
-		game.addVisual(checkPointHardTimerL)
-		checkPointHardTimerL.animar()
-		*/
+		//Chimenea
+		const chimenea = new Animacion(position = game.at(0,0), imagen="nivel0/chimenea/flama")
+		game.addVisual(chimenea)
+		chimenea.animar()
 
 		//Habitación hijo
 		const hijo = new Jugador(position = game.at(7, 11) ,resolucion="menorResolucion" ,nombreJugador = "hijo")
