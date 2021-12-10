@@ -27,26 +27,31 @@ class CambiarSkin inherits Estatico(position = game.at(6, 5)){
 	method condicion()
 	
 }
-object skin6  inherits CambiarSkin(position=game.at(22,5),vestimenta="jugadorGranja"){
-	override method condicion()=pasadizo.listaDeSkins().take(5).all({unaSkin=>unaSkin.condicion()})
+
+object skin1  inherits CambiarSkin(position=game.at(2,5),vestimenta="jugador1"){
+	override method condicion()=true
 }
 
-object skin5  inherits CambiarSkin(position=game.at(18,5),vestimenta="jugadorGranja2"){
-	override method condicion()=nivelDream.listaDeNivelesCompletados().asSet().size()>=3
+object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1suiteold"){
+	override method condicion()=nivel0.listaDeNivelesCompletados().asSet().size()>=3
+}
+
+object skin3  inherits CambiarSkin(position=game.at(10,5),vestimenta="jugadorHT2"){
+	override method condicion()= nivel0.listaDeNIvelesHardTimesCompletados().size()>=3
 }
 
 object skin4  inherits CambiarSkin(position=game.at(14,5),vestimenta="jugadorGranja"){
-	override method condicion()=nivel0.listaDeNivelesCompletados().asSet().size()>2
+	override method condicion()= nivel0.listaDeNivelesCompletados().contains(nivel_bonus)
 }
-object skin1  inherits CambiarSkin(position=game.at(2,5),vestimenta="jugador2"){
-	override method condicion()=nivel0.listaDeNIvelesHardTimesCompletados().contains(nivelWHardcoreTime)
+
+object skin5  inherits CambiarSkin(position=game.at(18,5),vestimenta="jugadorDream"){
+	override method condicion()=nivelDream.listaDeNivelesCompletados().asSet().size()>=3
 }
-object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1"){
-	override method condicion()=nivel0.listaDeNIvelesHardTimesCompletados().contains(nivelBelHardcoreTime)
+
+object skin6  inherits CambiarSkin(position=game.at(22,5),vestimenta="jugador1suiteFinal"){
+	override method condicion()= pasadizo.listaDeSkins().take(5).all({unaSkin=>unaSkin.condicion()})
 }
-object skin3  inherits CambiarSkin(position=game.at(10,5),vestimenta="jugadora1"){
-	override method condicion()=nivel0.listaDeNIvelesHardTimesCompletados().contains(nivelLHardcoreTime)
-}
+
 
 class DreamCambiarSkin inherits Estatico {
 	var vestimenta
@@ -56,10 +61,6 @@ class DreamCambiarSkin inherits Estatico {
 		pasadizo.vestimenta(vestimenta)
 	}
 }
-
-
-
-
 
 
 class Estatico inherits Posicion {
@@ -413,10 +414,6 @@ class Animacion inherits Estatico {
 	
 	method image() = imagen + entero.toString() + ".png"
 	
-	override method hacerAlgo(direccion){
-		
-	}
-	
 	method animar(){ game.onTick(velocidad,"animar", {self.aumentarEntero()}) }
 	
 	method aumentarEntero(){
@@ -432,8 +429,7 @@ class Animacion inherits Estatico {
 class CheckpointHardTimer inherits Animacion {
 	
 	var property siguienteNivel
-	override method limite() = 7
-	override method velocidad() = 50
+	
 	
 	override method hacerAlgo(direccion) {
 		configuraciones.configStopMusic()

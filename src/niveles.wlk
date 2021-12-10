@@ -19,6 +19,7 @@ class Nivel inherits Posicion{
 	var property siguienteNivel
 	var property pertenescoAlDream=false
 	var property permitirAgregarAlAListaDeLnivel0Completado=false
+	var property soyUnNivelGranja=false
 	var property duplicador=1
 	method listaCajas()
 	
@@ -66,7 +67,9 @@ class Nivel inherits Posicion{
 		game.clear()
 		if(self.permitirAgregarAlAListaDeLnivel0Completado() and !self.soyUnNivelHardcoreTime()){
 			nivel0.agregarNivelCompletado(self)
-			nivel0.agregarNivelHardTimeDesbloqueado(configuraciones.nivelActual().nivelHardCoreTime())
+			if(!self.soyUnNivelGranja()){
+				nivel0.agregarNivelHardTimeDesbloqueado(configuraciones.nivelActual().nivelHardCoreTime())
+			}
 		}
 		if (self.pertenescoAlDream() and !self.soyUnNivelHardcoreTime()){
 			nivelDream.agregarNivelCompletado(self)
@@ -74,6 +77,10 @@ class Nivel inherits Posicion{
 		if(self.soyUnNivelHardcoreTime()){
 			nivel0.agregarNivelHardTimeCompletado(self)
 		}
+		if(self.soyUnNivelGranja()){
+			nivel0.agregarNivelCompletado(self)
+		}
+		
 		
 		
 		siguienteNivel.cargarNivel()
@@ -189,22 +196,25 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	const listaDeNivelesHardTimeCompletados=[]
 	const listaDeNIvelesHardTimesDesbloqueados=[]
 	
-	const checkPointHardTimerW=new CheckpointHardTimer(position = game.at(3,11), imagen = "hardTimer/hardTimerW", siguienteNivel = nivelWHardcoreTime )
+	const checkPointHardTimerW=new CheckpointHardTimer(position = game.at(3,11), imagen = "hardTimer/hardTimerW", siguienteNivel = nivelWHardcoreTime, velocidad=50 ,limite=7)
 	const checkPointHardTimerBel=new CheckpointHardTimer(position = game.at(13,11), imagen = "hardTimer/hardTimerBel", siguienteNivel = nivelBelHardcoreTime ,velocidad=60 ,limite=12)
 	const checkPointHardTimerL=new CheckpointHardTimer(position = game.at(19,4), imagen = "hardTimer/hardTimerL", siguienteNivel = nivelLHardcoreTime ,velocidad=60 ,limite=11)
+	
 	
 	var property posicionInitial = game.at(3,1)
 	
 	
 		method verificarSiEstaDesbloqueadoElNivel(unNivel)=listaDeNIvelesHardTimesDesbloqueados.contains(unNivel)
-			
+		
+		
 		method agregarCheckPointHardTimer(unNivel,unCheckpoint){
 			if(self.verificarSiEstaDesbloqueadoElNivel(unNivel)){
 				game.addVisual(unCheckpoint)
 				unCheckpoint.animar()
 			}
+			
+			
 		}
-		
 		method cargarNivel(){		
 		
 		configuraciones.configMusic(self.sonido())
@@ -222,11 +232,6 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		game.addVisual(checkPointHardTimerL)
 		checkPointHardTimerL.animar()
 		*/
-		
-		//Chimenea
-		const chimenea = new Animacion(position = game.at(0,0), imagen="nivel0/chimenea/flama")
-		game.addVisual(chimenea)
-		chimenea.animar()
 
 		//Habitación hijo
 		const hijo = new Jugador(position = game.at(7, 11) ,resolucion="menorResolucion" ,nombreJugador = "hijo")
@@ -362,4 +367,5 @@ object listasNivelesCompletados2{
 	method text()=nivel0.listaDeNIvelesHardTimesCompletados().asSet().toString()
 	
 }
+ 
  

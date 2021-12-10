@@ -54,7 +54,7 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 	
 }
 
-object nivel_bonus inherits Nivel (siguienteNivel = nivel0){
+object nivel_bonus inherits Nivel (siguienteNivel = nivel0 , soyUnNivelGranja=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(4,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(4,5))
 	const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizo.vestimenta())
