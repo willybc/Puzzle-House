@@ -193,21 +193,18 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	const checkPointHardTimerBel=new CheckpointHardTimer(position = game.at(13,11), imagen = "hardTimer/hardTimerBel", siguienteNivel = nivelBelHardcoreTime ,velocidad=60 ,limite=12)
 	const checkPointHardTimerL=new CheckpointHardTimer(position = game.at(19,4), imagen = "hardTimer/hardTimerL", siguienteNivel = nivelLHardcoreTime ,velocidad=60 ,limite=11)
 	
-	
 	var property posicionInitial = game.at(3,1)
 	
 	
 		method verificarSiEstaDesbloqueadoElNivel(unNivel)=listaDeNIvelesHardTimesDesbloqueados.contains(unNivel)
-		
-		
+			
 		method agregarCheckPointHardTimer(unNivel,unCheckpoint){
 			if(self.verificarSiEstaDesbloqueadoElNivel(unNivel)){
 				game.addVisual(unCheckpoint)
 				unCheckpoint.animar()
 			}
-			
-			
 		}
+		
 		method cargarNivel(){		
 		
 		configuraciones.configMusic(self.sonido())
@@ -225,6 +222,11 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		game.addVisual(checkPointHardTimerL)
 		checkPointHardTimerL.animar()
 		*/
+		
+		//Chimenea
+		const chimenea = new Animacion(position = game.at(0,0), imagen="nivel0/chimenea/flama")
+		game.addVisual(chimenea)
+		chimenea.animar()
 
 		//Habitación hijo
 		const hijo = new Jugador(position = game.at(7, 11) ,resolucion="menorResolucion" ,nombreJugador = "hijo")

@@ -47,6 +47,11 @@ object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 		configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
 		
+		//Chimenea
+		const chimenea = new Animacion(position = game.at(0,0), imagen="Dreams/chimenea/flama")
+		game.addVisual(chimenea)
+		chimenea.animar()
+		
 		//Bonus
 		const bonus = new CheckpointBonus( nivelBase = self, bonus=pasadizoDream)
 		game.addVisual(bonus)

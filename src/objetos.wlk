@@ -311,9 +311,6 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 	
 	method textColor()=colorTexto
 	
-	
-	
-	
 }
 class Cronometro inherits Estatico(position=game.at(12,12)){
 	var property segundos=8
@@ -407,47 +404,43 @@ class ReadyYGO inherits Estatico{
 	
 }
 
-class CheckpointHardTimer inherits Estatico {
-
-	var property siguienteNivel
+class Animacion inherits Estatico {
+	
 	var property imagen
-	var property entero=1
-	var property limite=7
-	var property velocidad=50
+	var property entero = 1
+	var property limite = 5
+	var property velocidad = 150
 	
-	method image()=imagen+entero.toString()+".png"
+	method image() = imagen + entero.toString() + ".png"
 	
-	
-	
-	override method hacerAlgo(direccion) {
-		configuraciones.configStopMusic()
-		game.clear()
-		siguienteNivel.cargarNivel()
-	}
-	
-	method animar(){
-		game.onTick(velocidad,"animar", {self.aumentarEntero()})
+	override method hacerAlgo(direccion){
 		
 	}
-
+	
+	method animar(){ game.onTick(velocidad,"animar", {self.aumentarEntero()}) }
+	
 	method aumentarEntero(){
 		if(entero<limite){
 			entero=entero+1
 		}
 		else{
 			entero=1
-		}
-		
-		
+		}			
 	}
-		
-		
-		
-	
-	
-	
-	
-	
-	
 }
+
+class CheckpointHardTimer inherits Animacion {
+	
+	var property siguienteNivel
+	override method limite() = 7
+	override method velocidad() = 50
+	
+	override method hacerAlgo(direccion) {
+		configuraciones.configStopMusic()
+		game.clear()
+		siguienteNivel.cargarNivel()
+	}
+}
+
+
 

@@ -31,11 +31,11 @@ program juego {
 	//nivel0.nivelBel().cargarNivel()
 	//nivel0.nivelL().cargarNivel()
 	
-	pasadizo.cargarNivel()
+	//pasadizo.cargarNivel()
 	//nivelCreativo.cargarNivel()
 	
 	/* Update 1.1v */	
-	//nivelDream.cargarNivel()
+	nivelDream.cargarNivel()
 	//nivelG1.cargarNivel()
 	//nivelG2.cargarNivel()
 	//pasadizoDream.cargarNivel()
