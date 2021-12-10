@@ -201,7 +201,6 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	const checkPointHardTimerBel=new CheckpointHardTimer(position = game.at(13,11), imagen = "hardTimer/hardTimerBel", siguienteNivel = nivelBelHardcoreTime ,velocidad=60 ,limite=12)
 	const checkPointHardTimerL=new CheckpointHardTimer(position = game.at(19,4), imagen = "hardTimer/hardTimerL", siguienteNivel = nivelLHardcoreTime ,velocidad=60 ,limite=11)
 	
-	
 	var property posicionInitial = game.at(3,1)
 	
 	
@@ -217,22 +216,32 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 			
 		}
 		method cargarNivel(){	
-			
-		if(self.juegoTerminado()){
-			self.image("nivel0/map2.png")
-			self.sonido("fin.mp3")
-
-		}
+			if(self.juegoTerminado()){
+				self.image("nivel0/map2.png")
+				game.addVisual(self)
+				
+				//zZzZ
+				const animacionZz = new Animacion(position = game.at(0,0), imagen="nivel0/zz/zzz", velocidad= 300)
+				game.addVisual(animacionZz)
+				animacionZz.animar()
+				
+				self.sonido("fin.mp3")
+			}
+			else{
+				game.addVisual(self)
+			}
 		
 		configuraciones.configMusic(self.sonido())
-		game.addVisual(self)
 		
-
 		self.agregarCheckPointHardTimer(nivelWHardcoreTime,checkPointHardTimerW)
 		self.agregarCheckPointHardTimer(nivelBelHardcoreTime,checkPointHardTimerBel)
 		self.agregarCheckPointHardTimer(nivelLHardcoreTime,checkPointHardTimerL)
 		
-	
+		/*
+		const animacionZz = new Animacion(position = game.at(0,0), imagen="nivel0/zz/zzz", velocidad= 300)
+		game.addVisual(animacionZz)
+		animacionZz.animar()
+		*/
 		
 		//Chimenea
 		const chimenea = new Animacion(position = game.at(0,0), imagen="nivel0/chimenea/flama")
@@ -312,7 +321,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	
 	method listaDeNIvelesHardTimesCompletados()=listaDeNivelesHardTimeCompletados
 	
-	method juegoTerminado()=nivelDream.listaDeNivelesCompletados().contains(nivelBonusDream) and self.listaDeNivelesCompletados().contains(nivel_bonus)
+	method juegoTerminado() = self.listaDeNivelesCompletados().contains(nivel_bonus)
 	
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
 	method nivelPasadizoHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=1
