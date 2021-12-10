@@ -53,7 +53,7 @@ object nivelDream inherits Dream (siguienteNivel = nivel0,soyUnNivelPuzzle=false
 		chimenea.animar()
 		
 		//Bonus
-		const bonus = new CheckpointBonus( nivelBase = self, bonus=pasadizoDream)
+		const bonus = new CheckpointConRequisito(destino=pasadizoDream,condicion=!self.nivelBonusHabilitado(),mensajeDeError="Debes completar todos los niveles  del Dream para acceder!!!")
 		game.addVisual(bonus)
 		
 		self.generarMuros()

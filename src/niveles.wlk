@@ -12,6 +12,7 @@ import nivelL.*
 import creativo.*
 import nivelDream.*
 import nivelTests.*
+import nivelB2.*
 
 class Nivel inherits Posicion{
 	var property soyUnNivelPuzzle=true
@@ -215,10 +216,18 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 			
 			
 		}
-		method cargarNivel(){		
+		method cargarNivel(){	
+			
+		if(self.juegoTerminado()){
+			self.image("nivel0/map2.png")
+			self.sonido("fin.mp3")
+
+		}
 		
 		configuraciones.configMusic(self.sonido())
 		game.addVisual(self)
+		
+
 		self.agregarCheckPointHardTimer(nivelWHardcoreTime,checkPointHardTimerW)
 		self.agregarCheckPointHardTimer(nivelBelHardcoreTime,checkPointHardTimerBel)
 		self.agregarCheckPointHardTimer(nivelLHardcoreTime,checkPointHardTimerL)
@@ -245,7 +254,9 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		game.addVisual(jugadora1)	
 		
 		//Bonus
-		const bonus = new CheckpointBonus( nivelBase = self, bonus=pasadizo)
+		
+		//const bonus = new CheckpointBonus( nivelBase = self, bonus=pasadizo)
+		const bonus = new CheckpointConRequisito(destino=pasadizo,condicion=!self.nivelPasadizoHabilitado(),mensajeDeError="Debes completar como minimo un Nivel para acceder al pasadizo!!!!")
 		game.addVisual(bonus)
 		
 		self.generarMuros()
@@ -257,7 +268,9 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		self.configNivel(jugador1)
 		
 		//Dream
-		const dream = new CheckpointBonus( nivelBase = self, bonus=nivelDream)
+		const dream = new CheckpointConRequisito(destino=nivelDream,condicion=!self.nivelDreamHabilitado(),mensajeDeError="Debes completar todos los niveles NORMALES para acceder al Dream !!!!")
+		//const dream = new CheckpointBonus( nivelBase = self, bonus=nivelDream)
+		
 		dream.position( game.at(16,11) )
 		game.addVisual(dream)
 		
@@ -282,6 +295,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	method nivelBel()=nivelBel
 	method nivelW()=nivelW
 	method nivelL()=nivelL
+	method nivelDreamHabilitado()=listaDeNivelesCompletados.asSet().size()>=3
 	
 	method listaSombras()=listaSombras
 	method listaSombrasNoAtravesadas()=self.listaSombras().filter({unaSombra=>!unaSombra.seAtraveso()})
@@ -298,10 +312,11 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	
 	method listaDeNIvelesHardTimesCompletados()=listaDeNivelesHardTimeCompletados
 	
+	method juegoTerminado()=nivelDream.listaDeNivelesCompletados().contains(nivelBonusDream) and self.listaDeNivelesCompletados().contains(nivel_bonus)
 	
 	method listaDeNivelesCompletados()=listaDeNivelesCompletados
-	method nivelBonusHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=1
-	
+	method nivelPasadizoHabilitado() = self.listaDeNivelesCompletados().asSet().size()>=1
+	method nivelGranjaHabilitado()=self.listaDeNivelesCompletados().asSet().size()>=3
 	override method listaCajas() = listaCajas
 
     method listaMeta()= listaMeta

@@ -116,8 +116,7 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream
 		self.configNivel(jugador1)
 		nivel0.posicionInitial(game.at(14,11))
 		nivelDream.posicionInitial(game.at(17,3))
-		nivel0.image("nivel0/map2.png")
-		nivel0.sonido("fin.mp3")
+		
 	}
 	
 	method generarMuros(){

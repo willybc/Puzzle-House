@@ -13,6 +13,7 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 	var property vestimenta = "jugador1"
 	const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = self.vestimenta())
 	const listaDeSkins=[skin1,skin2,skin3,skin4,skin5,skin6]
+	
 	method cargarNivel(){
 
 		game.addVisual(new Checkpoint(position = game.at(0,3), image = "menorResolucion/invisible.png", siguienteNivel = nivel0))
@@ -24,8 +25,9 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 		
 		listaDeSkins.forEach({unSkin=>game.addVisual(unSkin)})
 		//game.addVisual(skin6)
-		game.addVisual(new Checkpoint(position = game.at(24,3), image = "mayorResolucion/invisible.png", siguienteNivel = nivel_bonus))
-		nivel0.posicionInitial(game.at(17,4))
+		const bonus = new CheckpointConRequisito(position=game.at(24,3),destino=nivel_bonus,condicion=!nivel0.nivelGranjaHabilitado(),mensajeDeError="Debes completar Los 3 Puzzles de la casa para acceder a la GRANJA!!!!")
+		game.addVisual(bonus)
+		nivel0.posicionInitial(game.at(17,3))
 		self.generarMuros()	
 		game.addVisual(jugador1)
 		self.configNivel(jugador1)
@@ -42,6 +44,8 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 		self.duplicador(2)
 		self.bordearHorizontalmente(0,22,1,muroInvisible)
 		self.bordearHorizontalmente(0,22,7,muroInvisible)
+		self.bordearHorizontalmente(0,22,7,muroInvisible)
+		
 	}
 	
 	method image() = "nivelBonus/pasadizo-map4.png"
@@ -121,8 +125,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0 , soyUnNivelGranja=tr
 		configuraciones.nivelActual(self)	
 		self.configNivel(jugador1)
 		nivel0.posicionInitial(game.at(17,3))
-		nivel0.image("nivel0/map2.png")
-		nivel0.sonido("fin.mp3")
+		
 		
 	}
 	

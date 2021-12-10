@@ -12,44 +12,71 @@ import nivelL.*
 import nivelDream.*
 import nivelB2.*
 
-class CambiarSkin inherits Estatico(position = game.at(6, 5)){
+class CambiarSkin inherits Estatico(position = game.at(6, 5)) {
 
 	var vestimenta
+
 	override method hacerAlgo(direccion) {
-		
-		if(self.condicion()){
+		if (self.condicion()) {
 			configuraciones.elJugador().nombreJugador(vestimenta)
 			pasadizo.vestimenta(vestimenta)
+		} else {
+			self.mensaje()
 		}
-			configuraciones.elJugador().retroceder(direccion)
-
+		configuraciones.elJugador().retroceder(direccion)
 	}
+
 	method condicion()
-	
+
+	method mensaje()
+
 }
 
 object skin1  inherits CambiarSkin(position=game.at(2,5),vestimenta="jugador1"){
 	override method condicion()=true
+	
+	override method mensaje(){
+		game.say(configuraciones.elJugador(),"No te lo has puesto ya?")
+	}
 }
 
 object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1suiteold"){
 	override method condicion()=nivel0.listaDeNivelesCompletados().asSet().size()>=3
+	
+	override method mensaje(){
+		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los niveles del modo NORMAL Para desbloquear esto")
+	}
 }
 
 object skin3  inherits CambiarSkin(position=game.at(10,5),vestimenta="jugadorHT2"){
 	override method condicion()= nivel0.listaDeNIvelesHardTimesCompletados().size()>=3
+	override method mensaje(){
+		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los niveles del modo HardTimer Para desbloquear esto")
+	}
 }
 
 object skin4  inherits CambiarSkin(position=game.at(14,5),vestimenta="jugadorGranja"){
 	override method condicion()= nivel0.listaDeNivelesCompletados().contains(nivel_bonus)
+	override method mensaje(){
+		game.say(configuraciones.elJugador(),"Debes COMPLETAR El nivel de la GRANJA para desbloquear esto!")
+	}
 }
 
 object skin5  inherits CambiarSkin(position=game.at(18,5),vestimenta="jugadorDream"){
 	override method condicion()=nivelDream.listaDeNivelesCompletados().asSet().size()>=3
+	
+	override method mensaje(){
+		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los nivel del DREAM para desbloquear esto!!!")
+	}
 }
 
 object skin6  inherits CambiarSkin(position=game.at(22,5),vestimenta="jugador1suiteFinal"){
 	override method condicion()= pasadizo.listaDeSkins().take(5).all({unaSkin=>unaSkin.condicion()})
+	
+	
+	override method mensaje(){
+		game.say(configuraciones.elJugador(),"Debes completar todos los desafios anteriores  para desbloquear este traje!!!")
+	}
 }
 
 
@@ -274,7 +301,23 @@ class CheckpointSalir inherits Checkpoint {
 	
 }
 
+class CheckpointConRequisito inherits Estatico (position = game.at(16, 4)) {
+	
+	var property destino
+	var property condicion
+	var property mensajeDeError=""
 
+	override method hacerAlgo(direccion) { //!nivelBase.nivelBonusHabilitado()
+		if (self.condicion()) {
+			configuraciones.elJugador().retroceder(direccion)
+			self.error(self.mensajeDeError())
+		}
+		configuraciones.configStopMusic()
+		game.clear()
+		destino.cargarNivel()
+	}
+
+}
 
 class CheckpointBonus inherits Estatico (position = game.at(16, 4)) {
 	var property nivelBase
@@ -290,6 +333,7 @@ class CheckpointBonus inherits Estatico (position = game.at(16, 4)) {
 	}
 
 }
+
 
 
 class ContadorDePasos inherits Estatico(position=game.at(12,5)){
