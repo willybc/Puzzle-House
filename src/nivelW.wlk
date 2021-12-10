@@ -152,7 +152,7 @@ object nivelWHardcoreTime inherits  NivelW(siguienteNivel = nivel0,soyUnNivelHar
 	override method cargarNivel(){
 		configuraciones.configMusic("hardTimerW.mp3")
 		unCronometro.nivelCompletado(false) //por si un jugador vuelve a entrar al nivel
-		unContadorDePasos.reset()
+		unContadorDePasos.reiniciar()
 		readyGo.reiniciar()
 		jugador1.nombreJugador(pasadizo.vestimenta())
 		configuraciones.elcontadorDePasos(unContadorDePasos)

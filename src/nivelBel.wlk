@@ -144,7 +144,7 @@ object nivelBelHardcoreTime inherits NivelBel(siguienteNivel = nivel0,soyUnNivel
 
 	override method cargarNivel(){
 		configuraciones.configMusic("hardTimerBelRemix.mp3")
-		unContadorDePasos.reset()
+		unContadorDePasos.reiniciar()
 		readyGo.reiniciar()
 		jugador1.nombreJugador(pasadizo.vestimenta())
 		configuraciones.elcontadorDePasos(unContadorDePasos)

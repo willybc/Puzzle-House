@@ -177,7 +177,7 @@ object nivel_bonus inherits Nivel (siguienteNivel = nivel0 , soyUnNivelGranja=tr
 			
 			game.schedule(50,{
 			game.clear()
-			self.reiniciarNivel()
+			self.reiniciar()
 			configuraciones.configStopMusic()
 			nivel0.sonido("hogar1.mp3")
 			nivel0.image("nivel0/map3.png")

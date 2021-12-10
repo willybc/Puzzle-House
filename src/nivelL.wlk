@@ -55,7 +55,7 @@ class NivelL inherits Nivel (siguienteNivel = nivel0,permitirAgregarAlAListaDeLn
 	]
 
 	method cargarNivel(){
-		unContadorDePasos.reset()
+		unContadorDePasos.reiniciar()
 		
 		
 		configuraciones.configMusic("niveL.mp3")

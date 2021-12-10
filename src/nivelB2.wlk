@@ -192,7 +192,7 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream
 			
 			game.schedule(50,{
 			game.clear()
-			self.reiniciarNivel()
+			self.reiniciar()
 			configuraciones.configStopMusic()
 			nivelDream.cargarNivel()	
 			})

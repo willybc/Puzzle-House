@@ -16,8 +16,9 @@ class CajaFullPerfomance inherits  Caja(resolucion="MCMenorResolucion"){
 															// pero relentiza demasiado al modo creativo 
 	override method image() =imagen
 	
+	override method text() =""
 	
-	method reiniciarImagen(){
+	method reiniciar(){
 		imagen=resolucion + "/" + stringDeObjeto
 	}
 
@@ -126,7 +127,7 @@ class JugadorConstructor inherits Jugador{
 
 	//Se podria usar Self.position, osea la posicion del jugador pero por razones que desconosco da un rendimiento MUY POBRE!! Los frames bajan mucho!
 		keyboard.e().onPressDo{self.sumar2()}
-		keyboard.x().onPressDo{self.resetRespawn()}
+		keyboard.x().onPressDo{self.reiniciar()}
 		keyboard.f().onPressDo{nivelCreativo.formatearNivel()}
 		keyboard.c().onPressDo{nivelCreativo.eliminarTodasLasCajas()}
 		keyboard.v().onPressDo{nivelCreativo.eliminarTodasLasMetas()}
@@ -267,7 +268,7 @@ class JugadorConstructor inherits Jugador{
 	
 	
 	
-	method resetRespawn(){
+	method reiniciar(){
 		self.position(game.center())
 		posicionInicialDelConstructor.position(game.center())
 		if(self.banderaDeSonido2()){

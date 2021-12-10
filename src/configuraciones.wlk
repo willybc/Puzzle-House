@@ -37,7 +37,7 @@ object configuraciones {
 		keyboard.s().onPressDo{ jugador.cambiarPosicion(abajo)}
 		keyboard.a().onPressDo{ jugador.cambiarPosicion(izquierda)}
 		keyboard.d().onPressDo{ jugador.cambiarPosicion(derecha)}
-		keyboard.r().onPressDo{ nivelActual.reiniciarNivel()}
+		keyboard.r().onPressDo{ nivelActual.reiniciar()}
 		keyboard.z().onPressDo{ self.cambio()}
 		keyboard.p().onPressDo({ self.configStopMusic()})
 		keyboard.backspace().onPressDo({self.nivelActual().abandonarNivel()})

@@ -63,7 +63,7 @@ class Nivel inherits Posicion{
 	}
 	
 	method cambiarNivel(){
-		self.reiniciarNivel()
+		self.reiniciar()
 		game.clear()
 		if(self.permitirAgregarAlAListaDeLnivel0Completado() and !self.soyUnNivelHardcoreTime()){
 			nivel0.agregarNivelCompletado(self)
@@ -88,24 +88,24 @@ class Nivel inherits Posicion{
 	method abandonarNivel(){
 			game.schedule(50,{
 			game.clear()
-			self.reiniciarNivel()
+			self.reiniciar()
 			configuraciones.configStopMusic()
 			siguienteNivel.cargarNivel()	
 			})
 			
 		}
 	
-	method reiniciarNivel(){
+	method reiniciar(){
 		self.listaCajas().forEach{ objeto => objeto.posicioninicial()}
 		self.listaCajas().forEach{ objeto => objeto.estoyEnMeta(false)}
 		configuraciones.elJugador().posicioninicial()
 		if(self.soyUnNivelPuzzle()){
-			configuraciones.elcontadorDePasos().reset()
-			configuraciones.contadorDeEmpujes().reset()
+			configuraciones.elcontadorDePasos().reiniciar()
+			configuraciones.contadorDeEmpujes().reiniciar()
 		}
 		if(self.soyUnNivelHardcoreTime()){
 			self.listaCajas().forEach{ objeto => objeto.yaEstubeEnMeta(false)}
-			configuraciones.nivelActual().cronometro().reset() //Da error si uso self en vez de configuraciones.nivelActual() . No entiendo el porque. Asumo que es un error del iDe ,sin embargo si ignoramos el error y ejecutamos el juego todo anda normal!
+			configuraciones.nivelActual().cronometro().reiniciar() //Da error si uso self en vez de configuraciones.nivelActual() . No entiendo el porque. Asumo que es un error del iDe ,sin embargo si ignoramos el error y ejecutamos el juego todo anda normal!
 		}
 		
 		

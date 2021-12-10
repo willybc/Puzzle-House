@@ -65,7 +65,7 @@ object nivel1 inherits Nivel (siguienteNivel = nivel0 ,duplicador=2){
 			
 			game.schedule(50,{
 			game.clear()
-			self.reiniciarNivel()
+			self.reiniciar()
 			configuraciones.configStopMusic()
 			menu.cargarNivel()	
 			})

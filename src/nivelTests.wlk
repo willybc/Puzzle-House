@@ -37,17 +37,17 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0,soyUnNivelHardcoreTime=
 	]
 	
 	
-	override method reiniciarNivel(){
+	override method reiniciar(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.estoyEnMeta(false)}
 		configuraciones.elJugador().posicioninicial()
 		if(self.soyUnNivelPuzzle()){
-			configuraciones.elcontadorDePasos().reset()
-			configuraciones.contadorDeEmpujes().reset()
+			configuraciones.elcontadorDePasos().reiniciar()
+			configuraciones.contadorDeEmpujes().reiniciar()
 		}
 		if(self.soyUnNivelHardcoreTime()){
 			configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.yaEstubeEnMeta(false)}
-			unCronometro.reset()
+			unCronometro.reiniciar()
 		}
 		
 		
@@ -69,7 +69,7 @@ object nivelTest inherits Nivel (siguienteNivel = nivel0,soyUnNivelHardcoreTime=
 
 	method cargarNivel(){
 		configuraciones.configMusic("hardTimerBelRemix.mp3")
-		unContadorDePasos.reset()
+		unContadorDePasos.reiniciar()
 		
 		
 		configuraciones.elcontadorDePasos(unContadorDePasos)

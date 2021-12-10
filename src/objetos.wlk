@@ -305,7 +305,7 @@ class ContadorDePasos inherits Estatico(position=game.at(12,5)){
 		}
 		
 	}
-	method reset(){
+	method reiniciar(){
 		numeroDePasos=0
 	}
 	method text()=texto+numeroDePasos.toString()
@@ -327,8 +327,8 @@ class Cronometro inherits Estatico(position=game.at(12,12)){
 		}
 		else{
 			sonidoObjeto.emitirSonido("tiempoAgotado.mp3")
-			self.reset()
-			configuraciones.nivelActual().reiniciarNivel()
+			self.reiniciar()
+			configuraciones.nivelActual().reiniciar()
 			
 		}		
 	}
@@ -338,7 +338,7 @@ class Cronometro inherits Estatico(position=game.at(12,12)){
 		sonidoObjeto.emitirSonido("segBonificacion.mp3")
 	}
 	
-	method reset(){
+	method reiniciar(){
 		segundos=segundoDeReset
 	}
 	

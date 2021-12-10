@@ -9,11 +9,11 @@ import objetosDelModoCreativo.*
 
 class Creativo inherits Nivel{
 	
-	override method reiniciarNivel(){
+	override method reiniciar(){
 		configuraciones.nivelActual().listaCajas().forEach{ objeto => objeto.posicioninicial()}
 		configuraciones.elJugador().posicioninicial()
 		self.listaCajas().forEach({unaCaja=>unaCaja.estoyEnMeta(false)})
-		self.listaCajas().forEach({unaCaja=>unaCaja.reiniciarImagen()})
+		self.listaCajas().forEach({unaCaja=>unaCaja.reiniciar()})
 		self.cajasEnMeta().clear()
 	}
 
@@ -45,7 +45,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		cajasEnMeta.clear()
 		self.retornarJugador().banderaDeSonido(false)
 		self.retornarJugador().banderaDeSonido2(false)
-		self.retornarJugador().resetRespawn()
+		self.retornarJugador().reiniciar()
 		self.retornarJugador().banderaDeSonido(true)
 		self.retornarJugador().banderaDeSonido2(true)
 		sonidoObjeto.emitirSonido("modoCreativoSonidos/formatear.mp3")
@@ -158,7 +158,7 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 	
 	method jugarNivelCreado(){
 		var numeroDeCajasEnTotal=0
-		self.reiniciarNivel()
+		self.reiniciar()
 		numeroDeCajasEnTotal=self.numeroDeCajas()
 		nivelCreativoJugar.numeroDeCajasTotales(numeroDeCajasEnTotal)
 		self.habilitarLaAdicionDeLosObjetosAlTablero()

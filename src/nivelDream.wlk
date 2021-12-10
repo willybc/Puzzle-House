@@ -12,7 +12,7 @@ class Dream inherits Nivel(pertenescoAlDream=true){
 	override method abandonarNivel(){
 				game.schedule(50,{
 				game.clear()
-				self.reiniciarNivel()
+				self.reiniciar()
 				configuraciones.configStopMusic()
 				siguienteNivel.cargarNivel()	
 				})
