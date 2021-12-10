@@ -36,8 +36,20 @@ object skin1  inherits CambiarSkin(position=game.at(2,5),vestimenta="jugador1"){
 	override method condicion()=true
 	
 	override method mensaje(){
-		game.say(configuraciones.elJugador(),"No te lo has puesto ya?")
+		game.say(configuraciones.elJugador(),"No lo tienes puesto?")
+		
 	}
+	
+	override method hacerAlgo(direccion) {
+		if(configuraciones.elJugador().nombreJugador()=="jugador1"){
+			self.mensaje()			
+		}
+		configuraciones.elJugador().nombreJugador(vestimenta)
+		pasadizo.vestimenta("jugador1")
+		configuraciones.elJugador().retroceder(direccion)
+	}
+	
+	
 }
 
 object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1suiteold"){
@@ -48,14 +60,16 @@ object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1sui
 	}
 }
 
-object skin3  inherits CambiarSkin(position=game.at(10,5),vestimenta="jugadorHT2"){
+object skin4  inherits CambiarSkin(position=game.at(14,5),vestimenta="jugadorHT2"){
 	override method condicion()= nivel0.listaDeNIvelesHardTimesCompletados().size()>=3
 	override method mensaje(){
 		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los niveles del modo HardTimer Para desbloquear esto")
 	}
 }
+//14,5
+//10,5
 
-object skin4  inherits CambiarSkin(position=game.at(14,5),vestimenta="jugadorGranja"){
+object skin3  inherits CambiarSkin(position=game.at(10,5),vestimenta="jugadorGranja"){
 	override method condicion()= nivel0.listaDeNivelesCompletados().contains(nivel_bonus)
 	override method mensaje(){
 		game.say(configuraciones.elJugador(),"Debes COMPLETAR El nivel de la GRANJA para desbloquear esto!")
@@ -78,6 +92,8 @@ object skin6  inherits CambiarSkin(position=game.at(22,5),vestimenta="jugador1su
 		game.say(configuraciones.elJugador(),"Debes completar todos los desafios anteriores  para desbloquear este traje!!!")
 	}
 }
+
+
 
 
 class DreamCambiarSkin inherits Estatico {
