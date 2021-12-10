@@ -48,7 +48,7 @@ object pasadizo inherits Nivel(siguienteNivel = nivel0, duplicador = 2,soyUnNive
 		
 	}
 	
-	method image() = "nivelBonus/pasadizo-map4.png"
+	method image() = "nivelBonus/pasadizo-map.png"
 	
 	override method abandonarNivel(){
 		game.say(configuraciones.elJugador(),"Sube las escaleras para volver!")

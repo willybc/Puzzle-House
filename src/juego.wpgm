@@ -22,9 +22,9 @@ program juego {
   	game.height( configuraciones.altura() ) 
   	game.cellSize(50)
 	
-	menu.cargarNivel() 			/* MENU */
+	//menu.cargarNivel() 			/* MENU */
 	//nivel1.cargarNivel()			/* NIVEL TUTORIAL */
-	//nivel0.cargarNivel()			/* NIVEL 0 CASA*/
+	nivel0.cargarNivel()			/* NIVEL 0 CASA*/
 	
 	
 	//nivel0.nivelW().cargarNivel()		
