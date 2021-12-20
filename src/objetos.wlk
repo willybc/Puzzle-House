@@ -56,7 +56,7 @@ object skin2  inherits CambiarSkin(position=game.at(6,5),vestimenta="jugador1sui
 	override method condicion()=nivel0.listaDeNivelesCompletados().asSet().size()>=3
 	
 	override method mensaje(){
-		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los niveles del modo NORMAL Para desbloquear esto")
+		game.say(configuraciones.elJugador(),"Debes COMPLETAR 3 niveles  COMUNES de la casa  Para desbloquear esto")
 	}
 }
 
@@ -80,7 +80,7 @@ object skin5  inherits CambiarSkin(position=game.at(18,5),vestimenta="jugadorDre
 	override method condicion()=nivelDream.listaDeNivelesCompletados().asSet().size()>=3
 	
 	override method mensaje(){
-		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los nivel del DREAM para desbloquear esto!!!")
+		game.say(configuraciones.elJugador(),"Debes COMPLETAR todos los niveles del DREAM para desbloquear esto!!!")
 	}
 }
 
@@ -130,9 +130,17 @@ class Posicion {
 	}
 
 	method hacerAlgo(direccion) {
-		if (!configuraciones.libreMoviento() or configuraciones.nivelActual().soyUnNivelCreativo()) {
+		if(!configuraciones.nivelActual().soyUnNivelCreativo()){
 			self.cambiarPosicion(direccion)
 		}
+		else{
+			self.modoLibreParaElnivelCreativo(direccion)
+		}
+	}
+	method modoLibreParaElnivelCreativo(direccion){
+		if (!configuraciones.libreMoviento()) {
+			self.cambiarPosicion(direccion)
+		}	
 	}
 
 	method cambiarPosicion(direccion)

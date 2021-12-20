@@ -20,7 +20,7 @@ class Creativo inherits Nivel{
 	method cajasEnMeta()
 }
 
-object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=false) {
+object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=false,soyUnNivelCreativo=true) {
 
 	const jugador1 = new JugadorConstructor (position = game.center() , resolucion="menorResolucion",nombreJugador = "jugador1" ,tipo=66)
 	const objetosPorDefecto=[posicionInicialDelConstructor,jugador1,ui,ui2,contadorDeCajas] //Estos objetos no se pueden eliminar adentro del modo creativo
@@ -50,17 +50,27 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 		self.retornarJugador().banderaDeSonido2(true)
 		sonidoObjeto.emitirSonido("modoCreativoSonidos/formatear.mp3")
 	}
+	method sonidoDeEliminacion(unaLista,elSonido){
+		if(unaLista.size()>0){
+			sonidoObjeto.emitirSonido(elSonido)
+		}
+		
+	}
 	
 	method eliminarTodasLasMetas(){
+		
+		self.sonidoDeEliminacion(listaMeta,"metaRemove.mp3")
 		listaMeta.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 		listaMeta.clear()
 	}
 	
 	method eliminarTodasLasCajas(){
+		self.sonidoDeEliminacion(listaCajas,"cajaRemove.mp3")
 		listaCajas.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 		listaCajas.clear()
 	}
 	method eliminarTodosLosMuros(){
+		self.sonidoDeEliminacion(listaMuros,"murosRemove.mp3")
 		listaMuros.forEach({unObjeto=>unObjeto.modoCreativoBorrarVisual()})
 		listaMuros.clear()
 		
@@ -190,11 +200,10 @@ object nivelCreativo inherits Creativo (siguienteNivel = menu,soyUnNivelPuzzle=f
 }
 
 
-
 object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo,soyUnNivelPuzzle=false){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(1,6))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(1,5))
-	const jugador1 = new JugadorDelNivelCreado(position =posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
+	const jugador1 = new Jugador(position =posicionInicialDelConstructor.position() , resolucion="menorResolucion",nombreJugador = "jugador1")
 	
 	var listaMeta =[]
 	var listaCajas=[]
@@ -202,8 +211,7 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo,soyU
 	var property numeroDeCajasTotales=0
 	const cajasEnMeta=[]
 
-	
-  
+
 	override method verificarMetas() {
 		
 		const verificador = self.listaCajas().all({ unaCaja => unaCaja.estoyEnMeta()})
@@ -256,7 +264,6 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo,soyU
 	}
 	
 
-
 	method image() = "menorResolucion/modoLibre.png"
 
 	override method position() = game.at(0, 0)
@@ -264,8 +271,6 @@ object nivelCreativoJugar inherits Creativo (siguienteNivel = nivelCreativo,soyU
 	override method listaCajas() = listaCajas
 
 	method listaMeta() = listaMeta
-
-	override method soyUnNivelCreativo() = true
 
 	
 	override method hacerAlgo(direccion){

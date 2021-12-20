@@ -13,13 +13,11 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 
 	method cargarNivel(){
 		const jugador1 = new Jugador(position = game.at(2, 3) ,resolucion="mayorResolucion",nombreJugador = "chara3")
-		//configuraciones.configMusic("pasadizo.mp3")
+		configuraciones.configMusic("bridge.mp3")
 		game.addVisual(self)
 		game.addVisual(jugador1)
 		configuraciones.nivelActual(self)
 		self.configNivel(jugador1)
-		game.addVisual(new DreamCambiarSkin(position=game.at(6,5),vestimenta="chara2") )
-		game.addVisual(new DreamCambiarSkin(position=game.at(16,5),vestimenta="chara3") )
 		game.addVisual(new Checkpoint(position = game.at(24,3), image = "mayorResolucion/invisible.png", siguienteNivel = nivelBonusDream))
 		
 		self.generarMuros()	
@@ -32,12 +30,8 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 		
 		const muroInvisible = "menorResolucion/invisible.png"
 		
-		self.bordearHorizontalmente(-2,0,3,muroInvisible)
-		
-		
-		self.bordearHorizontalmente(0,4,5,muroInvisible)
-		self.bordearHorizontalmente(8,14,5,muroInvisible)
-		self.bordearHorizontalmente(18,24,5,muroInvisible)
+		self.bordearHorizontalmente(-2,-2,3,muroInvisible)
+		self.bordearHorizontalmente(0,22,5,muroInvisible)
 		self.bordearHorizontalmente(0,22,1,muroInvisible)
 	}
 	
@@ -53,7 +47,6 @@ object pasadizoDream inherits Nivel(siguienteNivel = nivelDream, duplicador = 2,
 object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream=true){
 	const unContadorDePasos = new ContadorDePasos(position=game.at(4,8))
 	const unContadorDeEmpujes = new ContadorDePasos(texto="Pushes : ",position=game.at(4,7))
-	//const jugador1 = new Jugador(position = game.at(15, 3) , resolucion="menorResolucion",nombreJugador = pasadizoDream.vestimenta())
 	const jugador1 = new Jugador(position = game.at(0, 4) ,resolucion="menorResolucion",nombreJugador = "chara3")
 	
 	const meta1 = "menorResolucion/vagoneta1.png"
@@ -72,7 +65,7 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream
 	
 
 	const listaMeta =[  
-						 new Meta(position = game.at(6,4), image= meta2,tipo=2)/* ,
+						 new Meta(position = game.at(6,4), image= meta2,tipo=2) ,
 						 new Meta(position = game.at(15,8), image= meta1),
 						 new Meta(position = game.at(18,8), image= meta1),
 						 new Meta(position = game.at(15,2), image= meta1),
@@ -82,11 +75,11 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream
 						 new Meta(position = game.at(16,8), image= meta2,tipo=2),
 						 new Meta(position = game.at(17,8), image= meta2,tipo=2),
 						 new Meta(position = game.at(17,2), image= meta2,tipo=2),
-						 new Meta(position = game.at(14,2), image= meta2,tipo=2)	*/
+						 new Meta(position = game.at(14,2), image= meta2,tipo=2)	
 					]
 					
 	const listaCajas=[	
-						new Caja(position = game.at(8,4),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)/*,
+						new Caja(position = game.at(8,4),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(8,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(9,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
 						new Caja(position = game.at(10,6),resolucion=resolucionCaja,stringDeObjeto=caja1,cajaEnMeta=cajaMeta1,tipo=1),
@@ -96,12 +89,12 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream
 						new Caja(position = game.at(9,4),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(10,2),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
 						new Caja(position = game.at(18,7),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2),
-						new Caja(position = game.at(12,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)*/
+						new Caja(position = game.at(12,6),resolucion=resolucionCaja,stringDeObjeto=caja2,cajaEnMeta=cajaMeta2,tipo=2)
 					]
 
 	method cargarNivel(){
 		
-		configuraciones.configMusic("musicaOpcionales/dreamOp2.mp3")
+		configuraciones.configMusic("nivelg2.mp3") //nivelg2.mp3
 		game.addVisual(self)
 		configuraciones.elcontadorDePasos(unContadorDePasos)
 		configuraciones.contadorDeEmpujes(unContadorDeEmpujes)
@@ -142,6 +135,7 @@ object nivelBonusDream inherits Dream (siguienteNivel = nivel0,pertenescoAlDream
 		self.bordearVerticalmente(6,9,6,vallaV)
 		self.bordearVerticalmente(11,11,11,vallaV)
 		self.bordearVerticalmente(2,11,21,vallaV)
+		self.bordearVerticalmente(3,5,-1, vallaV)
 		
 		/*Personalizado */
 		self.bordearHorizontalmente(7,7,2,vallaH2)

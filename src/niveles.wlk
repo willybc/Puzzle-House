@@ -22,6 +22,7 @@ class Nivel inherits Posicion{
 	var property permitirAgregarAlAListaDeLnivel0Completado=false
 	var property soyUnNivelGranja=false
 	var property duplicador=1
+	var property soyUnNivelCreativo=false
 	method listaCajas()
 	
 	method remove(p1){
@@ -119,7 +120,7 @@ class Nivel inherits Posicion{
 		configuraciones.configColisiones(personaje)
 	}
 	
-	method soyUnNivelCreativo()=false
+	
 	
 	override method cambiarPosicion(direccion){		
 	}
@@ -289,7 +290,7 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		//game.addVisual(new Checkpoint(position = game.at(12,11), image = "menorResolucion/reloj.png", siguienteNivel = nivelBelHardcoreTime))	 el png ese es horrible ,lo puse para probar pero ni asi lo quiero jaja		
 		game.addVisual(new Checkpoint(position = game.at(23,4), image = "menorResolucion/invisible.png", siguienteNivel = self.nivelL()))	
 		self.cargarObjetos(listaSombras)
-		game.addVisual(listasNivelesCompletados2)
+		
 		self.listaSombrasNoAtravesadas().forEach({unaSombra=>unaSombra.agregarSombra()})
 		nivelDream.posicionInitial(game.at(13, 11)) //por si entramos nuevamente al nivel dream
 
@@ -367,6 +368,10 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 	}
 	method limpiarlistaDeNivelesCompletados(){
 		listaDeNivelesCompletados.clear()
+		listaDeNIvelesHardTimesDesbloqueados.clear()
+		listaDeNivelesHardTimeCompletados.clear()
+		nivelDream.limpiarNivel()
+		
 	}
 	override method abandonarNivel(){
 			game.schedule(50,{
@@ -382,11 +387,6 @@ object nivel0 inherits Nivel (siguienteNivel = pasadizo,soyUnNivelPuzzle=false){
 		}
 	
 }
-object listasNivelesCompletados2{
-	var property position=game.at(7,0)
-	
-	method text()=nivel0.listaDeNIvelesHardTimesCompletados().asSet().toString()
-	
-}
+
  
  
